@@ -1,3 +1,4 @@
+import xdrlib
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -39,16 +40,12 @@ def NYTScraper():
     numPages = math.ceil(numArticles / 10)
 
     if fileExists(FILE):
-        if numArticles <= 1:
-            print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-            print("-> There are no new articles! No changes made.")
-            return
-        else:
-            print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-            print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
+        print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
+        print("-> Checking articles from latest date onward...")
     else:
-        print(f"-> No CSV file found.")
-        print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
+        print(f"-> No CSV file found. Creating...")
+
+    lenBefore = getLen(FILE)
 
     # Instancing
     urls = []
@@ -86,13 +83,16 @@ def NYTScraper():
 
     # Transforming fetched info to dataframe
     data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Snippet": snippets})
-    print(f"-> {len(data)} articles fetched successfully!")
 
     # Saving to csv. Will concat if csv altready exists
     data = save(data, FILE)
 
-    print(f"-> Data saved to {FILE}! Total articles: {len(data)}")
-    return
+    lenAfter = len(data) - lenBefore
+
+    if lenAfter == 0:
+        print(f"-> No new articles found. Total articles: {len(data)}")
+    else:
+        print(f"-> {lenAfter} new articles saved to {FILE}! Total articles: {len(data)}")
 
 
 def guardianScraper():
@@ -123,20 +123,15 @@ def guardianScraper():
     ## Scraper
 
     # Instancing a query to fetch basic information
-    numArticles = guardian(1).json()["response"]["total"]
     numPages = guardian(1).json()["response"]["pages"]
 
     if fileExists(FILE):
-        if numArticles <= 1:
-            print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-            print("-> There are no new articles! No changes made.")
-            return
-        else:
-            print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-            print(f"-> There are {numArticles - 1} articles in {numPages} pages yet to be fetched.")
+        print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
+        print("-> Checking articles from latest date onward...")
     else:
-        print(f"-> No CSV file found.")
-        print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
+        print(f"-> No CSV file found. Creating...")
+
+    lenBefore = getLen(FILE)
 
     # Instancing
     urls = []
@@ -172,10 +167,14 @@ def guardianScraper():
 
     # Transforming fetched info to dataframe
     data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
-    print(f"-> {len(data)} articles fetched successfully!")
 
     # Saving to csv. Will concat if csv altready exists
     data = save(data, FILE)
+    lenAfter = len(data) - lenBefore
 
-    print(f"-> Data saved to {FILE}! Total articles: {len(data)}")
+    if lenAfter == 0:
+        print(f"-> No new articles found. Total articles: {len(data)}")
+    else:
+        print(f"-> {lenAfter} new articles saved to {FILE}! Total articles: {len(data)}")
+
     return

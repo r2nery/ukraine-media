@@ -71,6 +71,7 @@ def save(dataF, FILE):
     if fileExists(FILE):
         existingData = pd.read_csv(PARENT_DIR + "/data/" + FILE)
         data = pd.concat([existingData, dataF])
+        data = data.drop_duplicates(keep="first")
         data.to_csv(PARENT_DIR + "/data/" + FILE, index=False)
         return data
     else:
