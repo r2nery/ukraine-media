@@ -36,8 +36,7 @@ def NYTScraper():
 
     # Instancing a query to fetch basic information
     numArticles = NYT(1).json()["response"]["meta"]["hits"]
-    numNewArticles = numArticles - getLen(FILE)
-    numPages = math.ceil(numNewArticles / 10)
+    numPages = math.ceil(numArticles / 10)
 
     if fileExists(FILE):
         if numArticles <= 1:
@@ -46,10 +45,10 @@ def NYTScraper():
             return
         else:
             print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-            print(f"-> There are {numNewArticles} articles in {numPages} pages yet to be fetched.")
+            print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
     else:
         print(f"-> No CSV file found.")
-        print(f"-> There are {numNewArticles} articles in {numPages} pages yet to be fetched.")
+        print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
 
     # Instancing
     urls = []
@@ -134,7 +133,7 @@ def guardianScraper():
             return
         else:
             print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-            print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
+            print(f"-> There are {numArticles - 1} articles in {numPages} pages yet to be fetched.")
     else:
         print(f"-> No CSV file found.")
         print(f"-> There are {numArticles} articles in {numPages} pages yet to be fetched.")
@@ -155,6 +154,10 @@ def guardianScraper():
 
             # Going through all articles in a page
             for j in range(0, numArticlesInPage(json_guardian, FILE)):
+
+                existingData = getFile(FILE)
+                if json_guardian["response"]["results"][j]["webUrl"] == existingData.iloc[-1, 0]:
+                    continue
 
                 urls.append(json_guardian["response"]["results"][j]["webUrl"])
                 dates.append(json_guardian["response"]["results"][j]["webPublicationDate"])

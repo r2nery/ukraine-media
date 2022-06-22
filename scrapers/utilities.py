@@ -15,6 +15,11 @@ def fileExists(FILE):
     return os.path.exists(PARENT_DIR + "/data/" + FILE)
 
 
+# Function that returns a file
+def getFile(FILE):
+    return pd.read_csv(PARENT_DIR + "/data/" + FILE)
+
+
 # Function that checks latest data parsed, if any. If none, defaults to 20220201
 def getDate(FILE):
     if FILE == "NYT.csv":
@@ -51,7 +56,7 @@ def numArticlesInPage(json, FILE):
         if json["response"]["meta"]["hits"] - json["response"]["meta"]["offset"] >= 10:
             return 10
         else:
-            return json["response"]["meta"]["hits"] - json["response"]["meta"]["offset"] + 1
+            return json["response"]["meta"]["hits"] - json["response"]["meta"]["offset"]
 
 
 # Function that clears text of a dict of substrings
