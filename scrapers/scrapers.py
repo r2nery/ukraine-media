@@ -1,3 +1,4 @@
+import xdrlib
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -76,18 +77,15 @@ def NYTScraper():
                 body = re.sub(r"^[^—]+—\s*", "", body)
                 bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
 
-                # snippet = BeautifulSoup(json_NYT["response"]["docs"][j]["snippet"], "html.parser").get_text()
-                # snippets.append(re.sub(r"^[^—]+—\s*", "", snippet))
+                snippet = BeautifulSoup(json_NYT["response"]["docs"][j]["snippet"], "html.parser").get_text()
+                snippets.append(re.sub(r"^[^—]+—\s*", "", snippet))
                 bar()
 
     # Transforming fetched info to dataframe
-    data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
-
-    # Removing NaNs
-    data = data.dropna(subset=["Text"])
+    data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Snippet": snippets})
 
     # Saving to csv. Will concat if csv altready exists
-    data = saveCSV(data, FILE)
+    data = save(data, FILE)
 
     lenAfter = len(data) - lenBefore
 
@@ -152,9 +150,10 @@ def guardianScraper():
             # Going through all articles in a page
             for j in range(0, numArticlesInPage(json_guardian, FILE)):
 
-                existingData = readCSV(FILE)
-                if json_guardian["response"]["results"][j]["webUrl"] == existingData.iloc[-1, 0]:
-                    continue
+                if fileExists(FILE):
+                    existingData = getFile(FILE)
+                    if json_guardian["response"]["results"][j]["webUrl"] == existingData.iloc[-1, 0]:
+                        continue
 
                 urls.append(json_guardian["response"]["results"][j]["webUrl"])
                 dates.append(json_guardian["response"]["results"][j]["webPublicationDate"])
@@ -170,11 +169,8 @@ def guardianScraper():
     # Transforming fetched info to dataframe
     data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
 
-    # Removing NaNs
-    data = data.dropna(subset=["Text"])
-
     # Saving to csv. Will concat if csv altready exists
-    data = saveCSV(data, FILE)
+    data = save(data, FILE)
     lenAfter = len(data) - lenBefore
 
     if lenAfter == 0:

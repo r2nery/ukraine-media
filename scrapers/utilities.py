@@ -16,7 +16,7 @@ def fileExists(FILE):
 
 
 # Function that returns a file
-def readCSV(FILE):
+def getFile(FILE):
     return pd.read_csv(PARENT_DIR + "/data/" + FILE)
 
 
@@ -67,7 +67,7 @@ def replaceAll(text, dic):
 
 
 # Saving function
-def saveCSV(dataF, FILE):
+def save(dataF, FILE):
     if fileExists(FILE):
         existingData = pd.read_csv(PARENT_DIR + "/data/" + FILE)
         data = pd.concat([existingData, dataF])
@@ -77,6 +77,3 @@ def saveCSV(dataF, FILE):
     else:
         dataF.to_csv(PARENT_DIR + "/data/" + FILE, index=False)
         return dataF
-
-
-print(PARENT_DIR)
