@@ -42,7 +42,6 @@ accepted
 accepting
 accepts
 access
-accessed
 accessible
 accessing
 accession
@@ -53,14 +52,12 @@ accommodate
 accommodation
 accompanied
 accompanying
-accord
 accordance
 according
 accords
 account
 accountability
 accountable
-accountancy
 accountants
 accounted
 accounting
@@ -107,6 +104,7 @@ actual
 actually
 acute
 acutely
+ad
 adam
 adamant
 adapt
@@ -185,7 +183,6 @@ affected
 affecting
 affects
 affiliated
-affiliations
 afford
 affordable
 afghan
@@ -253,6 +250,8 @@ airspace
 airstrike
 airstrikes
 akin
+al
+alabama
 alamy
 alan
 alarm
@@ -322,6 +321,7 @@ altogether
 alumina
 aluminium
 always
+am
 amadea
 amal
 amassed
@@ -353,6 +353,7 @@ amounts
 amphibious
 amplified
 amsterdam
+an
 anadolu
 analyse
 analysing
@@ -370,7 +371,6 @@ anderson
 andersson
 andrei
 andrew
-andrews
 andrey
 andrii
 andriy
@@ -430,16 +430,15 @@ antony
 antónio
 anxiety
 anxious
-anxiously
 any
 anya
 anybody
 anymore
 anyone
 anything
-anytime
 anyway
 anywhere
+ap
 apart
 apartheid
 apartment
@@ -448,6 +447,7 @@ apocalypse
 apocalyptic
 apologise
 apologised
+apology
 app
 appalled
 appalling
@@ -502,7 +502,6 @@ arakhamia
 architect
 architecture
 archive
-archives
 arctic
 ardern
 are
@@ -558,7 +557,9 @@ artist
 artistic
 artists
 arts
+artwork
 artworks
+as
 ash
 ashamed
 ashes
@@ -614,6 +615,7 @@ assure
 assured
 astonishing
 asylum
+at
 ate
 athlete
 athletes
@@ -710,6 +712,7 @@ azerbaijan
 azot
 azov
 azovstal
+ba
 babies
 baby
 babyn
@@ -814,12 +817,14 @@ battery
 battle
 battlefield
 battlefields
+battleground
 battlegroup
 battles
 battling
 bay
 bayraktar
 bbc
+be
 beach
 beaches
 bear
@@ -924,7 +929,6 @@ biggest
 bilateral
 bild
 bill
-billboards
 billed
 billion
 billionaire
@@ -933,7 +937,6 @@ billions
 bills
 bilohorivka
 bin
-binance
 binding
 bio
 biodiversity
@@ -976,7 +979,6 @@ blessed
 blessing
 blew
 blind
-blindfolded
 blinken
 blitz
 blitzkrieg
@@ -1080,7 +1082,6 @@ both
 bother
 bothered
 bottle
-bottleneck
 bottles
 bottling
 bought
@@ -1096,6 +1097,7 @@ boychenko
 boycott
 boycotts
 boys
+bp
 brace
 bracing
 brahim
@@ -1186,7 +1188,6 @@ bst
 bucha
 bucharest
 buckingham
-buckwheat
 budanov
 budapest
 budget
@@ -1237,7 +1238,6 @@ businesses
 businessman
 businessmen
 businesspeople
-bustling
 busy
 but
 butcher
@@ -1251,6 +1251,7 @@ buyer
 buyers
 buying
 buys
+by
 bykiv
 bypass
 cabinet
@@ -1486,6 +1487,7 @@ checking
 checkpoint
 checkpoints
 checks
+cheered
 cheese
 chef
 chefs
@@ -1542,7 +1544,6 @@ cia
 cigarette
 cigarettes
 cinema
-cips
 circle
 circles
 circulated
@@ -1593,12 +1594,12 @@ clearly
 clegg
 cleverly
 click
-clicking
 client
 clients
 climate
 climb
 climbed
+climbing
 clinic
 clinical
 clinton
@@ -1622,6 +1623,7 @@ clubs
 cluster
 clutching
 cnn
+co
 coach
 coaches
 coal
@@ -1710,7 +1712,6 @@ committing
 commodities
 commodity
 common
-commonly
 commons
 commonwealth
 communal
@@ -1831,6 +1832,8 @@ confusion
 conglomerate
 congress
 congressional
+congressman
+congresswoman
 conjunction
 connect
 connected
@@ -1902,6 +1905,7 @@ contemplating
 contemporary
 contempt
 content
+contents
 contest
 contested
 context
@@ -1957,7 +1961,6 @@ cook
 cooked
 cooking
 cool
-cooling
 cooper
 cooperate
 cooperation
@@ -2034,7 +2037,6 @@ courtroom
 courts
 courtyard
 cousin
-coventry
 cover
 coverage
 covered
@@ -2043,7 +2045,6 @@ covers
 covert
 covid
 cow
-cowed
 cows
 cpac
 crack
@@ -2052,11 +2053,9 @@ cracked
 cracking
 cracks
 craft
-craig
 crammed
 crash
 crashed
-crashing
 crater
 crazy
 cream
@@ -2085,7 +2084,6 @@ criminal
 criminalise
 criminals
 cripple
-crippled
 crippling
 crises
 crisis
@@ -2145,7 +2143,6 @@ current
 currently
 curriculum
 curtain
-cushion
 custody
 customer
 customers
@@ -2160,10 +2157,8 @@ cynical
 cynically
 cynicism
 cyprus
-cyrillic
 czech
 czechoslovakia
-czechs
 dad
 daily
 dairy
@@ -2176,7 +2171,6 @@ dame
 damning
 dan
 dance
-dancer
 dancers
 dancing
 danger
@@ -2211,8 +2205,11 @@ dawn
 day
 days
 dbs
+dc
 ddos
+de
 dead
+deadliest
 deadline
 deadlock
 deadly
@@ -2429,6 +2426,7 @@ destiny
 destroy
 destroyed
 destroying
+destroys
 destruction
 destructive
 detailed
@@ -2472,13 +2470,11 @@ dictate
 dictator
 dictators
 dictatorship
-dictatorships
 did
 didn
 didyk
 die
 died
-dies
 diesel
 diet
 difference
@@ -2551,7 +2547,6 @@ discussed
 discussing
 discussion
 discussions
-disdain
 disease
 diseases
 disgrace
@@ -2635,6 +2630,7 @@ dnieper
 dnipro
 dnipropetrovsk
 dnr
+do
 dock
 docked
 doctor
@@ -2651,7 +2647,6 @@ doesn
 dog
 dogged
 dogs
-doha
 doing
 dollar
 dollars
@@ -2696,10 +2691,12 @@ downed
 downing
 download
 downside
+downtown
 dozen
 dozens
 dozhd
 dpr
+dr
 draconian
 draft
 drafted
@@ -2757,6 +2754,7 @@ druzhba
 dry
 dual
 dubai
+dubbed
 dublin
 duck
 duda
@@ -2824,6 +2822,7 @@ economist
 economists
 economy
 ecosystem
+ed
 edge
 edging
 edinburgh
@@ -2853,6 +2852,7 @@ egypt
 egyptian
 eight
 either
+el
 elaborate
 elderly
 elected
@@ -2861,7 +2861,6 @@ elections
 electoral
 electorate
 electric
-electrical
 electricity
 electronic
 electronics
@@ -2882,6 +2881,7 @@ elsewhere
 email
 emails
 embargo
+embark
 embarked
 embarrassed
 embarrassing
@@ -2890,6 +2890,7 @@ embassies
 embassy
 embattled
 embedded
+emblazoned
 emboldened
 embrace
 embraced
@@ -2928,6 +2929,7 @@ employment
 employs
 emptied
 empty
+en
 enable
 enabled
 enablers
@@ -2942,7 +2944,6 @@ encounter
 encountered
 encourage
 encouraged
-encourages
 encouraging
 encrypted
 end
@@ -2955,7 +2956,6 @@ endless
 endlessly
 endorse
 endorsed
-endorsement
 endowment
 ends
 endure
@@ -3069,11 +3069,10 @@ estimates
 estonia
 estonian
 estuary
-etc
 ethical
-ethics
 ethiopia
 ethnic
+eu
 eugene
 eurasia
 euro
@@ -3089,7 +3088,6 @@ evacuated
 evacuating
 evacuation
 evacuations
-evacuee
 evacuees
 evade
 evaluate
@@ -3118,6 +3116,7 @@ evidently
 evil
 evolving
 evraz
+ex
 exacerbate
 exacerbated
 exacerbating
@@ -3264,10 +3263,13 @@ extremely
 extremism
 extremist
 extremists
+ey
 eye
 eyed
 eyes
+fa
 fab
+fabric
 fabricated
 face
 facebook
@@ -3347,7 +3349,9 @@ favour
 favourable
 favoured
 favourite
+fb
 fbi
+fc
 fcdo
 fear
 feared
@@ -3421,7 +3425,6 @@ film
 filmed
 filming
 films
-filtered
 filtration
 final
 finally
@@ -3464,7 +3467,6 @@ fiscal
 fish
 fishing
 fit
-fits
 five
 fix
 fixed
@@ -3622,6 +3624,7 @@ francisco
 franco
 frank
 frankivsk
+franklin
 frankly
 frantic
 frantically
@@ -3650,7 +3653,6 @@ friends
 friendship
 frightened
 frightening
-fringe
 from
 front
 frontier
@@ -3665,6 +3667,7 @@ frustrating
 frustration
 frydenberg
 fsb
+ft
 ftse
 fuck
 fucking
@@ -3741,6 +3744,7 @@ gaza
 gazeta
 gazprom
 gazprombank
+gb
 gchq
 gdp
 gear
@@ -3819,6 +3823,7 @@ glorious
 glory
 gloves
 gmt
+go
 goal
 goals
 god
@@ -3853,7 +3858,6 @@ governmental
 governments
 governor
 governors
-gps
 grab
 grabbed
 grace
@@ -3927,7 +3931,6 @@ grotesque
 ground
 grounded
 grounds
-groundwork
 group
 grouping
 groups
@@ -3940,6 +3943,7 @@ grozny
 gru
 gruelling
 gruesome
+gs
 guarantee
 guaranteed
 guarantees
@@ -4060,6 +4064,7 @@ having
 havoc
 hawkish
 hawks
+he
 head
 headed
 heading
@@ -4125,10 +4130,9 @@ heroes
 heroic
 heroism
 herself
-hersey
 hesitant
 hesitate
-hey
+hi
 hid
 hidden
 hide
@@ -4148,6 +4152,7 @@ highway
 hike
 hikes
 hill
+hillary
 him
 himars
 himself
@@ -4189,7 +4194,6 @@ holocaust
 holodomor
 holy
 home
-homegrown
 homeland
 homeless
 homemade
@@ -4208,7 +4212,6 @@ hopefully
 hopeless
 hopes
 hoping
-horn
 horrendous
 horrible
 horrific
@@ -4252,19 +4255,18 @@ howitzers
 hryvnia
 hsbc
 https
+hu
 hub
 hubs
 hug
 huge
 hugely
 hugged
-hugh
 human
 humane
 humanitarian
 humanity
 humans
-humble
 humiliate
 humiliated
 humiliating
@@ -4309,6 +4311,7 @@ iceberg
 icj
 icon
 icrc
+id
 idea
 ideal
 ideas
@@ -4322,11 +4325,13 @@ ideological
 ideology
 idlib
 iea
+if
 ignore
 ignored
 ignoring
 igor
 ihor
+ii
 ikea
 ill
 illegal
@@ -4397,6 +4402,7 @@ improved
 improving
 improvised
 impunity
+in
 inability
 inaccurate
 inaction
@@ -4467,6 +4473,7 @@ industrial
 industrialised
 industries
 industry
+ineffective
 inevitable
 inevitably
 infamous
@@ -4549,7 +4556,6 @@ insufficient
 insulate
 insulation
 insulin
-insulting
 insults
 insurance
 insurers
@@ -4607,12 +4613,10 @@ interrogation
 interrupted
 intervene
 intervened
-intervening
 intervention
 interventions
 interview
 interviewed
-interviewer
 interviews
 intimidate
 intimidation
@@ -4677,6 +4681,7 @@ irrational
 irregular
 irresponsible
 iryna
+is
 iskander
 islamic
 island
@@ -4696,6 +4701,7 @@ issued
 issues
 issuing
 istanbul
+it
 italian
 italy
 item
@@ -4750,6 +4756,7 @@ jews
 jill
 jim
 jinping
+jo
 job
 jobs
 joe
@@ -4767,7 +4774,6 @@ jokes
 jon
 jonathan
 jones
-jope
 jordan
 josep
 joseph
@@ -4781,6 +4787,8 @@ journalists
 journey
 journeys
 joy
+jp
+jr
 judge
 judged
 judges
@@ -4795,6 +4803,7 @@ jumped
 june
 junior
 jurisdiction
+jurisdictions
 just
 justice
 justification
@@ -4806,7 +4815,6 @@ kabul
 kaczyński
 kadyrov
 kaja
-kakhovka
 kalashnikov
 kalinina
 kaliningrad
@@ -4835,16 +4843,13 @@ kent
 kenya
 kept
 kerimov
-kern
 kerry
 kevin
 key
-keys
 kgb
 khan
 kharkiv
 kherson
-khlyvnyuk
 khrushchev
 khudainatov
 kick
@@ -4935,6 +4940,7 @@ kyiv
 kyrylenko
 kyrylo
 kyslytsya
+la
 lab
 label
 labelled
@@ -4948,7 +4954,6 @@ lack
 lacked
 lacking
 lacks
-ladder
 lady
 lagging
 laid
@@ -4982,13 +4987,11 @@ late
 later
 latest
 latin
+latter
 latvia
 latvian
 laugh
-laughed
 laughing
-laughs
-laughter
 launch
 launched
 launcher
@@ -5008,10 +5011,10 @@ laws
 lawyer
 lawyers
 lay
-layer
 laying
 layla
 lbc
+le
 lead
 leader
 leaders
@@ -5059,6 +5062,7 @@ lengthy
 lenin
 leningrad
 leo
+leon
 leonard
 leonid
 lesia
@@ -5172,6 +5176,7 @@ livestock
 livestreamed
 living
 liz
+ll
 lloyd
 lng
 load
@@ -5247,7 +5252,9 @@ lows
 loyal
 loyalty
 loznitsa
+lt
 ltd
+lu
 luck
 luckily
 lucky
@@ -5274,7 +5281,6 @@ lysovysk
 lysychansk
 lytvynenko
 lyudmila
-macedonia
 macgregor
 machine
 machinery
@@ -5380,7 +5386,6 @@ marking
 marks
 marriage
 married
-mars
 marshall
 martial
 martin
@@ -5405,11 +5410,9 @@ matched
 matches
 matching
 material
-materialise
 materials
 maternity
 mateusz
-maths
 matt
 matter
 matters
@@ -5429,6 +5432,7 @@ mazhulin
 mccarthy
 mcconnell
 mcdonald
+me
 meal
 meals
 mean
@@ -5470,7 +5474,6 @@ meet
 meeting
 meetings
 meets
-mega
 melbourne
 melinda
 melitopol
@@ -5524,6 +5527,7 @@ metro
 metropolitan
 mevlüt
 mexico
+mi
 michael
 michel
 michelle
@@ -5579,7 +5583,6 @@ ministers
 ministries
 ministry
 minnekayev
-minnesota
 minor
 minorities
 minority
@@ -5597,7 +5600,6 @@ misguided
 misha
 mishchenko
 misinformation
-misjudged
 misleading
 miss
 missed
@@ -5659,10 +5661,12 @@ months
 monument
 monuments
 mood
+moody
 moore
 moored
 moral
 morale
+morality
 morally
 moran
 moratorium
@@ -5711,8 +5715,11 @@ moves
 movie
 movies
 moving
+mp
 mps
 mpthis
+mr
+ms
 much
 mud
 muddy
@@ -5748,9 +5755,9 @@ musk
 muslim
 muslims
 must
-muted
 mutual
 mutually
+my
 myanmar
 mykhailo
 mykola
@@ -5760,6 +5767,7 @@ mysterious
 myth
 myths
 márki
+na
 nabiullina
 nadia
 nadiia
@@ -5792,7 +5800,6 @@ national
 nationalism
 nationalist
 nationalists
-nationalities
 nationality
 nationals
 nations
@@ -5828,6 +5835,7 @@ needing
 needless
 needs
 negative
+negatively
 neglect
 negotiate
 negotiated
@@ -5837,7 +5845,6 @@ negotiations
 negotiator
 negotiators
 nehammer
-neighborhood
 neighbour
 neighbourhood
 neighbourhoods
@@ -5896,12 +5903,12 @@ niinistö
 nike
 nikita
 nikolai
-nikolay
 nina
 nine
 ninth
 nlaw
 nlaws
+no
 nobel
 noble
 nobody
@@ -5937,6 +5944,7 @@ nothing
 notice
 noticeable
 noticed
+notices
 notifications
 noting
 notion
@@ -6015,9 +6023,11 @@ odds
 odesa
 odessa
 oecd
+of
 ofcom
 off
 offence
+offences
 offensive
 offensives
 offer
@@ -6036,8 +6046,10 @@ offshore
 ofgem
 ofsi
 often
+oh
 oil
 oils
+ok
 okhtyrka
 oksana
 olaf
@@ -6061,6 +6073,7 @@ olympics
 ombudsman
 omicron
 ominous
+on
 onboard
 once
 oncology
@@ -6072,6 +6085,7 @@ only
 onshore
 onslaught
 onwards
+op
 opaque
 opec
 open
@@ -6111,6 +6125,7 @@ optimism
 optimistic
 option
 options
+or
 orange
 orbán
 orchestra
@@ -6144,6 +6159,7 @@ osce
 ossetia
 ostensibly
 ostpolitik
+otel
 other
 others
 otherwise
@@ -6215,7 +6231,7 @@ owns
 oxfam
 oxford
 oxygen
-pablo
+pa
 pace
 pacific
 pacifist
@@ -6312,6 +6328,7 @@ passes
 passing
 passion
 passionate
+passive
 passport
 passports
 past
@@ -6332,7 +6349,6 @@ patrol
 patron
 patrushev
 pattern
-patterns
 paul
 pause
 paused
@@ -6348,7 +6364,6 @@ payne
 peace
 peaceful
 peacefully
-peacekeepers
 peacekeeping
 peacetime
 peak
@@ -6376,7 +6391,6 @@ perceived
 percentage
 perception
 perceptions
-perestroika
 perfect
 perfectly
 perform
@@ -6399,7 +6413,6 @@ permits
 permitted
 perpetrated
 perpetrators
-perpetual
 persecution
 persist
 persistent
@@ -6445,8 +6458,10 @@ photo
 photograph
 photographed
 photographer
+photographers
 photographs
 photography
+photojournalist
 photos
 phrase
 physical
@@ -6471,7 +6486,6 @@ piles
 pills
 pilot
 pilots
-pin
 pine
 pink
 pinned
@@ -6535,12 +6549,12 @@ plenty
 plight
 plot
 plug
-plumes
 plunge
 plunged
 plunging
 plus
 plyuyko
+pm
 pocket
 pockets
 podcast
@@ -6550,7 +6564,6 @@ podolyak
 poem
 poet
 poetry
-poignant
 point
 pointed
 pointing
@@ -6635,6 +6648,7 @@ posts
 posture
 posturing
 postwar
+potanin
 potash
 potatoes
 potemkin
@@ -6656,12 +6670,11 @@ powered
 powerful
 powerless
 powers
+pr
 practical
 practically
 practice
 practices
-practise
-practised
 practising
 pragmatic
 prague
@@ -6777,7 +6790,6 @@ privatisation
 privilege
 prize
 pro
-probability
 probable
 probably
 problem
@@ -6831,6 +6843,7 @@ prolong
 prolonged
 prominence
 prominent
+prominently
 promise
 promised
 promises
@@ -6885,7 +6898,6 @@ protesters
 protesting
 protests
 protocol
-protocols
 protracted
 proud
 proudly
@@ -6959,7 +6971,6 @@ purchasing
 pure
 purely
 purge
-purporting
 purpose
 purposefully
 purposes
@@ -6986,7 +6997,6 @@ péter
 qal
 qatar
 quad
-quagmire
 qualified
 qualify
 qualifying
@@ -6999,7 +7009,6 @@ quarters
 quasi
 queen
 queensland
-quest
 question
 questioned
 questioning
@@ -7103,6 +7112,7 @@ rattling
 ravaged
 raw
 razed
+re
 reach
 reached
 reaches
@@ -7116,7 +7126,6 @@ reactor
 reactors
 read
 readers
-readily
 readiness
 reading
 reads
@@ -7243,6 +7252,7 @@ registered
 registration
 registry
 regret
+regrets
 regroup
 regrouping
 regular
@@ -7365,6 +7375,7 @@ reporters
 reporting
 reports
 represent
+representation
 representative
 representatives
 represented
@@ -7600,7 +7611,6 @@ roman
 romania
 romanian
 romanov
-romantic
 rome
 romney
 ronald
@@ -7633,11 +7643,10 @@ routinely
 rover
 row
 royal
+rt
 rubber
 rubble
 rubizhne
-ruble
-rubles
 rude
 rudenko
 rudik
@@ -7848,7 +7857,6 @@ secured
 securing
 securities
 security
-seder
 see
 seed
 seeds
@@ -7940,7 +7948,6 @@ settled
 settlement
 settlements
 settling
-seva
 sevastopol
 seven
 seventh
@@ -8032,8 +8039,6 @@ shores
 short
 shortage
 shortages
-shorter
-shortfall
 shortly
 shot
 shots
@@ -8064,7 +8069,6 @@ shysimarin
 siberia
 siberian
 siblings
-sibneft
 sick
 sickening
 side
@@ -8145,7 +8149,6 @@ skyba
 slam
 slammed
 slap
-slapped
 slaughter
 slaughtered
 slava
@@ -8193,6 +8196,7 @@ sniper
 snipers
 snow
 snp
+so
 soar
 soared
 soaring
@@ -8205,7 +8209,6 @@ society
 sofa
 sofia
 soft
-softening
 software
 soil
 solace
@@ -8339,15 +8342,14 @@ sponsored
 sponsoring
 sponsors
 sponsorship
+spontaneous
 sport
 sporting
 sports
 spot
 spotify
 spotlight
-spots
 spotted
-spouses
 sprawling
 spread
 spreading
@@ -8355,6 +8357,7 @@ spring
 spurious
 sputnik
 spy
+sq
 squad
 square
 squares
@@ -8364,6 +8367,7 @@ squeezed
 srebrenica
 sri
 srna
+st
 stabilise
 stability
 stable
@@ -8462,7 +8466,6 @@ sticks
 stiff
 still
 stinger
-stingers
 stir
 stock
 stocked
@@ -8564,7 +8567,6 @@ studios
 study
 studying
 stuff
-stuffed
 stumbling
 stunned
 stunning
@@ -8572,6 +8574,7 @@ stupid
 sturgeon
 style
 styled
+su
 sub
 subject
 subjected
@@ -8590,7 +8593,6 @@ subsequent
 subsequently
 subsidiaries
 subsidiary
-subsidies
 substance
 substantial
 substantially
@@ -8603,7 +8605,6 @@ subway
 succeed
 succeeded
 succeeding
-succeeds
 success
 successes
 successful
@@ -8611,7 +8612,6 @@ successfully
 succession
 successive
 successor
-succour
 such
 sudan
 sudden
@@ -8636,7 +8636,6 @@ suit
 suitable
 suitcase
 suitcases
-suited
 suits
 suleiman
 sullivan
@@ -8717,6 +8716,7 @@ survives
 surviving
 survivor
 survivors
+susan
 suspect
 suspected
 suspects
@@ -8849,7 +8849,6 @@ team
 teammates
 teams
 tear
-tearful
 tearing
 tears
 tech
@@ -8879,13 +8878,11 @@ temperature
 temperatures
 temporarily
 temporary
-tempted
 tempting
 ten
 tenable
 tend
 tended
-tendencies
 tendency
 tennis
 tens
@@ -8924,10 +8921,8 @@ tests
 tetiana
 texas
 text
-texted
 texts
 thailand
-thames
 than
 thank
 thanked
@@ -9011,7 +9006,6 @@ tighten
 tightened
 tightening
 tighter
-tightly
 tikhonova
 tiktok
 till
@@ -9040,6 +9034,7 @@ titles
 tkachenko
 tkachov
 tkalenko
+to
 tobacco
 tobias
 tochka
@@ -9176,7 +9171,6 @@ travels
 treacherous
 tread
 treason
-treasurer
 treasury
 treat
 treated
@@ -9187,7 +9181,6 @@ treaty
 tree
 trees
 tremendous
-trench
 trenches
 trend
 trends
@@ -9241,6 +9234,7 @@ tsurenko
 tucker
 tuesday
 tui
+tulips
 tumbled
 tumbling
 tune
@@ -9254,8 +9248,10 @@ turn
 turned
 turning
 turns
+tv
 tweet
 tweeted
+tweeting
 tweets
 twenty
 twice
@@ -9274,8 +9270,10 @@ typically
 tyranny
 tyrant
 tyres
+ua
 uae
 uefa
+uk
 ukraine
 ukrainian
 ukrainians
@@ -9284,9 +9282,9 @@ ukrinform
 ultimate
 ultimately
 ultimatum
-ultimatums
 ultra
 umbrella
+un
 unable
 unacceptable
 unaccompanied
@@ -9400,10 +9398,8 @@ unprovoked
 unrealistic
 unrelenting
 unreliable
-unresolved
 unrest
 unsafe
-unspeakable
 unspecified
 unstable
 unsuccessful
@@ -9422,6 +9418,7 @@ unveiled
 unverified
 unwavering
 unwilling
+up
 upbeat
 upcoming
 update
@@ -9433,8 +9430,6 @@ upgrade
 upheaval
 uphold
 upholding
-upload
-uploaded
 upon
 upper
 uprising
@@ -9450,6 +9445,7 @@ urgently
 urges
 urging
 ursula
+us
 usa
 use
 used
@@ -9504,6 +9500,7 @@ vastly
 vasyl
 vasylkiv
 vat
+ve
 veb
 vegetable
 vegetables
@@ -9541,7 +9538,6 @@ veto
 vetted
 vetting
 viable
-viacheslav
 vibrant
 vice
 vicious
@@ -9606,6 +9602,7 @@ vitaliy
 vitaly
 vitol
 vivid
+vk
 vlad
 vladimir
 vladislav
@@ -9726,6 +9723,7 @@ waves
 waving
 way
 ways
+we
 weak
 weaken
 weakened
@@ -9819,7 +9817,6 @@ williams
 williamson
 willing
 willingness
-willy
 wilson
 wimbledon
 win
@@ -9880,7 +9877,6 @@ wood
 wooden
 woods
 word
-wording
 words
 wore
 work
@@ -9914,6 +9910,7 @@ wounds
 wrap
 wrapped
 wreckage
+wright
 write
 writer
 writers
@@ -9924,6 +9921,7 @@ wrong
 wrongly
 wrote
 wto
+xi
 yacht
 yachts
 yana
@@ -9948,6 +9946,7 @@ yesterday
 yet
 yevgeny
 yevhen
+yi
 yield
 yielded
 yields
@@ -9963,6 +9962,7 @@ yourself
 youth
 youtube
 yovanovitch
+yudin
 yugoslavia
 yulia
 yuri
