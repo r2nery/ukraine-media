@@ -19,7 +19,6 @@ absentia
 absolute
 absolutely
 absorb
-absorbed
 abstained
 abstaining
 absurd
@@ -79,7 +78,6 @@ acknowledged
 acknowledging
 acknowledgment
 acquaintance
-acquaintances
 acquire
 acquired
 acquisition
@@ -1820,6 +1818,7 @@ confirmed
 confirming
 confirms
 confiscated
+conflagration
 conflict
 conflicts
 confront
@@ -1905,7 +1904,6 @@ contemplating
 contemporary
 contempt
 content
-contents
 contest
 contested
 context
@@ -2167,7 +2165,6 @@ damage
 damaged
 damaging
 damascus
-dame
 damning
 dan
 dance
@@ -2234,7 +2231,6 @@ decades
 december
 decency
 decent
-decentralised
 decide
 decided
 decides
@@ -2881,7 +2877,6 @@ elsewhere
 email
 emails
 embargo
-embark
 embarked
 embarrassed
 embarrassing
@@ -3535,6 +3530,7 @@ following
 follows
 food
 foods
+foodstuffs
 fool
 fooled
 foolish
@@ -3786,7 +3782,6 @@ gerhard
 german
 germans
 germany
-ges
 gesture
 gestures
 get
@@ -4262,6 +4257,7 @@ hug
 huge
 hugely
 hugged
+hugh
 human
 humane
 humanitarian
@@ -4933,6 +4929,7 @@ kurkov
 kursk
 kutuzivka
 kuvshynova
+kuzan
 kvartal
 kwarteng
 kwasi
@@ -5274,6 +5271,7 @@ lutsk
 luxembourg
 luxury
 lviv
+lyakh
 lying
 lyman
 lyrics
@@ -5378,7 +5376,6 @@ mariupol
 mark
 markarova
 marked
-markedly
 market
 marketing
 markets
@@ -5449,7 +5446,6 @@ meat
 mechanism
 mechanisms
 medal
-medals
 meddling
 media
 mediate
@@ -6071,7 +6067,6 @@ oliver
 olympic
 olympics
 ombudsman
-omicron
 ominous
 on
 onboard
@@ -6264,6 +6259,7 @@ palestinians
 palladium
 palm
 palpable
+pamphlet
 pan
 pandemic
 pandemics
@@ -7135,6 +7131,7 @@ real
 realisation
 realise
 realised
+realising
 realistic
 realities
 reality
@@ -7328,6 +7325,7 @@ reminder
 reminding
 reminds
 reminiscent
+remnants
 remorseless
 remote
 remotely
@@ -7780,6 +7778,7 @@ scandal
 scant
 scare
 scared
+scarred
 scary
 scathing
 scattered
@@ -8159,6 +8158,7 @@ sleep
 sleeping
 slept
 slide
+slight
 slightly
 slip
 slipped
@@ -8378,6 +8378,7 @@ stage
 staged
 stages
 stagflation
+staggering
 staging
 stairs
 stake
@@ -8803,6 +8804,7 @@ talked
 talking
 talks
 tall
+tally
 tango
 tank
 tanker
@@ -9171,6 +9173,7 @@ travels
 treacherous
 tread
 treason
+treasurer
 treasury
 treat
 treated
@@ -9234,7 +9237,6 @@ tsurenko
 tucker
 tuesday
 tui
-tulips
 tumbled
 tumbling
 tune
@@ -9367,7 +9369,6 @@ union
 unions
 unique
 uniquely
-unison
 unit
 unite
 united
@@ -9425,7 +9426,6 @@ update
 updated
 updates
 updating
-upended
 upgrade
 upheaval
 uphold
@@ -9910,7 +9910,6 @@ wounds
 wrap
 wrapped
 wreckage
-wright
 write
 writer
 writers
@@ -9991,6 +9990,7 @@ zhirinovsky
 zhu
 zhytomyr
 zion
+zmiinyi
 zone
 zones
 zoo
