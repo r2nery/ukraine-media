@@ -10,6 +10,14 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(ROOT_DIR)
 
 
+def concatData(old, new):
+    result = pd.concat([old, new])
+    result = result.drop_duplicates(subset=["Text"])
+    result = result.set_index("Date")
+    result = result.sort_index(ascending=False)
+    return result
+
+
 def mkDir():
     os.makedirs(PARENT_DIR + "/data", exist_ok=True)
 
@@ -111,18 +119,18 @@ def learn_topics(dataframe, topicnum, vocabsize, num_iter):
     return doc_topic, topic_word, vocabulary
 
 
-def save_topicmodel(doc_topic, topic_word, vocabulary):
+def save_topicmodel(doc_topic, topic_word, vocabulary, source):
 
     ## Topic mixtures.
-    topicmixture_outpath = PARENT_DIR + "/results/GuardianTopicMixtures.txt"
+    topicmixture_outpath = PARENT_DIR + "/results/" + source + "TopicMixtures.txt"
     np.savetxt(topicmixture_outpath, doc_topic)
 
     ## Topics.
-    topic_outpath = PARENT_DIR + "/results/GuardianTopics.txt"
+    topic_outpath = PARENT_DIR + "/results/" + source + "Topics.txt"
     np.savetxt(topic_outpath, topic_word)
 
     ## Vocabulary order.
-    vocab_outpath = PARENT_DIR + "/results/GuardianVocab.txt"
+    vocab_outpath = PARENT_DIR + "/results/" + source + "Vocab.txt"
     with open(vocab_outpath, mode="w", encoding="utf-8") as f:
         for v in vocabulary:
             f.write(v + "\n")
