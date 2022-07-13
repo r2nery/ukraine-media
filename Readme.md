@@ -9,7 +9,7 @@ Thesis project for my bachelor's in economics
     - Selenium implementation
     - Unusable due to cap at page 50, BBC website doesn't go as far back as the beggining of the war
 - Reuters articles related to the Russo-Ukranian war
-    - Selenium implementation
+    - bs4 implementation
     - Done
 
 ### API Queries
