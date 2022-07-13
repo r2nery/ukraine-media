@@ -113,11 +113,3 @@ class articleFetcher:
         data = pd.DataFrame({"URL": self.urls, "Date": self.dates, "Title": self.titles, "Text": self.bodies})
         print("-> New data fetched successfully!")
         return data
-
-
-def concatData(old, new):
-    result = pd.concat([old, new])
-    result = result.drop_duplicates(subset=["Text"])
-    result = result.set_index("Date")
-    result = result.sort_index(ascending=False)
-    return result
