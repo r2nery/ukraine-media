@@ -7,7 +7,7 @@ Thesis project for my bachelor's in economics
 ### Webscrapers
 - BBC articles related to the Russo-Ukranian war
     - Selenium implementation
-    - Unusable due to cap at page 50, BBC website doesn't go as far back as the beggining of the war
+    - Scrapped due to cap at page 50
 - Reuters articles related to the Russo-Ukranian war
     - bs4 implementation
     - Done
@@ -17,6 +17,10 @@ Thesis project for my bachelor's in economics
     - Done
 - NYT articles related to the Russo-Ukranian war
     - Done
+    - Scrapped due to lack of full text
+
+### Data chosen
+- The Guardian + Reuters data
 
 ### Topic Analysis
 - Adapt Barron's (2018) implementation of latent Dirichlet allocation (LDA)
