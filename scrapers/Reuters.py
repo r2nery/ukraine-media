@@ -1,10 +1,22 @@
 from alive_progress import alive_bar
 import pandas as pd
-import os
 from bs4 import BeautifulSoup
 import requests
 import regex as re
 from datetime import datetime
+import os
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(ROOT_DIR)
+# This code is mostly meant to update the database, and won't build one from scratch
+
+
+def concatData(old, new):
+    result = pd.concat([old, new])
+    result = result.drop_duplicates(subset=["Text"])
+    result = result.set_index("Date")
+    result = result.sort_index(ascending=False)
+    return result
 
 
 class latestPage:
@@ -113,3 +125,12 @@ class articleFetcher:
         data = pd.DataFrame({"URL": self.urls, "Date": self.dates, "Title": self.titles, "Text": self.bodies})
         print("-> New data fetched successfully!")
         return data
+
+
+def reutersScraper():
+    old_data = pd.read_csv(PARENT_DIR + "/data/Reuters.csv")
+    pages = latestPage(old_data).fetch()
+    urls = URLFetcher(pages).fetch()
+    new_data = articleFetcher(urls).fetch()
+    data = concatData(old_data, new_data)
+    return data
