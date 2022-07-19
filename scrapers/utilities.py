@@ -136,7 +136,7 @@ def novelty_transience_resonance(thetas_arr, scale):
     return novelties, transiences, resonances
 
 
-def save_novel_trans_reson(novelties, transiences, resonances):
+def save_novel_trans_reson(novelties, transiences, resonances, source):
 
-    outpath = PARENT_DIR + "/results/GuardianNovelTransReson.txt"
+    outpath = PARENT_DIR + "/results/" + source + "NovelTransReson.txt"
     np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
