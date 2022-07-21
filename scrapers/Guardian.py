@@ -21,10 +21,10 @@ def getLen(FILE):
 
 def getDate(FILE):
     if os.path.exists(PARENT_DIR + "/data/" + FILE):
-        check = pd.read_csv(PARENT_DIR + "/data/" + FILE)
-        return check.iloc[0, 0]
-    else:
-        return "2022-02-01"
+    #    check = pd.read_csv(PARENT_DIR + "/data/" + FILE)
+    #    return check.iloc[0, 0]
+    #else:
+        return "2021-02-01"
 
 
 def numArticlesInPage(json):
@@ -60,8 +60,8 @@ def concatData(old, new):
     return result
 
 
-def guardian(page):
-    return requests.get("https://content.guardianapis.com/search?api-key=" + keyG + "&from-date=" + str(getDate(FILE)) + "&type=article" + "&page=" + str(page) + "&tag=world/ukraine" + "&order-by=oldest" + "&show-fields=body" + "&page-size=200")
+def guardian(page, tag):
+    return requests.get("https://content.guardianapis.com/search?api-key=" + keyG + "&from-date=" + str(getDate(FILE)) + "&type=article" + "&page=" + str(page) + "&tag=world/" + tag + "&order-by=oldest" + "&show-fields=body" + "&page-size=200")
 
 
 def guardianScraper():
@@ -83,8 +83,6 @@ def guardianScraper():
 
     ## Scraper
 
-    # Instancing a query to fetch basic information
-    numPages = guardian(1).json()["response"]["pages"]
 
     if os.path.exists(PARENT_DIR + "/data/" + FILE):
         print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
@@ -101,12 +99,16 @@ def guardianScraper():
     dates = []
 
     # Loops
-    with alive_bar(title="-> API Query", unknown="dots_waves", spinner=None, force_tty=True) as bar:
+    
+    # Instancing a query to fetch basic information
+    numPages = guardian(1, "ukraine").json()["response"]["pages"]
+
+    with alive_bar(title="-> Ukraine API Query", unknown="dots_waves", spinner=None, force_tty=True) as bar:
 
         # Going through all pages available for the query
         for i in range(1, numPages + 1):
 
-            json_guardian = guardian(i).json()
+            json_guardian = guardian(i, "ukraine").json()
 
             # Going through all articles in a page
             for j in range(0, numArticlesInPage(json_guardian)):
@@ -127,6 +129,36 @@ def guardianScraper():
                 body = replaceAll(body, rep)  # replacing substrings
                 bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
                 bar()
+
+    # Instancing a query to fetch basic information
+    numPages = guardian(1, "russia").json()["response"]["pages"]
+
+    with alive_bar(title="-> Russia API Query", unknown="dots_waves", spinner=None, force_tty=True) as bar:
+
+        # Going through all pages available for the query
+        for i in range(1, numPages + 1):
+
+            json_guardian = guardian(i, "russia").json()
+
+        # Going through all articles in a page
+        for j in range(0, numArticlesInPage(json_guardian)):
+
+            if os.path.exists(PARENT_DIR + "/data/" + FILE):
+                old_data = pd.read_csv(PARENT_DIR + "/data/" + FILE)
+                if json_guardian["response"]["results"][j]["webUrl"] == old_data.iloc[-1, 0]:
+                    continue
+
+            urls.append(json_guardian["response"]["results"][j]["webUrl"])
+            fulldate = json_guardian["response"]["results"][j]["webPublicationDate"]
+            dates.append(fulldate[: len(fulldate) - 10])
+
+            title = json_guardian["response"]["results"][j]["webTitle"]
+            titles.append(re.sub(r"\|.*$", "", title))  # removing authors from titles
+
+            body = BeautifulSoup(json_guardian["response"]["results"][j]["fields"]["body"], "html.parser").get_text()
+            body = replaceAll(body, rep)  # replacing substrings
+            bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
+            bar()
 
     # Transforming fetched info to dataframe
     new_data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
