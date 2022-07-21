@@ -5,7 +5,7 @@ from alive_progress import alive_bar
 import requests
 from bs4 import BeautifulSoup
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 PARENT_DIR = os.path.dirname(ROOT_DIR)
 FILE = "Guardian.csv"
 keyG = "fad78733-31a0-4ea7-8823-ba815b578899"
@@ -21,10 +21,10 @@ def getLen(FILE):
 
 def getDate(FILE):
     if os.path.exists(PARENT_DIR + "/data/" + FILE):
-    #    check = pd.read_csv(PARENT_DIR + "/data/" + FILE)
-    #    return check.iloc[0, 0]
-    #else:
-        return "2021-02-01"
+        check = pd.read_csv(PARENT_DIR + "/data/" + FILE)
+        return check.iloc[0, 0]
+    else:
+        return "2021-07-20"
 
 
 def numArticlesInPage(json):
@@ -139,26 +139,27 @@ def guardianScraper():
         for i in range(1, numPages + 1):
 
             json_guardian = guardian(i, "russia").json()
+            print(json_guardian["response"]["status"])
 
-        # Going through all articles in a page
-        for j in range(0, numArticlesInPage(json_guardian)):
+            # Going through all articles in a page
+            for j in range(0, numArticlesInPage(json_guardian)):
 
-            if os.path.exists(PARENT_DIR + "/data/" + FILE):
-                old_data = pd.read_csv(PARENT_DIR + "/data/" + FILE)
-                if json_guardian["response"]["results"][j]["webUrl"] == old_data.iloc[-1, 0]:
-                    continue
+                if os.path.exists(PARENT_DIR + "/data/" + FILE):
+                    old_data = pd.read_csv(PARENT_DIR + "/data/" + FILE)
+                    if json_guardian["response"]["results"][j]["webUrl"] == old_data.iloc[-1, 0]:
+                        continue
 
-            urls.append(json_guardian["response"]["results"][j]["webUrl"])
-            fulldate = json_guardian["response"]["results"][j]["webPublicationDate"]
-            dates.append(fulldate[: len(fulldate) - 10])
+                urls.append(json_guardian["response"]["results"][j]["webUrl"])
+                fulldate = json_guardian["response"]["results"][j]["webPublicationDate"]
+                dates.append(fulldate[: len(fulldate) - 10])
+ 
+                title = json_guardian["response"]["results"][j]["webTitle"]
+                titles.append(re.sub(r"\|.*$", "", title))  # removing authors from titles
 
-            title = json_guardian["response"]["results"][j]["webTitle"]
-            titles.append(re.sub(r"\|.*$", "", title))  # removing authors from titles
-
-            body = BeautifulSoup(json_guardian["response"]["results"][j]["fields"]["body"], "html.parser").get_text()
-            body = replaceAll(body, rep)  # replacing substrings
-            bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
-            bar()
+                body = BeautifulSoup(json_guardian["response"]["results"][j]["fields"]["body"], "html.parser").get_text()
+                body = replaceAll(body, rep)  # replacing substrings
+                bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
+                bar()
 
     # Transforming fetched info to dataframe
     new_data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
