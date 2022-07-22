@@ -85,10 +85,11 @@ def guardianScraper():
 
 
     if os.path.exists(PARENT_DIR + "/data/" + FILE):
-        print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
-        print("-> Checking articles from latest date onward...")
-    else:
-        print(f"-> No CSV file found. Creating...")
+        pass
+    #    print(f"-> CSV file found with {getLen(FILE)} articles! Latest article date: {getDate(FILE)}")
+    #    print("-> Checking articles from latest date onward...")
+    #else:
+    #    print(f"-> No CSV file found. Creating...")
 
     lenBefore = getLen(FILE)
 
@@ -100,10 +101,11 @@ def guardianScraper():
 
     # Loops
     
-    # Instancing a query to fetch basic information
-    numPages = guardian(1, "ukraine").json()["response"]["pages"]
+   
+    with alive_bar(title="→ Guardian API Request", unknown="dots_waves", spinner=None, force_tty=True) as bar:
 
-    with alive_bar(title="-> Ukraine API Query", unknown="dots_waves", spinner=None, force_tty=True) as bar:
+        # Instancing a query to fetch basic information
+        numPages = guardian(1, "ukraine").json()["response"]["pages"]       
 
         # Going through all pages available for the query
         for i in range(1, numPages + 1):
@@ -130,10 +132,9 @@ def guardianScraper():
                 bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
                 bar()
 
-    # Instancing a query to fetch basic information
-    numPages = guardian(1, "russia").json()["response"]["pages"]
+        # Instancing a query to fetch basic information
+        numPages = guardian(1, "russia").json()["response"]["pages"]
 
-    with alive_bar(title="-> Russia API Query", unknown="dots_waves", spinner=None, force_tty=True) as bar:
 
         # Going through all pages available for the query
         for i in range(1, numPages + 1):
@@ -168,8 +169,8 @@ def guardianScraper():
     lenAfter = len(data) - lenBefore
 
     if lenAfter == 0:
-        print(f"-> No new articles found. Total articles: {len(data)}")
+        print(f"→ No new articles found. Total articles: {len(data)}")
     else:
-        print(f"-> {lenAfter} new articles saved to {FILE}! Total articles: {len(data)}")
+        print(f"→ {lenAfter} new articles saved to {FILE}! Total articles: {len(data)}")
 
     return data

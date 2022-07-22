@@ -7,6 +7,8 @@ from Guardian import *
 from Reuters import *
 from gensim.parsing.preprocessing import remove_stopwords
 from sklearn.feature_extraction.text import CountVectorizer
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(ROOT_DIR)
@@ -144,12 +146,20 @@ def save_novel_trans_reson(novelties, transiences, resonances, source):
     np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
 
 
-def NTR_Routine(sources,scrapers,period,topicnum,vocabsize,num_iter):
+def NTR_Routine(period,topicnum,vocabsize,num_iter):
+
+    sources = ["Guardian", "Reuters"]
+    dataG = guardianScraper()
+    dataR = reutersScraper()
+    sets = [dataG, dataR]
+    print("")
+
     for i in range(0,len(sources)):
-        data = scrapers[i]
+        data = sets[i]
         source = sources[i]
         data.to_csv(PARENT_DIR + "/data/" + source + ".csv", index=True)
-        print(f"{source} data saved.")
+        
+        print(f"→ Starting {source} data LDA...")
 
         doc_topic, topic_word, vocabulary = learn_topics(data, topicnum, vocabsize, num_iter) 
 
@@ -179,3 +189,4 @@ def NTR_Routine(sources,scrapers,period,topicnum,vocabsize,num_iter):
 
         ntr_data.to_csv(PARENT_DIR + "/data/"+ source + "_ntr.csv")
 
+    print("→ All LDA data saved. Ready for plotting")
