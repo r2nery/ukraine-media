@@ -139,7 +139,6 @@ def guardianScraper():
         for i in range(1, numPages + 1):
 
             json_guardian = guardian(i, "russia").json()
-            print(json_guardian["response"]["status"])
 
             # Going through all articles in a page
             for j in range(0, numArticlesInPage(json_guardian)):

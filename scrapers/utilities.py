@@ -3,6 +3,8 @@ import re
 import pandas as pd
 import numpy as np
 from lda import LDA
+from Guardian import *
+from Reuters import *
 from gensim.parsing.preprocessing import remove_stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -140,3 +142,40 @@ def save_novel_trans_reson(novelties, transiences, resonances, source):
 
     outpath = PARENT_DIR + "/results/" + source + "NovelTransReson.txt"
     np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
+
+
+def NTR_Routine(sources,scrapers,period,topicnum,vocabsize,num_iter):
+    for i in range(0,len(sources)):
+        data = scrapers[i]
+        source = sources[i]
+        data.to_csv(PARENT_DIR + "/data/" + source + ".csv", index=True)
+        print(f"{source} data saved.")
+
+        doc_topic, topic_word, vocabulary = learn_topics(data, topicnum, vocabsize, num_iter) 
+
+        topics = []
+        for i in range(len(data)):
+            topics.append(doc_topic[i].argmax())
+
+        save_topicmodel(doc_topic, topic_word, vocabulary, source)
+
+        novelties, transiences, resonances = novelty_transience_resonance(doc_topic, period)
+
+        for index in range(0,period):
+            transiences.insert(0, 0)
+            transiences.append(0)
+            novelties.insert(0, 0)
+            novelties.append(0)
+            resonances.insert(0, 0)
+            resonances.append(0)
+
+        save_novel_trans_reson(novelties, transiences, resonances, source)
+
+        ntr_data = data
+        ntr_data['Novelty'] = novelties
+        ntr_data['Transience'] = novelties
+        ntr_data['Resonance'] = resonances
+        ntr_data['Topic'] = topics
+
+        ntr_data.to_csv(PARENT_DIR + "/data/"+ source + "_ntr.csv")
+
