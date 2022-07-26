@@ -23,10 +23,15 @@ Thesis project for my bachelor's in economics
 - The Guardian + Reuters data
 
 ### Topic Analysis
-- Adapt Barron's (2018) implementation of latent Dirichlet allocation (LDA)
+- Adapt (Barron et al. 2018) implementation of latent Dirichlet allocation (LDA)
     - Done
-    - Verify if chosen method is optimal
-        - Gensim LDA?
 - Adapt implementation of Novelty, Transience and Resonance
     - Done
-    - First plot generated
+    - First few plots generated
+
+### Uncertainty Analysis
+- Format training corpus
+    - Done
+- Apply GloVe (Pennington et al. 2014)
+    - First vectors generated (100d, 50 iterations)
+    - Done in Colab
