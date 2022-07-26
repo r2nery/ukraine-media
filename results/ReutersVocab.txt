@@ -71,7 +71,6 @@ accounts
 accreditation
 accredited
 accumulated
-accuracy
 accurate
 accusation
 accusations
@@ -144,6 +143,7 @@ administrations
 administrative
 administrator
 admiral
+admiration
 admission
 admit
 admitted
@@ -353,7 +353,6 @@ ambitious
 ambulance
 ambulances
 amend
-amended
 amendment
 amendments
 america
@@ -387,6 +386,7 @@ anand
 anastasia
 anatoliy
 anatoly
+anchor
 anchored
 ancient
 and
@@ -515,6 +515,7 @@ arab
 arabia
 arakhamia
 aramco
+arbitrary
 arbitration
 arch
 archbishop
@@ -835,6 +836,7 @@ bashar
 bashir
 basic
 basically
+basilica
 basis
 basket
 basketball
@@ -908,6 +910,7 @@ belief
 believe
 believed
 believes
+belize
 bell
 bellingcat
 belong
@@ -985,6 +988,7 @@ blame
 blamed
 blames
 blaming
+blank
 blanket
 blankets
 blast
@@ -1026,7 +1030,6 @@ bmw
 bnp
 board
 boarded
-boarding
 boards
 boat
 boats
@@ -1039,7 +1042,6 @@ body
 boeing
 bofa
 boichenko
-boj
 bold
 bolshevik
 bolshoi
@@ -1144,6 +1146,7 @@ brent
 brewer
 brexit
 brian
+brick
 brics
 bridge
 bridges
@@ -1207,6 +1210,7 @@ bullets
 bullion
 bullish
 bullying
+bulwark
 bumper
 bundestag
 bundeswehr
@@ -1357,7 +1361,6 @@ cat
 catastrophe
 catastrophic
 catch
-catching
 categorically
 categories
 category
@@ -1439,7 +1442,6 @@ chance
 chancellery
 chancellor
 chances
-chang
 change
 changed
 changes
@@ -1524,6 +1526,7 @@ chuck
 chunk
 church
 churches
+churchill
 cia
 cib
 cigarette
@@ -1575,6 +1578,7 @@ clearly
 clearstream
 clearview
 clegg
+click
 client
 clients
 climate
@@ -1615,7 +1619,6 @@ coast
 coastal
 coastline
 coca
-cocktails
 code
 codes
 coercion
@@ -1660,6 +1663,7 @@ combating
 combination
 combine
 combined
+combining
 come
 comedian
 comes
@@ -1753,6 +1757,7 @@ composite
 compound
 compounded
 comprehensive
+compressor
 comprised
 comprises
 comprising
@@ -1762,8 +1767,6 @@ compromises
 compulsory
 computers
 computing
-concede
-conceded
 concentrate
 concentrated
 concentrating
@@ -1890,6 +1893,7 @@ containing
 contains
 contaminated
 conte
+contempt
 contenders
 content
 contentious
@@ -1900,6 +1904,7 @@ context
 conti
 continent
 continental
+contingencies
 contingency
 contingent
 continuation
@@ -1964,7 +1969,6 @@ coordination
 coordinator
 cope
 copenhagen
-coping
 copper
 copy
 cordial
@@ -1975,7 +1979,6 @@ cornerstone
 coronavirus
 corp
 corporate
-corporates
 corporation
 corporations
 corps
@@ -2035,7 +2038,6 @@ covering
 covers
 covert
 covid
-cowered
 cpc
 cpi
 crack
@@ -2223,7 +2225,6 @@ decisions
 decisive
 decisively
 declaration
-declarations
 declare
 declared
 declares
@@ -2364,7 +2365,6 @@ dependency
 dependent
 depending
 depends
-depicting
 depleted
 deplored
 deploy
@@ -2391,6 +2391,7 @@ der
 deraa
 derail
 deripaska
+derivative
 derivatives
 derkach
 descendants
@@ -2406,7 +2407,9 @@ designate
 designated
 designation
 designed
+designer
 desire
+desired
 desk
 desperate
 desperately
@@ -2522,7 +2525,6 @@ disappointed
 disappointment
 disarm
 disarmament
-disarming
 disarray
 disaster
 disasters
@@ -2565,6 +2567,7 @@ dismissal
 dismissed
 dismisses
 dismissing
+dispatch
 dispatched
 displaced
 displacement
@@ -2660,7 +2663,6 @@ dominance
 dominant
 dominate
 dominated
-dominates
 dominic
 don
 donald
@@ -2884,6 +2886,7 @@ email
 emailed
 emails
 emanating
+emanuel
 embargo
 embargoes
 embarked
@@ -2909,7 +2912,6 @@ emission
 emissions
 emitter
 emmanuel
-emotion
 emotional
 emotions
 emphasis
@@ -3280,6 +3282,7 @@ factories
 factors
 factory
 facts
+fading
 fail
 failed
 failing
@@ -3423,6 +3426,7 @@ finds
 fine
 fined
 fines
+finger
 finish
 finished
 finland
@@ -3489,7 +3493,6 @@ floor
 floors
 florence
 florida
-flot
 flour
 flow
 flowers
@@ -3582,7 +3585,6 @@ forward
 fossil
 foster
 fought
-foul
 found
 foundation
 foundations
@@ -4009,7 +4011,6 @@ harvests
 has
 hasn
 hassan
-hasty
 hat
 hate
 hatred
@@ -4088,6 +4089,7 @@ hero
 heroes
 heroic
 herzegovina
+hesitant
 hesitate
 hiatus
 hidden
@@ -4242,7 +4244,6 @@ hydrocarbons
 hydrogen
 hygiene
 hypersonic
-hypocrisy
 hysteria
 iaea
 ibm
@@ -4308,6 +4309,7 @@ impacted
 impacting
 impacts
 impairment
+impartiality
 impasse
 impassioned
 impeachment
@@ -4411,6 +4413,7 @@ indirectly
 indiscriminate
 inditex
 individual
+individually
 individuals
 indo
 indonesia
@@ -4510,11 +4513,11 @@ insurers
 insurgency
 insurgents
 insuring
+intact
 integrate
 integrated
 integration
 integrity
-intel
 intellectual
 intelligence
 intend
@@ -4805,6 +4808,7 @@ karen
 karim
 karins
 karl
+karpenko
 kaseya
 kashmir
 kaspersky
@@ -4913,6 +4917,7 @@ kurdistan
 kurds
 kursk
 kurz
+kvedaravicius
 kwh
 kyiv
 kyrgyzstan
@@ -5100,7 +5105,6 @@ like
 liked
 likelihood
 likely
-likened
 likes
 limbo
 limit
@@ -5381,7 +5385,6 @@ mask
 masks
 mass
 massacre
-masse
 massed
 masses
 massing
@@ -5464,7 +5467,6 @@ meets
 megapolis
 megawatt
 melanie
-melbourne
 melenchon
 melitopol
 melnichenko
@@ -5726,7 +5728,6 @@ muratov
 murayev
 murder
 murdered
-murders
 museum
 museums
 museveni
@@ -5775,7 +5776,6 @@ natalia
 nataliya
 nation
 national
-nationalise
 nationalism
 nationalist
 nationalists
@@ -6136,7 +6136,6 @@ organisation
 organisations
 organise
 organised
-organiser
 organisers
 organising
 organization
@@ -6203,6 +6202,7 @@ overall
 overcome
 overcoming
 overhaul
+overhead
 overland
 overly
 overnight
@@ -6384,7 +6384,6 @@ peninsula
 penn
 pension
 pensioner
-pensioners
 pensions
 pentagon
 people
@@ -6425,6 +6424,7 @@ perspective
 persuade
 peru
 peskov
+pessimistic
 pet
 peter
 petersburg
@@ -6583,6 +6583,7 @@ poorly
 pop
 popasna
 pope
+popova
 popular
 popularity
 populated
@@ -6986,7 +6987,6 @@ quoted
 quotes
 quoting
 raab
-rabbi
 rabobank
 race
 racing
@@ -7047,17 +7047,16 @@ ranks
 ransom
 ransomware
 rape
-raped
 rapeseed
 rapid
 rapidly
-rappler
 rapprochement
 rare
 rarely
 ratchet
 ratcheted
 rate
+rated
 rates
 rather
 ratification
@@ -7320,7 +7319,6 @@ renounced
 rent
 rental
 rented
-rents
 reopen
 reopened
 reopening
@@ -7329,7 +7327,6 @@ repair
 repaired
 repairing
 repairs
-reparations
 repay
 repayment
 repeat
@@ -7609,8 +7606,8 @@ rossiya
 rosstat
 rostec
 rostov
-rotate
 rotating
+rotation
 rotenberg
 rotterdam
 rouble
@@ -7781,6 +7778,7 @@ scenes
 sceptical
 scepticism
 scf
+schallenberg
 schedule
 scheduled
 scheme
@@ -7966,7 +7964,6 @@ sexual
 shadow
 shake
 shaken
-shaking
 shaky
 shale
 shall
@@ -8008,7 +8005,6 @@ sheltered
 sheltering
 shelters
 shelves
-sheremetyevo
 sherman
 shestakov
 shevchenko
@@ -8085,6 +8081,7 @@ shuttle
 shy
 siberia
 siberian
+sibur
 sick
 side
 sided
@@ -8134,7 +8131,6 @@ sinking
 sino
 sinopec
 sipri
-siren
 sirens
 sisi
 sister
@@ -8213,6 +8209,7 @@ smoke
 smooth
 smoothly
 smouldering
+smuggle
 smuggling
 snake
 snap
@@ -8238,6 +8235,7 @@ sofia
 soft
 soften
 softened
+softening
 software
 sogn
 soil
@@ -8301,7 +8299,6 @@ sow
 sowing
 sown
 soy
-soybeans
 soyuz
 space
 spacecraft
@@ -8392,7 +8389,6 @@ sputnik
 spx
 spy
 spying
-squadron
 square
 squeeze
 squeezed
@@ -8571,6 +8567,7 @@ strewn
 strict
 stricter
 strictly
+strife
 strike
 strikes
 striking
@@ -8779,6 +8776,7 @@ switched
 switching
 switzerland
 sworn
+sydney
 symbol
 symbolic
 symbols
@@ -8987,6 +8985,7 @@ throughout
 throw
 throwing
 thrown
+thrust
 thursday
 thwart
 thwarted
@@ -9337,6 +9336,7 @@ unexplained
 unfair
 unfold
 unfolding
+unfortunate
 unfortunately
 unfounded
 unfriendly
@@ -9393,6 +9393,7 @@ unspecified
 unstable
 unsuccessful
 unsure
+unsustainable
 unthinkable
 until
 untouched
@@ -9456,7 +9457,6 @@ uses
 ushakov
 using
 usmanov
-uss
 ussr
 usual
 usually
@@ -9498,6 +9498,7 @@ variant
 variants
 variety
 vary
+varying
 vasily
 vassily
 vast
@@ -9540,7 +9541,6 @@ veteran
 veterans
 veto
 vetoed
-vetoes
 vi
 viable
 viasat
@@ -9824,6 +9824,7 @@ winner
 winners
 winning
 wins
+winston
 winter
 wintershall
 wipe
@@ -9991,7 +9992,6 @@ zholy
 zhora
 zhytomyr
 zimbabwe
-zircon
 zlotys
 zone
 zones
