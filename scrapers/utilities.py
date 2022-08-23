@@ -3,8 +3,6 @@ import re
 import pandas as pd
 import numpy as np
 from lda import LDA
-from Guardian import *
-from Reuters import *
 from gensim.parsing.preprocessing import remove_stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 import warnings
@@ -149,8 +147,8 @@ def save_novel_trans_reson(novelties, transiences, resonances, source):
 def NTR_Routine(period,topicnum,vocabsize,num_iter):
 
     sources = ["Guardian", "Reuters"]
-    dataG = guardianScraper()
-    dataR = reutersScraper()
+    dataG = [] # scrapers output here
+    dataR = []
     sets = [dataG, dataR]
     print("")
 
