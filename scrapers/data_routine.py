@@ -63,7 +63,7 @@ class Guardian:
     def guardian(self, page, tag):
         return requests.get("https://content.guardianapis.com/search?api-key=" + self.keyG + "&from-date=" + str(self.getDate()) + "&type=article" + "&page=" + str(page) + "&tag=world/" + tag + "&order-by=oldest" + "&show-fields=body" + "&page-size=200")
 
-    def guardianScraper(self):
+    def scraper(self):
 
         os.makedirs(os.path.join(PARENT_DIR, "data"), exist_ok=True)
 
@@ -131,6 +131,8 @@ class Guardian:
             print(f"→ No new articles found. Total articles: {len(data)}")
         else:
             print(f"→ {lenAfter} new articles saved to Guardian.csv! Total articles: {len(data)}")
+
+        data.to_csv(GUARDIAN_DIR, index=True)
         return data
 
 
@@ -191,7 +193,7 @@ class Reuters:
 
     def URLFetcher(self):
         self.urls = []
-        with alive_bar(int(1.5 * self.latestPage), title="→ Fetching URLs in pages (estimate)", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(title="→ Fetching URLs in pages (estimate)", bar=None, spinner="dots", force_tty=True) as bar:
             for page in range(1, (self.latestPage) + 1):
                 ukr = "https://www.reuters.com/news/archive/ukraine?view=page&page=" + str(page) + "&pageSize=10"
                 rus = "https://www.reuters.com/news/archive/russia?view=page&page=" + str(page) + "&pageSize=10"
@@ -250,11 +252,11 @@ class Reuters:
                 except Exception as e:
                     print(f"URL couldn't be parsed: {url} because {e}")
                     pass
-        data = pd.DataFrame({"URL": self.urls, "Date": self.dates, "Title": self.titles, "Text": self.bodies})
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         # print("-> New data fetched successfully!")
         self.new_data = data
 
-    def reutersScraper(self):
+    def scraper(self):
         self.fromScratch()
         print("getting latest page")
         self.latestPage()
@@ -271,21 +273,10 @@ class Reuters:
         else:
             print(f"→ {lenAfter} new articles saved to Reuters.csv! Total articles: {len(data)}")
 
+        data.to_csv(REUTERS_DIR, index=True)
         return data
 
 
 if __name__ == "__main__":
-    guardian = Guardian()
-    reuters = Reuters()
-
-    dataG = guardian.guardianScraper()
-    dataR = reuters.reutersScraper()
-
-    sets = [dataG, dataR]
-    sources = ["Guardian", "Reuters"]
-    print("")
-
-    for i in range(0, len(sources)):
-        data = sets[i]
-        source = sources[i]
-        data.to_csv(os.path.join(PARENT_DIR, "data", source + ".csv"), index=True)
+    Guardian().scraper()
+    Reuters().scraper()
