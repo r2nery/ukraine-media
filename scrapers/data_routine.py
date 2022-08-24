@@ -265,7 +265,7 @@ class Reuters:
             print(f"→ No new articles found. Total articles: {len(data)}")
         else:
             print(f"→ {lenAfter} new articles saved to Reuters.csv! Total articles: {len(data)}")
-        data.to_csv(REUTERS_DIR, index=False)
+        data.to_csv(REUTERS_DIR, index=True)
 
         return data
 
