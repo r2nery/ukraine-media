@@ -14,7 +14,6 @@ aboard
 about
 above
 abraham
-abramchenko
 abramovich
 abroad
 abrupt
@@ -49,6 +48,7 @@ accessible
 accessing
 accession
 accident
+accidentally
 accidents
 accommodate
 accommodation
@@ -493,14 +493,12 @@ appoint
 appointed
 appointment
 appreciate
-appreciated
 appreciation
 approach
 approached
 approaches
 approaching
 appropriate
-appropriately
 approval
 approvals
 approve
@@ -733,6 +731,7 @@ awards
 aware
 awareness
 away
+awful
 awkward
 ax
 axis
@@ -1114,6 +1113,7 @@ br
 braces
 bracing
 bragg
+brake
 branch
 branches
 brand
@@ -1142,6 +1142,7 @@ brent
 brewer
 brexit
 brian
+brick
 brics
 bridge
 bridges
@@ -1445,7 +1446,6 @@ chanted
 chanting
 chaos
 chaotic
-chapter
 character
 characterised
 charge
@@ -1822,6 +1822,7 @@ connections
 connotations
 conquest
 conscience
+conscious
 conscript
 conscription
 conscripts
@@ -1949,6 +1950,7 @@ convoys
 cook
 cooking
 cool
+cooled
 cooling
 cooperate
 cooperating
@@ -1963,7 +1965,6 @@ cope
 copenhagen
 copper
 copy
-cordial
 core
 corn
 corner
@@ -1990,7 +1991,6 @@ cosmonaut
 cosmonauts
 cost
 costa
-costing
 costly
 costs
 could
@@ -2049,7 +2049,6 @@ created
 creates
 creating
 creation
-creative
 credentials
 credibility
 credible
@@ -2197,7 +2196,6 @@ deadlock
 deadly
 deal
 dealer
-dealers
 dealing
 dealings
 deals
@@ -2206,8 +2204,6 @@ dear
 death
 deaths
 debate
-debates
-debating
 debris
 debt
 debts
@@ -2442,6 +2438,7 @@ deteriorated
 deteriorating
 deterioration
 determination
+determinations
 determine
 determined
 determining
@@ -2570,6 +2567,7 @@ displaced
 displacement
 display
 displayed
+displays
 disposable
 disposal
 dispute
@@ -2692,7 +2690,6 @@ doubling
 doubt
 doubts
 dovish
-dovzhenko
 dow
 down
 downed
@@ -2968,7 +2965,6 @@ engage
 engaged
 engagement
 engaging
-engie
 engine
 engineer
 engineering
@@ -2981,7 +2977,6 @@ enhanced
 eni
 enjoy
 enjoyed
-enjoying
 enlargement
 enormous
 enough
@@ -3528,6 +3523,7 @@ forbes
 forbid
 force
 forced
+forceful
 forcefully
 forces
 forcible
@@ -3870,11 +3866,9 @@ grenades
 grew
 grey
 grid
-grief
 grievances
 griffiths
 grim
-grind
 grinding
 griner
 grip
@@ -3885,7 +3879,6 @@ gross
 grossi
 ground
 grounded
-groundless
 grounds
 groundwork
 group
@@ -3907,7 +3900,6 @@ guarantor
 guard
 guarded
 guardian
-guarding
 guards
 guatemala
 gudkov
@@ -3951,7 +3943,6 @@ halted
 halting
 halts
 halved
-hamad
 hamburg
 hamilton
 hammer
@@ -3961,7 +3952,6 @@ hampered
 hampering
 hand
 handed
-handelsblatt
 handful
 handing
 handle
@@ -4001,12 +3991,10 @@ harsher
 harshest
 harvest
 harvested
-harvesting
 harvests
 has
 hashish
 hasn
-hassan
 hat
 hate
 hatred
@@ -4120,6 +4108,7 @@ hiring
 hirokazu
 hiroshima
 his
+historian
 historic
 historical
 historically
@@ -4312,6 +4301,7 @@ impassioned
 impeachment
 imperative
 imperial
+imperialism
 impetus
 implement
 implementation
@@ -4476,6 +4466,7 @@ inquiry
 insecurity
 inside
 insider
+insight
 insist
 insisted
 insistence
@@ -4562,6 +4553,7 @@ international
 internationally
 internet
 interpol
+interpretation
 interpreted
 interpreter
 interros
@@ -4582,6 +4574,7 @@ introduce
 introduced
 introducing
 introduction
+intrusions
 invade
 invaded
 invaders
@@ -4785,7 +4778,6 @@ justify
 justin
 kabul
 kaczynski
-kadri
 kadyrov
 kaja
 kakhovka
@@ -4802,7 +4794,6 @@ karabakh
 karen
 karim
 karl
-kaseya
 kashmir
 kaspersky
 kassym
@@ -4944,6 +4935,7 @@ landed
 landing
 landlocked
 landmark
+landmines
 lands
 landsbergis
 landscape
@@ -5118,6 +5110,7 @@ linked
 linkedin
 linking
 links
+lion
 lipow
 liquefied
 liquid
@@ -5373,6 +5366,7 @@ mary
 mask
 masks
 mass
+massachusetts
 massacre
 massed
 masses
@@ -5462,6 +5456,7 @@ melitopol
 melnichenko
 melnyk
 meloni
+meltdown
 melvin
 member
 members
@@ -5902,6 +5897,7 @@ nordic
 norilsk
 normal
 normalisation
+normalise
 normally
 normandy
 norms
@@ -6401,6 +6397,7 @@ performance
 performed
 performing
 perhaps
+perimeter
 period
 periods
 permafrost
@@ -6556,7 +6553,6 @@ poland
 poles
 polevoy
 police
-policeman
 policies
 policing
 policy
@@ -7317,6 +7313,7 @@ removed
 removing
 rena
 renamed
+renaud
 renault
 renew
 renewable
@@ -7398,6 +7395,7 @@ reserves
 reservists
 reset
 reshape
+reshetnikov
 residence
 residency
 resident
@@ -7534,7 +7532,6 @@ rid
 ride
 ridiculous
 riding
-rifaat
 rifle
 rifles
 rift
@@ -7603,7 +7600,6 @@ rosatom
 rosbank
 roscosmos
 rose
-rosfin
 roskomnadzor
 rosn
 rosneft
@@ -7652,7 +7648,6 @@ runs
 runway
 rupee
 rupees
-rupiah
 rural
 rusada
 rusal
@@ -7683,7 +7678,6 @@ saakashvili
 sabirov
 sabotage
 saboteurs
-sachkov
 sachs
 sacked
 sacrifice
@@ -7737,6 +7731,7 @@ sank
 sanna
 santa
 sap
+sarajevo
 sat
 satellite
 satellites
@@ -7982,6 +7977,7 @@ shareholders
 shares
 sharif
 sharing
+sharm
 sharp
 sharper
 sharply
@@ -8004,6 +8000,7 @@ shelters
 shelves
 sheremetyevo
 sherman
+shestakov
 shevchenko
 shevchuk
 shield
@@ -8237,6 +8234,7 @@ softening
 software
 sogn
 soil
+sokolov
 solar
 solarwinds
 sold
@@ -8392,6 +8390,7 @@ sputnik
 spx
 spy
 spying
+squadron
 square
 squeeze
 squeezed
@@ -8441,6 +8440,7 @@ starbucks
 stark
 starlink
 starmer
+stars
 start
 started
 starters
@@ -8640,7 +8640,6 @@ successive
 successor
 such
 sudan
-sudanese
 sudden
 suddenly
 sue
@@ -8752,6 +8751,7 @@ sustaining
 suvorov
 suzuki
 sv
+svetlana
 sviatlana
 sviatoslav
 svr
@@ -9339,8 +9339,6 @@ unequivocal
 unesco
 unexpected
 unexpectedly
-unexplained
-unexploded
 unfair
 unfolding
 unfortunate
@@ -9365,8 +9363,10 @@ unions
 uniper
 unique
 unit
+unita
 unite
 united
+uniting
 units
 unity
 universal
@@ -9401,9 +9401,9 @@ unspecified
 unstable
 unsuccessful
 unsure
+unsustainable
 unthinkable
 until
-untouched
 untrue
 unused
 unusual
@@ -9474,7 +9474,6 @@ utilities
 utility
 utmost
 utterly
-uzbek
 uzbekistan
 vaccinated
 vaccination
@@ -9509,6 +9508,7 @@ vary
 vasily
 vassily
 vast
+vastly
 vasyl
 vatican
 ve
@@ -9816,6 +9816,7 @@ william
 williams
 willing
 willingness
+wilson
 win
 wind
 winding
@@ -9997,4 +9998,3 @@ zone
 zones
 zoom
 zurich
-zvezda

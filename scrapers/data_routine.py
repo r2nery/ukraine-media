@@ -2,6 +2,8 @@ import os
 import warnings
 import requests
 import numpy as np
+import nltk
+from numpy import linalg as LA
 import regex as re
 import pandas as pd
 from lda import LDA
@@ -12,11 +14,13 @@ from gensim.parsing.preprocessing import remove_stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
+warnings.simplefilter(action="ignore", category=RuntimeWarning)
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 GUARDIAN_DIR = os.path.join(ROOT_DIR, "data", "Guardian.csv")
 REUTERS_DIR = os.path.join(ROOT_DIR, "data", "Reuters.csv")
+GLOVE_DIR = os.path.join(ROOT_DIR, "glove_data", "results", "vectors.txt")
 
 
 class Guardian:
@@ -73,10 +77,10 @@ class Guardian:
         }
 
         if os.path.exists(GUARDIAN_DIR):
-            print(f"-> CSV file found with {self.getLen()} articles! Latest article date: {self.getDate()}")
-            print("-> Checking articles from latest date onward...")
+            print(f"→ CSV file found with {self.getLen()} articles! Latest article date: {self.getDate()}")
+            print("→ Checking articles from latest date onward...")
         else:
-            print(f"-> No CSV file found. Creating...")
+            print(f"→ No CSV file found. Creating...")
 
         lenBefore = self.getLen()
         urls = []
@@ -84,7 +88,7 @@ class Guardian:
         bodies = []
         dates = []
 
-        with alive_bar(title="→ Guardian API Request", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title="→ Guardian: API Request", bar=None, spinner="dots", force_tty=True) as bar:
             numPages = self.guardian(1, "ukraine").json()["response"]["pages"]
             for i in range(1, numPages + 1):
                 json_guardian = self.guardian(i, "ukraine").json()
@@ -151,7 +155,7 @@ class Reuters:
     def latestPage(self):
         self.existing_urls = self.reuters_data.loc[:, "URL"]
 
-        with alive_bar(title="→ Searching for latest date", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title="→ Reuters: Searching for latest date", bar=None, spinner="dots", force_tty=True) as bar:
 
             def urls_from_page(page):
                 urls = []
@@ -177,18 +181,18 @@ class Reuters:
                 print("Reuters.csv not found. Generating...")
                 i = 920
             elif not self.fromScratch():
-                print("Reuters.csv found!")
+                #print("Reuters.csv found!")
                 i = 1
 
             while not common_between_lists(urls_from_page(i)):
                 i += 1
                 bar()
-            print(f"-> Last page scraped: {i+1}")
+            #print(f"-> Last page scraped: {i+1}")
             self.latestPage = i + 1
 
     def URLFetcher(self):
         self.urls = []
-        with alive_bar(title="→ Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title="→ Reuters: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             for page in range(1, (self.latestPage) + 1):
                 ukr = "https://www.reuters.com/news/archive/ukraine?view=page&page=" + str(page) + "&pageSize=10"
                 rus = "https://www.reuters.com/news/archive/russia?view=page&page=" + str(page) + "&pageSize=10"
@@ -224,7 +228,7 @@ class Reuters:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title="→ Reuters Scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title="→ Reuters: Scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     title_tags = ["text__text__1FZLe text__dark-grey__3Ml43 text__medium__1kbOh text__heading_2__1K_hh heading__base__2T28j heading__heading_2__3Fcw5"]
@@ -245,7 +249,7 @@ class Reuters:
                     urls.append(url)
                     bar()
                 except Exception as e:
-                    #print(f"URL couldn't be parsed: {url} because {e}")
+                    # print(f"URL couldn't be parsed: {url} because {e}")
                     pass
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         # print("-> New data fetched successfully!")
@@ -253,11 +257,8 @@ class Reuters:
 
     def scraper(self):
         self.fromScratch()
-        print("getting latest page")
         self.latestPage()
-        print("fetching urls")
         self.URLFetcher()
-        print("parsing articles")
         self.articleFetcher()
         data = self.concatData(self.new_data)
         lenAfter = len(data) - len(self.reuters_data)
@@ -296,11 +297,11 @@ class NTR:
 
     def save_topicmodel(self, doc_topic, topic_word, vocabulary, source):
 
-        topicmixture_outpath = os.path.join(ROOT_DIR,"results", source + "TopicMixtures.txt")
+        topicmixture_outpath = os.path.join(ROOT_DIR, "results", source + "TopicMixtures.txt")
         np.savetxt(topicmixture_outpath, doc_topic)
-        topic_outpath = os.path.join(ROOT_DIR,"results",source + "Topics.txt")
+        topic_outpath = os.path.join(ROOT_DIR, "results", source + "Topics.txt")
         np.savetxt(topic_outpath, topic_word)
-        vocab_outpath = os.path.join(ROOT_DIR,"results",source + "Vocab.txt")
+        vocab_outpath = os.path.join(ROOT_DIR, "results", source + "Vocab.txt")
         with open(vocab_outpath, mode="w", encoding="utf-8") as f:
             for v in vocabulary:
                 f.write(v + "\n")
@@ -376,17 +377,103 @@ class NTR:
             ntr_data["Transience"] = novelties
             ntr_data["Resonance"] = resonances
             ntr_data["Topic"] = topics
-            ntr_data.to_csv(ROOT_DIR + "/data/" + source + "_ntr.csv", index=False)
+            ntr_data.to_csv(ROOT_DIR + "/results/" + source + "_results.csv", index=False)
+            print("")
 
-        print("→ All LDA data saved. Ready for plotting")
+        print("→ All LDA data saved.\n")
+
+
+class Uncertainty:
+    def __init__(self) -> None:
+        self.dataG = pd.read_csv(os.path.join(ROOT_DIR,"results","Guardian_results.csv"))
+        self.dataR = pd.read_csv(os.path.join(ROOT_DIR,"results","Reuters_results.csv"))
+
+    def load_glove_model(self, terms):
+        common_vectors = []
+        with open(os.path.join(GLOVE_DIR), "r", encoding="utf8") as f:
+            for line in f:
+                if line.split(None, 1)[0] in terms:
+                    common_vectors.append(line.replace("\n", ""))
+
+        glove_model = {}
+        for line in common_vectors:
+            split_line = line.split()
+            word = split_line[0]
+            embedding = np.array(split_line[1:], dtype=np.float64)
+            glove_model[word] = embedding
+        return glove_model
+
+    def article_index(self, article_text):
+
+        # dictionaries
+        economic_terms = ["economy", "economic"]
+        uncertainty_terms = []
+        with open(os.path.join(ROOT_DIR, "data", "Uncertainty.txt"), "r") as f:
+            for line in f:
+                uncertainty_terms.append(line.lower().replace("\n", ""))
+        article_vocab = [word.lower() for word in nltk.word_tokenize(article_text) if word.isalpha()]
+
+        common_uncertainty_terms = list(set(article_vocab).intersection(uncertainty_terms))
+        common_economic_terms = list(set(article_vocab).intersection(economic_terms))
+
+        if len(common_economic_terms) == 0 or len(common_uncertainty_terms) == 0:
+            return 0
+
+        # index
+        common_uncertainty_vectors = self.load_glove_model(common_uncertainty_terms)
+        common_economic_vectors = self.load_glove_model(common_economic_terms)
+
+        common_uncertainty_matrix = np.array(list(common_uncertainty_vectors.values()))
+        common_economic_matrix = np.array(list(common_economic_vectors.values()))
+
+        mean_common_uncertainty_terms = np.mean(common_uncertainty_matrix, axis=0)
+        mean_common_economic_terms = np.mean(common_economic_matrix, axis=0)
+
+        index = 1 / LA.norm((mean_common_economic_terms) - (mean_common_uncertainty_terms))
+
+        return index
+
+    def normalize_index(self, dataframe):
+        indexes = dataframe.iloc[:,1].values.tolist()
+        largest = max(indexes)
+        smallest = min(indexes)
+        denom = largest - smallest
+        new_indexes = [(x - smallest) / denom for x in indexes]
+        dataframe.iloc[:,1] = new_indexes
+
+        return dataframe
+
+    def dataframe_EU_index(self, dataframe, source):
+
+        indexes = []
+        dates = []
+        titles = []
+        with alive_bar(len(dataframe), title=f"→ Calculating {source} indexes", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+            for i in range(0, len(dataframe)):
+                bar()
+                index = self.article_index(dataframe.iloc[i, 3])
+                indexes.append(index)
+                dates.append(dataframe.iloc[i, 0])
+                titles.append(dataframe.iloc[i,2])
+
+        unc_df = pd.DataFrame({"Title":titles, "EU Index": indexes})
+        unc_df = self.normalize_index(unc_df)
+
+        return unc_df
+
+    def routine(self):
+        sources = ["Guardian", "Reuters"]
+        sets = [self.dataG, self.dataR]
+        for i in range(0, len(sources)):
+            data, source = sets[i], sources[i]
+            data_EU_index = self.dataframe_EU_index(data, source)
+            data_results = pd.merge(data,data_EU_index,on="Title",how='outer')
+            data_results.to_csv(os.path.join(ROOT_DIR, "results", source + "_results.csv"),index=False)
+            print("")
 
 
 if __name__ == "__main__":
     Guardian().scraper()
     Reuters().scraper()
-    NTR().routine(
-    period=7,
-    topicnum=30, 
-    vocabsize=10000, 
-    num_iter=100
-    )
+    NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=100)
+    Uncertainty().routine()
