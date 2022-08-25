@@ -13,6 +13,7 @@ above
 abramov
 abramovich
 abroad
+abruptly
 absence
 absent
 absolute
@@ -101,7 +102,6 @@ acts
 actual
 actually
 acute
-acutely
 ad
 adam
 adamant
@@ -122,6 +122,7 @@ addresses
 addressing
 adds
 adequate
+adequately
 adjacent
 adjust
 administration
@@ -167,7 +168,6 @@ advisory
 advocacy
 advocate
 advocates
-advocating
 aerial
 aeroflot
 aerospace
@@ -178,7 +178,6 @@ affected
 affecting
 affects
 affiliated
-affirmed
 afford
 affordable
 afghan
@@ -296,7 +295,6 @@ alliance
 alliances
 allied
 allies
-allocated
 allow
 allowed
 allowing
@@ -443,6 +441,7 @@ apart
 apartheid
 apartment
 apartments
+apocalypse
 apocalyptic
 apologise
 apologised
@@ -594,6 +593,7 @@ assigned
 assist
 assistance
 assistant
+assisted
 assisting
 associate
 associated
@@ -605,6 +605,7 @@ assumed
 assuming
 assumption
 assumptions
+assurance
 assurances
 assure
 assured
@@ -802,6 +803,7 @@ basis
 basketball
 bastards
 bat
+bathroom
 battalion
 battalions
 battered
@@ -840,7 +842,6 @@ beetaloo
 before
 began
 begged
-begging
 begin
 beginning
 begins
@@ -969,6 +970,7 @@ blessing
 blew
 blind
 blinken
+blitz
 blitzkrieg
 bloc
 block
@@ -1110,6 +1112,7 @@ breakfast
 breaking
 breaks
 breakthrough
+breakthroughs
 breakup
 breath
 breathe
@@ -1170,7 +1173,6 @@ bryant
 bst
 bucha
 bucharest
-buckingham
 budapest
 budget
 budgets
@@ -1224,7 +1226,6 @@ busy
 but
 butcher
 butler
-butter
 button
 buy
 buyer
@@ -1262,7 +1263,6 @@ cameron
 camouflage
 camp
 campaign
-campaigned
 campaigner
 campaigners
 campaigning
@@ -1312,13 +1312,16 @@ career
 careers
 careful
 carefully
+carers
 cares
 cargo
 cargoes
 caribbean
+caring
 carlson
 carnage
 carnegie
+carole
 caroline
 carpet
 carriage
@@ -1333,6 +1336,7 @@ cars
 cartel
 carter
 cartoon
+cartridges
 case
 cases
 cash
@@ -1340,6 +1344,7 @@ caspian
 cassava
 cast
 casting
+castle
 casualties
 casualty
 cat
@@ -1381,6 +1386,7 @@ celebrities
 celebrity
 cell
 cellar
+cement
 cemeteries
 cemetery
 censorship
@@ -1444,6 +1450,7 @@ charitiesthere
 charity
 charles
 charlie
+charlotte
 charred
 chart
 charter
@@ -1491,7 +1498,6 @@ china
 chinese
 chip
 chips
-chișinău
 chocolate
 choice
 choices
@@ -1618,8 +1624,10 @@ coherent
 coincide
 coincided
 coincidence
+col
 cola
 cold
+colder
 collaborate
 collaboration
 collaborators
@@ -1798,7 +1806,6 @@ confirm
 confirmation
 confirmed
 confirming
-confirms
 confiscated
 conflict
 conflicting
@@ -1814,7 +1821,6 @@ conglomerate
 congo
 congress
 congressional
-congressman
 conjunction
 connect
 connected
@@ -1890,7 +1896,6 @@ contemporary
 contempt
 content
 contentious
-contents
 contest
 contested
 context
@@ -1898,7 +1903,6 @@ continent
 continental
 contingency
 contingent
-continually
 continuation
 continue
 continued
@@ -1960,6 +1964,7 @@ coordinating
 coordination
 coordinator
 cope
+copies
 coping
 copy
 corbyn
@@ -1967,6 +1972,7 @@ core
 corn
 corner
 corners
+cornwall
 coronavirus
 corporate
 corporation
@@ -2189,19 +2195,15 @@ darkest
 darkness
 darya
 dasha
-dashed
 data
 database
 databases
 date
-dated
 dates
 dating
 daughter
 daughters
-dave
 david
-davidovich
 davies
 davis
 davos
@@ -2272,6 +2274,7 @@ deeper
 deeply
 deer
 defamation
+defamatory
 default
 defeat
 defeated
@@ -2298,7 +2301,6 @@ definitely
 definition
 definitive
 definitively
-defunct
 defuse
 defy
 degrade
@@ -2323,7 +2325,6 @@ delivering
 delivers
 delivery
 deloitte
-delta
 delusional
 demand
 demanded
@@ -2359,7 +2360,6 @@ denmark
 denominated
 denounce
 denounced
-denouncing
 deny
 denying
 denys
@@ -2387,7 +2387,6 @@ deployments
 deportation
 deportations
 deported
-deposit
 deposits
 depot
 depots
@@ -2471,6 +2470,7 @@ developments
 device
 devices
 devoted
+dhabi
 dialogue
 diamond
 diamonds
@@ -2496,6 +2496,7 @@ difficult
 difficulties
 difficulty
 dig
+digenova
 digging
 digital
 dignity
@@ -2531,6 +2532,7 @@ disagreements
 disappear
 disappearance
 disappeared
+disappearing
 disappointed
 disappointing
 disappointment
@@ -2543,7 +2545,9 @@ disclose
 disclosed
 disclosure
 disclosures
+disconnected
 discontent
+discount
 discounted
 discourse
 discover
@@ -2692,7 +2696,6 @@ door
 doors
 doorstep
 dorries
-dos
 doses
 dossier
 double
@@ -2706,7 +2709,6 @@ downed
 downing
 download
 downside
-downtown
 dozen
 dozens
 dozhd
@@ -2780,7 +2782,6 @@ dug
 dugin
 dugina
 duma
-dumb
 dump
 dumplings
 dumps
@@ -3172,6 +3173,7 @@ executive
 executives
 exempt
 exemption
+exemptions
 exercise
 exercises
 exert
@@ -3279,14 +3281,11 @@ eye
 eyed
 eyes
 fa
-fab
-fabric
 face
 facebook
 faced
 faces
 facilitate
-facilitated
 facilitating
 facilities
 facility
@@ -3408,6 +3407,7 @@ fiction
 fictional
 fidesz
 field
+fielding
 fields
 fierce
 fiercely
@@ -3550,6 +3550,7 @@ forbidden
 force
 forced
 forces
+forcible
 forcibly
 forcing
 ford
@@ -3568,6 +3569,7 @@ forge
 forged
 forget
 forgive
+forgiven
 forgotten
 form
 formal
@@ -3719,6 +3721,7 @@ garage
 garden
 gardens
 garrison
+gary
 gas
 gate
 gates
@@ -3737,7 +3740,6 @@ gazprombank
 gchq
 gdp
 gear
-gelb
 gen
 gender
 general
@@ -3795,6 +3797,8 @@ given
 gives
 giving
 glad
+gladkov
+glance
 glasgow
 glass
 global
@@ -3838,11 +3842,9 @@ governmental
 governments
 governor
 governors
-gp
 gps
 grab
 grabbed
-grabbing
 grace
 grad
 grade
@@ -3913,7 +3915,6 @@ grossi
 grotesque
 ground
 grounds
-groundwork
 group
 grouping
 groups
@@ -4074,6 +4075,7 @@ heated
 heating
 heatwave
 heatwaves
+heaven
 heavier
 heaviest
 heavily
@@ -4233,7 +4235,6 @@ howitzers
 hsbc
 https
 hub
-hubs
 hug
 huge
 hugely
@@ -4343,6 +4344,7 @@ immunity
 impact
 impacted
 impacts
+impaired
 impeachment
 impending
 imperative
@@ -4444,6 +4446,7 @@ indo
 indonesia
 indonesian
 industrial
+industrialised
 industries
 industry
 ineffective
@@ -4503,7 +4506,6 @@ insistence
 insisting
 insists
 inspect
-inspected
 inspection
 inspectors
 inspiration
@@ -4534,7 +4536,6 @@ instruments
 insufficient
 insulate
 insulation
-insulin
 insulting
 insurance
 insurers
@@ -4566,6 +4567,7 @@ interactive
 interactivethe
 intercept
 intercepted
+intercontinental
 interest
 interested
 interesting
@@ -4656,6 +4658,7 @@ irony
 irpin
 irrational
 irrecoverable
+irregular
 irrelevant
 irresponsible
 iryna
@@ -4825,6 +4828,7 @@ kent
 kenya
 kept
 kerimov
+kerry
 kevin
 key
 kgb
@@ -4870,7 +4874,6 @@ klaus
 kleptocracy
 kleptocrats
 klitschko
-knee
 knees
 knew
 knock
@@ -4898,12 +4901,14 @@ kotin
 kovalev
 kozak
 kpmg
+krakow
 kraków
 kramatorsk
 kravchuk
 kremenchuk
 kreminna
 kremlin
+krichevskaya
 kristalina
 krivonogikh
 kryvbas
@@ -4916,6 +4921,7 @@ kurds
 kurkov
 kursk
 kutuzivka
+kuvshynova
 kvartal
 kwarteng
 kwasi
@@ -4951,8 +4957,6 @@ landmark
 lands
 landsbergis
 landscape
-landslide
-lane
 lange
 language
 languages
@@ -5002,7 +5006,6 @@ lawyer
 lawyers
 lay
 layer
-layers
 laying
 layla
 le
@@ -5016,6 +5019,7 @@ league
 leak
 leaked
 leaks
+leap
 learn
 learned
 learning
@@ -5118,7 +5122,6 @@ limiting
 limits
 lind
 linda
-linde
 lindsey
 line
 lined
@@ -5226,6 +5229,7 @@ lost
 lot
 lots
 loud
+louder
 loudly
 louis
 love
@@ -5283,6 +5287,7 @@ maduro
 mafia
 magazine
 magdalena
+magic
 magnate
 magnitsky
 magnitude
@@ -5312,6 +5317,7 @@ maksym
 male
 mali
 malian
+maliar
 malicious
 malign
 mall
@@ -5481,7 +5487,6 @@ memories
 memory
 men
 menace
-menacing
 mental
 mentality
 mentally
@@ -5491,6 +5496,7 @@ mentioning
 menu
 mep
 meps
+mercedes
 mercenaries
 mercenary
 mercury
@@ -5504,6 +5510,7 @@ mess
 message
 messages
 messaging
+messinis
 met
 meta
 metal
@@ -5552,7 +5559,6 @@ militaries
 militarily
 military
 militia
-militias
 milk
 milley
 million
@@ -5607,6 +5613,7 @@ mitchell
 mitigate
 mix
 mixed
+mixture
 mlrs
 mobile
 mobilisation
@@ -5645,7 +5652,6 @@ monitoring
 monitors
 monopoly
 monster
-monsters
 monstrous
 montenegro
 month
@@ -5802,7 +5808,6 @@ naval
 navalny
 navigate
 navigating
-navigation
 navy
 nazarbayev
 nazi
@@ -5861,7 +5866,6 @@ neutrality
 never
 nevertheless
 new
-newark
 newcastle
 newly
 news
@@ -5883,7 +5887,6 @@ nigel
 nigeria
 nigerian
 night
-nightclub
 nightly
 nightmare
 nights
@@ -6147,7 +6150,6 @@ orlov
 orthodox
 orwell
 orysia
-oscar
 osce
 ostensibly
 ostpolitik
@@ -6164,6 +6166,7 @@ outbreak
 outcome
 outcomes
 outcry
+outdated
 outdoor
 outer
 outgoing
@@ -6259,7 +6262,6 @@ palestinian
 palestinians
 palladium
 palm
-pamphlet
 pan
 panama
 pandemic
@@ -6267,6 +6269,7 @@ pandora
 panel
 panic
 panicking
+panorama
 paper
 papers
 paperwork
@@ -6332,7 +6335,6 @@ pathetic
 paths
 pathway
 patience
-patient
 patients
 patriarch
 patrick
@@ -6378,6 +6380,7 @@ pen
 penalties
 penalty
 pending
+penetrate
 peninsula
 penn
 penny
@@ -6418,14 +6421,12 @@ persecution
 persistent
 person
 personal
-personalities
 personally
 personnel
 persons
 perspective
 persuade
 persuaded
-peru
 peskov
 pessimistic
 pet
@@ -6442,6 +6443,7 @@ pets
 pharmacies
 phase
 phased
+phases
 phasing
 phenomenon
 philharmonic
@@ -6482,7 +6484,9 @@ pile
 piled
 pilot
 pilots
+pine
 pink
+pinker
 pinned
 pinner
 pipe
@@ -6695,7 +6699,6 @@ predictable
 predicted
 predicting
 predictions
-predicts
 predominantly
 prefer
 preference
@@ -6826,6 +6829,7 @@ professor
 profile
 profit
 profitable
+profiting
 profits
 profound
 profoundly
@@ -6858,8 +6862,6 @@ prompt
 prompted
 prompting
 promptly
-proms
-prone
 pronounced
 proof
 prop
@@ -6875,6 +6877,7 @@ proposal
 proposals
 propose
 proposed
+proposes
 proposing
 propped
 prosecute
@@ -6919,7 +6922,6 @@ province
 provinces
 proving
 provision
-provisional
 provisions
 provocation
 provocations
@@ -7104,7 +7106,6 @@ rapidly
 raping
 rare
 rarely
-rashkin
 ratchet
 ratcheting
 rate
@@ -7218,6 +7219,7 @@ reduced
 reduces
 reducing
 reduction
+reductions
 reed
 refer
 reference
@@ -7303,7 +7305,6 @@ relatively
 relatives
 relax
 relaxed
-relaxing
 release
 released
 releases
@@ -7441,7 +7442,6 @@ residents
 resign
 resignation
 resigned
-resigning
 resilience
 resilient
 resist
@@ -7454,7 +7454,6 @@ resolve
 resolved
 resolving
 resort
-resorted
 resorts
 resource
 resources
@@ -7497,6 +7496,7 @@ results
 resume
 resumed
 resupply
+resurgence
 retail
 retailer
 retailers
@@ -7542,6 +7542,7 @@ revival
 revive
 revived
 revoked
+revolt
 revolution
 revolutionary
 reward
@@ -7593,7 +7594,6 @@ river
 rivers
 road
 roads
-roadside
 roar
 rob
 robert
@@ -7673,7 +7673,6 @@ ruler
 rulers
 rules
 ruling
-rumoured
 rumours
 run
 running
@@ -7686,7 +7685,6 @@ rushed
 rushing
 rusi
 ruslan
-russell
 russia
 russian
 russians
@@ -7716,6 +7714,7 @@ sadness
 safe
 safeguard
 safeguarding
+safeguards
 safely
 safer
 safety
@@ -7741,7 +7740,6 @@ salman
 salon
 salt
 saltivka
-salvation
 salzburg
 sam
 same
@@ -7800,7 +7798,6 @@ sceptical
 scepticism
 schedule
 scheduled
-scheherazade
 scheme
 schemes
 schevchenko
@@ -8056,7 +8053,6 @@ shores
 short
 shortage
 shortages
-shorter
 shortfall
 shortly
 shot
@@ -8128,6 +8124,7 @@ simonyan
 simple
 simply
 sims
+simultaneous
 simultaneously
 since
 sincerely
@@ -8158,9 +8155,7 @@ siverskyi
 six
 sixth
 size
-sizeable
 sized
-sketch
 skibitsky
 skies
 skill
@@ -8324,6 +8319,7 @@ specifically
 specifics
 specify
 spectacle
+spectacular
 spectre
 spectrum
 speculated
@@ -8353,6 +8349,7 @@ spirits
 spiritual
 spite
 split
+splits
 spoke
 spoken
 spokesman
@@ -8360,6 +8357,7 @@ spokesperson
 spokeswoman
 sponsor
 sponsored
+sponsoring
 sponsors
 sponsorship
 spontaneous
@@ -8403,6 +8401,7 @@ stake
 stakes
 stalemate
 stalin
+stalinist
 stall
 stalled
 stalling
@@ -8512,8 +8511,10 @@ stored
 stores
 storey
 stories
+storing
 storm
 stormed
+storming
 story
 storytelling
 straight
@@ -8610,6 +8611,7 @@ substance
 substantial
 substantially
 substantive
+substitute
 subtitles
 subtle
 suburb
@@ -8690,6 +8692,7 @@ supporters
 supporting
 supportive
 supports
+suppose
 supposed
 supposedly
 suppressed
@@ -8728,7 +8731,6 @@ survives
 surviving
 survivor
 survivors
-susan
 suspect
 suspected
 suspects
@@ -8902,6 +8904,7 @@ tent
 tentative
 tents
 tenure
+terekhov
 term
 termed
 terminal
@@ -8933,7 +8936,6 @@ thames
 than
 thank
 thanked
-thankful
 thanks
 that
 thatcher
@@ -8955,7 +8957,6 @@ there
 therefore
 theresa
 therm
-thermal
 thermobaric
 thermostats
 these
@@ -8994,8 +8995,11 @@ throughout
 throw
 throwing
 thrown
+thrust
+thugs
 thursday
 thus
+thwarted
 ticket
 tickets
 tide
@@ -9030,7 +9034,6 @@ tip
 tips
 tired
 tisdall
-titenko
 title
 titled
 titles
@@ -9057,7 +9060,6 @@ tolstoy
 tom
 tomorrow
 tomorrowspaperstoday
-tomsk
 tondo
 tone
 tonight
@@ -9250,6 +9252,7 @@ turns
 tv
 tweet
 tweeted
+tweeting
 tweets
 twenty
 twice
@@ -9281,8 +9284,10 @@ ukrinform
 ultimate
 ultimately
 ultimatum
+ultimatums
 ultra
 umbrella
+ummc
 un
 unable
 unacceptable
@@ -9290,14 +9295,12 @@ unaccompanied
 unanimity
 unanimous
 unanimously
-unannounced
 unanswered
 unarmed
 unavailable
 unaware
 unbearable
 unbelievable
-unblock
 uncertain
 uncertainty
 unchanged
@@ -9372,6 +9375,7 @@ uniquely
 unit
 unite
 united
+uniting
 units
 unity
 universal
@@ -9386,6 +9390,7 @@ unleashed
 unless
 unlike
 unlikely
+unlimited
 unmanned
 unnamed
 unnecessary
@@ -9414,7 +9419,6 @@ unusually
 unveiled
 unverified
 unwavering
-unwelcome
 unwilling
 up
 upbeat
@@ -9636,6 +9640,7 @@ voting
 vowed
 vowing
 vows
+vpn
 vtb
 vulnerabilities
 vulnerability
@@ -9673,7 +9678,6 @@ wanting
 wants
 war
 ward
-wards
 warehouse
 warehouses
 warfare
@@ -9681,11 +9685,9 @@ warheads
 warm
 warmer
 warming
-warmly
 warmth
 warn
 warned
-warner
 warning
 warnings
 warns
@@ -9827,7 +9829,6 @@ wind
 windfall
 window
 windows
-windrush
 wine
 wing
 winner
@@ -9995,6 +9996,5 @@ zone
 zones
 zoom
 zuma
-zurich
 çavuşoğlu
 élysée

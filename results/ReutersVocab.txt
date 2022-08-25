@@ -9,11 +9,13 @@ abdullah
 abe
 abide
 ability
+ablaze
 able
 aboard
 about
 above
 abraham
+abramchenko
 abramovich
 abroad
 abrupt
@@ -126,7 +128,6 @@ addressed
 addresses
 addressing
 adds
-adenovirus
 adequate
 adeyemo
 adhere
@@ -397,7 +398,6 @@ andrii
 andriy
 andryushchenko
 andrzej
-andy
 angela
 angeles
 anger
@@ -493,6 +493,7 @@ appoint
 appointed
 appointment
 appreciate
+appreciated
 appreciation
 approach
 approached
@@ -512,7 +513,6 @@ arabia
 arakhamia
 aramco
 arbitration
-arch
 archbishop
 architecture
 arctic
@@ -1446,6 +1446,7 @@ chanted
 chanting
 chaos
 chaotic
+chapter
 character
 characterised
 charge
@@ -1965,6 +1966,7 @@ cope
 copenhagen
 copper
 copy
+cordial
 core
 corn
 corner
@@ -2169,7 +2171,6 @@ danone
 danube
 dardanelles
 dark
-darkest
 darkness
 darya
 data
@@ -2229,7 +2230,6 @@ decline
 declined
 declines
 declining
-decorated
 decrease
 decreased
 decree
@@ -2690,6 +2690,7 @@ doubling
 doubt
 doubts
 dovish
+dovzhenko
 dow
 down
 downed
@@ -2965,6 +2966,7 @@ engage
 engaged
 engagement
 engaging
+engie
 engine
 engineer
 engineering
@@ -2977,6 +2979,7 @@ enhanced
 eni
 enjoy
 enjoyed
+enjoying
 enlargement
 enormous
 enough
@@ -3135,7 +3138,6 @@ excessive
 exchange
 exchanged
 exchanges
-exchanging
 exclave
 exclude
 excluded
@@ -3866,9 +3868,11 @@ grenades
 grew
 grey
 grid
+grief
 grievances
 griffiths
 grim
+grind
 grinding
 griner
 grip
@@ -3879,6 +3883,7 @@ gross
 grossi
 ground
 grounded
+groundless
 grounds
 groundwork
 group
@@ -3900,6 +3905,7 @@ guarantor
 guard
 guarded
 guardian
+guarding
 guards
 guatemala
 gudkov
@@ -3943,6 +3949,7 @@ halted
 halting
 halts
 halved
+hamad
 hamburg
 hamilton
 hammer
@@ -3952,6 +3959,7 @@ hampered
 hampering
 hand
 handed
+handelsblatt
 handful
 handing
 handle
@@ -3991,10 +3999,12 @@ harsher
 harshest
 harvest
 harvested
+harvesting
 harvests
 has
 hashish
 hasn
+hassan
 hat
 hate
 hatred
@@ -4108,7 +4118,6 @@ hiring
 hirokazu
 hiroshima
 his
-historian
 historic
 historical
 historically
@@ -4492,7 +4501,6 @@ institution
 institutional
 institutions
 instructed
-instruction
 instructions
 instructors
 instrument
@@ -4611,7 +4619,6 @@ involves
 involving
 ioc
 iohannis
-ionov
 ipef
 ipo
 ipos
@@ -4778,7 +4785,9 @@ justify
 justin
 kabul
 kaczynski
+kadri
 kadyrov
+kahl
 kaja
 kakhovka
 kalashnikov
@@ -4794,9 +4803,11 @@ karabakh
 karen
 karim
 karl
+kaseya
 kashmir
 kaspersky
 kassym
+kate
 kateryna
 kavkaz
 kazakh
@@ -4951,7 +4962,6 @@ largely
 larger
 largest
 laschet
-laser
 lasers
 last
 lasted
@@ -5595,7 +5605,6 @@ mitsui
 mix
 mixed
 mizintsev
-mizuho
 mlrs
 mm
 mobil
@@ -5947,13 +5956,11 @@ numbered
 numbers
 numerous
 nurse
-nursultan
 nutrient
 nutrients
 nutrition
 nvtk
 nwf
-oanda
 obama
 object
 objected
@@ -5978,7 +5985,6 @@ obtained
 obtaining
 obvious
 obviously
-occasion
 occasionally
 occasions
 occupation
@@ -6046,7 +6052,6 @@ olga
 oligarch
 oligarchs
 olive
-olivier
 olympic
 olympics
 omar
@@ -6067,9 +6072,7 @@ onset
 onshore
 onslaught
 ontario
-onus
 onwards
-opaque
 opcw
 opec
 open
@@ -6134,7 +6137,6 @@ organization
 organizations
 organized
 orientation
-oriented
 origin
 original
 originally
@@ -6198,6 +6200,7 @@ overdue
 overhaul
 overhead
 overland
+overlooking
 overly
 overnight
 oversaw
@@ -6553,6 +6556,7 @@ poland
 poles
 polevoy
 police
+policeman
 policies
 policing
 policy
@@ -6579,6 +6583,7 @@ poor
 poorer
 poorest
 poorly
+pop
 popasna
 pope
 popular
@@ -7228,7 +7233,6 @@ regional
 regions
 register
 registered
-registering
 registration
 registry
 regret
@@ -7250,7 +7254,6 @@ reinforced
 reinforcement
 reinforcements
 reinforcing
-reinstate
 reinsurance
 reiterate
 reiterated
@@ -7284,7 +7287,6 @@ relied
 relief
 relies
 relieve
-relieved
 religious
 relocate
 relocated
@@ -7302,7 +7304,6 @@ remark
 remarks
 remember
 remind
-reminded
 reminder
 reminiscent
 remote
@@ -7313,7 +7314,6 @@ removed
 removing
 rena
 renamed
-renaud
 renault
 renew
 renewable
@@ -7532,6 +7532,7 @@ rid
 ride
 ridiculous
 riding
+rifaat
 rifle
 rifles
 rift
@@ -7600,6 +7601,7 @@ rosatom
 rosbank
 roscosmos
 rose
+rosfin
 roskomnadzor
 rosn
 rosneft
@@ -7621,6 +7623,7 @@ routes
 routine
 routinely
 row
+rows
 royal
 rs
 rt
@@ -7648,6 +7651,7 @@ runs
 runway
 rupee
 rupees
+rupiah
 rural
 rusada
 rusal
@@ -7678,6 +7682,7 @@ saakashvili
 sabirov
 sabotage
 saboteurs
+sachkov
 sachs
 sacked
 sacrifice
@@ -7701,7 +7706,6 @@ sailing
 saint
 sake
 sakhalin
-salameh
 salaries
 salary
 sale
@@ -8000,7 +8004,6 @@ shelters
 shelves
 sheremetyevo
 sherman
-shestakov
 shevchenko
 shevchuk
 shield
@@ -8073,7 +8076,6 @@ shutdown
 shutdowns
 shuttered
 shutting
-shuttle
 shy
 siberia
 siberian
@@ -8390,7 +8392,6 @@ sputnik
 spx
 spy
 spying
-squadron
 square
 squeeze
 squeezed
@@ -8640,6 +8641,7 @@ successive
 successor
 such
 sudan
+sudanese
 sudden
 suddenly
 sue
@@ -8851,7 +8853,6 @@ taskforce
 tasks
 tass
 tat
-tatars
 tatiana
 tatyana
 taught
@@ -9201,7 +9202,6 @@ troops
 trouble
 troubled
 troubles
-troubling
 truce
 truck
 truckers
@@ -9339,6 +9339,8 @@ unequivocal
 unesco
 unexpected
 unexpectedly
+unexplained
+unexploded
 unfair
 unfolding
 unfortunate
@@ -9401,7 +9403,6 @@ unspecified
 unstable
 unsuccessful
 unsure
-unsustainable
 unthinkable
 until
 untrue
@@ -9465,7 +9466,6 @@ uses
 ushakov
 using
 usmanov
-uss
 ussr
 ustenko
 usual
@@ -9921,6 +9921,7 @@ yacht
 yachts
 yair
 yakutia
+yale
 yalta
 yamal
 yandex
@@ -9947,7 +9948,6 @@ yes
 yesterday
 yet
 yevgeny
-yevhen
 yi
 yield
 yields
@@ -9991,10 +9991,10 @@ zhibek
 zholy
 zhora
 zhytomyr
-zimbabwe
 zircon
 zlotys
 zone
 zones
 zoom
 zurich
+zvezda
