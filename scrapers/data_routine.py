@@ -20,6 +20,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 GUARDIAN_DIR = os.path.join(ROOT_DIR, "data", "Guardian.csv")
 REUTERS_DIR = os.path.join(ROOT_DIR, "data", "Reuters.csv")
+CNN_DIR = os.path.join(ROOT_DIR, "data", "CNN.csv")
 GLOVE_DIR = os.path.join(ROOT_DIR, "glove_data", "results", "vectors.txt")
 
 
@@ -275,6 +276,7 @@ class NTR:
     def __init__(self) -> None:
         self.dataG = pd.read_csv(GUARDIAN_DIR)
         self.dataR = pd.read_csv(REUTERS_DIR)
+        self.dataCNN = pd.read_csv(CNN_DIR)
         pass
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
@@ -359,8 +361,8 @@ class NTR:
 
     def routine(self, period, topicnum, vocabsize, num_iter):
 
-        sources = ["Guardian", "Reuters"]
-        sets = [self.dataG, self.dataR]
+        sources = ["Guardian", "Reuters", "CNN"]
+        sets = [self.dataG, self.dataR, self.dataCNN]
         print("")
         for i in range(0, len(sources)):
             data, source = sets[i], sources[i]
@@ -473,7 +475,7 @@ class Uncertainty:
 
 
 if __name__ == "__main__":
-    Guardian().scraper()
-    Reuters().scraper()
+    #Guardian().scraper()
+    #Reuters().scraper()
     NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=100)
-    Uncertainty().routine()
+    #Uncertainty().routine()
