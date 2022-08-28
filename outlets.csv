@@ -6,16 +6,15 @@ NY Times,https://www.nytimes.com/search?dropmab=true&endDate=20220826&query=russ
 Daily Mail,https://www.dailymail.co.uk/home/search.html?offset=0&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all,,x,x,x
 Fox News,https://www.foxnews.com/category/world/conflicts/ukraine,,x,x,x
 NBC,https://www.nbcnews.com/world/russia-ukraine-news,,x,x,x
-BuzzFeed,https://www.buzzfeednews.com/collection/ukraine,,,,x
 Mirror,https://www.mirror.co.uk/all-about/ukraine,,x,x,x
-RT,https://www.rt.com/,
-Express,https://www.express.co.uk/,
-HuffPost,https://www.huffpost.com/,
+RT,https://www.rt.com/search?q=russia+ukraine&type=News&xcategory=sport,,x,x,x
+Express,https://www.express.co.uk/latest/ukraine,,x,x,x
+HuffPost,https://www.huffpost.com/news/topic/ukraine,,x
 The Washington Post,https://www.washingtonpost.com/,
-ABC News,https://abcnews.go.com/,
-CBS News,https://www.cbsnews.com/,
-The Wall Street  Journal,https://www.wsj.com/,
-Politico,https://www.politico.com/,
+ABC News,https://abcnews.go.com/search?searchtext=ukraine%2520russia&sort=date&type=Story,,x
+CBS News,https://www.cbsnews.com/#search-form:,,x
+The Wall Street  Journal,https://www.wsj.com/search?query=ukraine%20russia&isToggleOn=true&operator=OR&sort=date-desc&duration=4y&startDate=2018%2F08%2F27&endDate=2022%2F08%2F27&meta=ukraine%2C%20russia&source=wsjie,$1,x
+Politico,https://www.politico.com/search/1?q=ukraine+russia&adv=true&c=0000016c-7218-df3f-a1fe-779a301e0006,,x
 NPR,https://www.npr.org/,
 Time,https://time.com/,
 US News,https://www.usnews.com/,
