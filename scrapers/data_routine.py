@@ -35,6 +35,7 @@ GUARDIAN_DIR = os.path.join(ROOT_DIR, "data", "Guardian.csv")
 REUTERS_DIR = os.path.join(ROOT_DIR, "data", "Reuters.csv")
 CNN_DIR = os.path.join(ROOT_DIR, "data", "CNN.csv")
 DAILYMAIL_DIR = os.path.join(ROOT_DIR, "data", "DailyMail.csv")
+AP_DIR = os.path.join(ROOT_DIR, "data", "AssociatedPress.csv")
 
 
 class Guardian:
@@ -91,10 +92,9 @@ class Guardian:
         }
 
         if os.path.exists(GUARDIAN_DIR):
-            print(f"→ CSV file found with {self.getLen()} articles! Latest article date: {self.getDate()}")
-            print("→ Checking articles from latest date onward...")
+            print("→ Guardian: Checking articles from latest date onward...")
         else:
-            print(f"→ No CSV file found. Creating...")
+            print(f"→ Guardian: No CSV file found. Creating...")
 
         lenBefore = self.getLen()
         urls = []
@@ -144,7 +144,7 @@ class Guardian:
             print(f"→ No new articles found. Total articles: {len(data)}")
         else:
             print(f"→ {lenAfter} new articles saved to Guardian.csv! Total articles: {len(data)}")
-
+        print("")
         data.to_csv(GUARDIAN_DIR)
         return data
 
@@ -153,6 +153,7 @@ class Reuters:
     def fromScratch(self):
         if not os.path.exists(REUTERS_DIR):
             self.reuters_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            print(f"Reuters: No CSV file found. Creating...")
             self.reuters_data.loc[0, "URL"] = "https://www.reuters.com/article/us-shipping-seafarers-insight/sos-stranded-and-shattered-seafarers-threaten-global-supply-lines-idUSKBN2EQ0BQ"
             return True
         else:
@@ -192,16 +193,13 @@ class Reuters:
                     return False
 
             if self.fromScratch():
-                print("Reuters.csv not found. Generating...")
                 i = 920
             elif not self.fromScratch():
-                # print("Reuters.csv found!")
                 i = 1
 
             while not common_between_lists(urls_from_page(i)):
                 i += 1
                 bar()
-            # print(f"-> Last page scraped: {i+1}")
             self.latestPage = i + 1
 
     def URLFetcher(self):
@@ -227,7 +225,6 @@ class Reuters:
                         pass
 
         unique_urls = list(dict.fromkeys(self.urls))
-        # print(f"-> {len(unique_urls)} URLs fetched successfully!")
         self.unique_urls = unique_urls
 
     def articleFetcher(self):
@@ -266,7 +263,6 @@ class Reuters:
                     # print(f"URL couldn't be parsed: {url} because {e}")
                     pass
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
-        # print("-> New data fetched successfully!")
         self.new_data = data
 
     def scraper(self):
@@ -280,6 +276,7 @@ class Reuters:
             print(f"→ No new articles found. Total articles: {len(data)}")
         else:
             print(f"→ {lenAfter} new articles saved to Reuters.csv! Total articles: {len(data)}")
+        print("")
         data.to_csv(REUTERS_DIR, index=True)
 
         return data
@@ -300,6 +297,7 @@ class CNN:
     def fromScratch(self):
         if not os.path.exists(CNN_DIR):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            print(f"{self.source}: No CSV file found. Creating...")
             self.from_scratch = True
         else:
             self.old_data = pd.read_csv(CNN_DIR)
@@ -345,7 +343,6 @@ class CNN:
                 bar()
             self.driver.quit()
         self.unique_urls = list(dict.fromkeys(self.urls))
-        print(f"→ {len(self.unique_urls)} URLs fetched successfully!")
 
     def articleScraper(self):
         bodies = []
@@ -395,6 +392,7 @@ class CNN:
             print(f"→ No new articles found. Total articles: {len(data)}")
         else:
             print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+        print("")
         data.to_csv(CNN_DIR, index=True)
 
         return data
@@ -407,6 +405,7 @@ class DailyMail:
     def fromScratch(self):
         if not os.path.exists(DAILYMAIL_DIR):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            print(f"{self.source}: No CSV file found. Creating...")
             self.from_scratch = True
         else:
             self.old_data = pd.read_csv(DAILYMAIL_DIR)
@@ -426,10 +425,10 @@ class DailyMail:
         if self.from_scratch == False:
             last_url = self.old_data.iloc[0, 1]
         elif self.from_scratch == True:
-            last_url = "https://www.dailymail.co.uk/news/article-10626865/Boris-plans-face-face-meeting-Biden-emergency-NATO-summit.html"
+            last_url = "https://www.dailymail.co.uk/news/article-9622483/Russia-biggest-disinformation-culprit-says-Facebook-threat-report.html"
 
         with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            for page in range(0, 5):  # 95
+            for page in range(0, 200):  # 95
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
@@ -450,7 +449,6 @@ class DailyMail:
                     pass
                 bar()
         self.unique_urls = list(dict.fromkeys(self.urls))
-        print(f"→ {len(self.unique_urls)} URLs fetched successfully!")
 
     def articleScraper(self):
         bodies = []
@@ -501,16 +499,128 @@ class DailyMail:
             print(f"→ No new articles found. Total articles: {len(data)}")
         else:
             print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print("")
         data.to_csv(DAILYMAIL_DIR, index=True)
+
+        return data
+
+
+class AssociatedPress:
+    def __init__(self) -> None:
+        self.source = "AssociatedPress"
+        self.dir = AP_DIR
+
+    def fromScratch(self):
+        if not os.path.exists(self.dir):
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            self.from_scratch = True
+        else:
+            self.old_data = pd.read_csv(self.dir)
+            self.from_scratch = False
+
+    def concatData(self):
+        result = pd.concat([self.old_data, self.new_data])
+        result = result.drop_duplicates(subset=["Text"])
+        result = result.set_index("Date")
+        result = result.sort_index(ascending=False)
+        return result
+
+    def URLFetcher(self):
+        self.urls = []
+        self.dates = []
+
+        if self.from_scratch == False:
+            last_url = self.old_data.iloc[0, 1]
+        elif self.from_scratch == True:
+            last_url = "https://www.dailymail.co.uk/wires/ap/article-9373269/Irans-final-report-Ukraine-jet-crash-blames-human-error.html"
+
+        with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+            for page in range(0, 200):  # 95
+                leading_url = "https://www.dailymail.co.uk"
+                url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
+                title_tag = "sch-res-title"
+                exc_list = ["AP-News-Brief", "Roundup", "Results", "WTA", "Standings", "AP-Week", "Highlights"]
+                inc_list = ["/ap/"]
+                try:
+                    html_text = requests.get(url).text
+                    soup = BeautifulSoup(html_text, "lxml")
+                    headlines = soup.find_all("h3", class_=title_tag)
+                    for headline in headlines:
+                        _ = headline.find("a", href=True)
+                        url = leading_url + _["href"]
+                        if not any(s in url for s in exc_list) and any(s in url for s in inc_list):
+                            self.urls.append(url)
+                        if last_url == url:
+                            break
+                    if last_url == url:
+                        break
+                except Exception as e:
+                    print(f"Error in page {page}: {e}")
+                    pass
+                bar()
+        self.unique_urls = list(dict.fromkeys(self.urls))
+        print(f"→ {len(self.unique_urls)} URLs fetched successfully!")
+
+    def articleScraper(self):
+        bodies = []
+        titles = []
+        dates = []
+        urls = []
+        rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": ""}
+
+        def replaceAll(text, dic):
+            for i, j in dic.items():
+                text = text.replace(i, j)
+            return text
+
+        with alive_bar(len(self.unique_urls), title=f"→ {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+            for url in self.unique_urls:
+                try:
+                    title_tags = ["pg-headline"]
+                    text_tags = ["mol-para-with-font"]
+                    date_box_tag = ["article-timestamp article-timestamp-published"]
+                    html_text = requests.get(url).text
+                    soup = BeautifulSoup(html_text, "lxml")
+                    title = soup.find("h2").text
+                    date_box = soup.find("span", class_=date_box_tag)
+                    date = date_box.find("time")
+                    paragraphs = soup.find_all("p", class_=text_tags)
+                    body = ""
+                    for _ in paragraphs:
+                        body += " " + _.text
+                    body = replaceAll(body, rep)
+                    bodies.append(re.sub(r".+?(?=\) -)\) - ", "", " ".join(body.split())))
+                    titles.append(title)
+                    urls.append(url)
+                    dates.append(date.get("datetime")[:10])
+                    bar()
+                except Exception as e:
+                    print(f"URL couldn't be scraped: {url} because {e}")
+                    pass
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        self.new_data = data
+
+    def scraper(self):
+        self.fromScratch()
+        self.URLFetcher()
+        self.articleScraper()
+        data = self.concatData()
+        lenAfter = len(data) - len(self.old_data)
+        if lenAfter == 0:
+            print(f"→ No new articles found. Total articles: {len(data)}")
+        else:
+            print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+        data.to_csv(self.dir, index=True)
 
         return data
 
 
 class NTR:
     def __init__(self) -> None:
-        self.dataG = pd.read_csv(GUARDIAN_DIR)
-        self.dataR = pd.read_csv(REUTERS_DIR)
-        self.dataCNN = pd.read_csv(CNN_DIR)
+        self.data_guardian = pd.read_csv(GUARDIAN_DIR)
+        self.data_reuters = pd.read_csv(REUTERS_DIR)
+        self.data_cnn = pd.read_csv(CNN_DIR)
+        self.data_dailymail = pd.read_csv(DAILYMAIL_DIR)
         pass
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
@@ -533,11 +643,11 @@ class NTR:
 
     def save_topicmodel(self, doc_topic, topic_word, vocabulary, source):
 
-        topicmixture_outpath = os.path.join(ROOT_DIR, "results", source + "TopicMixtures.txt")
+        topicmixture_outpath = os.path.join(ROOT_DIR, "results", source + "_TopicMixtures.txt")
         np.savetxt(topicmixture_outpath, doc_topic)
-        topic_outpath = os.path.join(ROOT_DIR, "results", source + "Topics.txt")
+        topic_outpath = os.path.join(ROOT_DIR, "results", source + "_Topics.txt")
         np.savetxt(topic_outpath, topic_word)
-        vocab_outpath = os.path.join(ROOT_DIR, "results", source + "Vocab.txt")
+        vocab_outpath = os.path.join(ROOT_DIR, "results", source + "_Vocab.txt")
         with open(vocab_outpath, mode="w", encoding="utf-8") as f:
             for v in vocabulary:
                 f.write(v + "\n")
@@ -590,14 +700,13 @@ class NTR:
 
     def save_novel_trans_reson(self, novelties, transiences, resonances, source):
 
-        outpath = ROOT_DIR + "/results/" + source + "NovelTransReson.txt"
+        outpath = ROOT_DIR + "/results/" + source + "_NovelTransReson.txt"
         np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
 
     def routine(self, period, topicnum, vocabsize, num_iter):
 
-        sources = ["Guardian", "Reuters", "CNN"]
-        sets = [self.dataG, self.dataR, self.dataCNN]
-        print("")
+        sources = ["Guardian", "Reuters", "CNN", "DailyMail"]
+        sets = [self.data_guardian, self.data_reuters, self.data_cnn, self.data_dailymail]
         for i in range(0, len(sources)):
             data, source = sets[i], sources[i]
             print(f"→ Starting {source} topic modeling (LDA)...")
@@ -613,7 +722,7 @@ class NTR:
             ntr_data["Transience"] = novelties
             ntr_data["Resonance"] = resonances
             ntr_data["Topic"] = topics
-            ntr_data.to_csv(ROOT_DIR + "/results/" + source + "_results.csv", index=False)
+            ntr_data.to_csv(ROOT_DIR + "/results/" + source + "_Results.csv", index=False)
             print("")
 
         print("→ All LDA data saved.\n")
@@ -621,8 +730,8 @@ class NTR:
 
 class Uncertainty:
     def __init__(self) -> None:
-        self.dataG = pd.read_csv(os.path.join(ROOT_DIR, "results", "Guardian_results.csv"))
-        self.dataR = pd.read_csv(os.path.join(ROOT_DIR, "results", "Reuters_results.csv"))
+        self.dataG = pd.read_csv(os.path.join(ROOT_DIR, "results", "Guardian_Results.csv"))
+        self.dataR = pd.read_csv(os.path.join(ROOT_DIR, "results", "Reuters_Results.csv"))
 
     def load_glove_model(self, terms):
         common_vectors = []
@@ -704,14 +813,14 @@ class Uncertainty:
             data, source = sets[i], sources[i]
             data_EU_index = self.dataframe_EU_index(data, source)
             data_results = pd.merge(data, data_EU_index, on="Title", how="outer")
-            data_results.to_csv(os.path.join(ROOT_DIR, "results", source + "_results.csv"), index=False)
+            data_results.to_csv(os.path.join(ROOT_DIR, "results", source + "_Results.csv"), index=False)
             print("")
 
 
 if __name__ == "__main__":
-    # Guardian().scraper()
-    # Reuters().scraper()
+    Guardian().scraper()
+    Reuters().scraper()
     CNN().scraper()
     DailyMail().scraper()
+    AssociatedPress().scraper()
     NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=100)
-    # Uncertainty().routine()
