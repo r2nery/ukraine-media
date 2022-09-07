@@ -428,7 +428,7 @@ class DailyMail:
             last_url = "https://www.dailymail.co.uk/news/article-9622483/Russia-biggest-disinformation-culprit-says-Facebook-threat-report.html"
 
         with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            for page in range(0, 200):  # 95
+            for page in range(0, 400):  # 95
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
@@ -449,6 +449,7 @@ class DailyMail:
                     pass
                 bar()
         self.unique_urls = list(dict.fromkeys(self.urls))
+
 
     def articleScraper(self):
         bodies = []
@@ -662,24 +663,30 @@ class Fox:
                 exc_list = []
                 inc_list = ["/media/", "/world/", "/politics/"]
                 self.driver.get(url)
-                if url == "https://www.foxnews.com/category/world/world-regions/russia":
-                    for i in range(0, 320):
-                        time.sleep(5)
+                if url == "https://www.foxnews.com/category/world/world-regions/russia": #comment this
+                    for i in range(0, 30): #320
+                        time.sleep(7)
                         titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
                         for title in titles[-10:]:
                             url = title.get_attribute("href")
-                            if not any(s in url for s in exc_list) and any(s in url for s in inc_list):
+                            if any(s in url for s in inc_list): #  not any(s in url for s in exc_list) and 
                                 self.urls.append(url)
                                 bar()
                             if url in last_url:
-                                print("BREAK")
                                 break
                         if url in last_url:
                             break
                         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                         self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
             self.driver.quit()
+            print(len(self.urls))
         self.unique_urls = list(dict.fromkeys(self.urls))
+        print(len(self.unique_urls))
+        with open(r'/Users/r2/desktop/test.txt', 'w') as fp:
+            for item in self.urls:
+                # write each item on a new line
+                fp.write("%s\n" % item)
+            print('Done')
 
     def articleScraper(self):
         bodies = []
@@ -944,10 +951,10 @@ class Uncertainty:
 
 
 if __name__ == "__main__":
-    Guardian().scraper()
-    Reuters().scraper()
-    CNN().scraper()
-    DailyMail().scraper()
-    AssociatedPress().scraper()
+    # Guardian().scraper() # OK
+    # Reuters().scraper() # OK
+    # CNN().scraper() # OK
+    # DailyMail().scraper() # OK
+    # AssociatedPress().scraper() # OK, NEEDS RUN FROM SCRATCH
     Fox().scraper()
     NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=100)
