@@ -93,9 +93,9 @@ class Guardian:
         }
 
         if os.path.exists(GUARDIAN_DIR):
-            print("→ Guardian: Checking articles from latest date onward...")
+            print("-> Guardian: Checking articles from latest date onward...")
         else:
-            print(f"→ Guardian: No CSV file found. Creating...")
+            print(f"-> Guardian: No CSV file found. Creating...")
 
         lenBefore = self.getLen()
         urls = []
@@ -103,7 +103,7 @@ class Guardian:
         bodies = []
         dates = []
 
-        with alive_bar(title="→ Guardian: API Request", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title="-> Guardian: API Request", bar=None, spinner="dots", force_tty=True) as bar:
             numPages = self.guardian(1, "ukraine").json()["response"]["pages"]
             for i in range(1, numPages + 1):
                 json_guardian = self.guardian(i, "ukraine").json()
@@ -142,9 +142,9 @@ class Guardian:
         data = self.concatData(old_data, new_data)
         lenAfter = len(data) - lenBefore
         if lenAfter == 0:
-            print(f"→ No new articles found. Total articles: {len(data)}")
+            print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"→ {lenAfter} new articles saved to Guardian.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to Guardian.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(GUARDIAN_DIR)
         return data
@@ -170,7 +170,7 @@ class Reuters:
     def latestPage(self):
         self.existing_urls = self.reuters_data.loc[:, "URL"]
 
-        with alive_bar(title="→ Reuters: Searching for latest date", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title="-> Reuters: Searching for latest date", bar=None, spinner="dots", force_tty=True) as bar:
 
             def urls_from_page(page):
                 urls = []
@@ -194,7 +194,7 @@ class Reuters:
 
             if self.fromScratch():
                 i = 920
-                print(f"→ Reuters: No CSV file found. Creating...")
+                print(f"-> Reuters: No CSV file found. Creating...")
             elif not self.fromScratch():
                 i = 1
 
@@ -205,7 +205,7 @@ class Reuters:
 
     def URLFetcher(self):
         self.urls = []
-        with alive_bar(title="→ Reuters: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title="-> Reuters: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             for page in range(1, (self.latestPage) + 1):
                 ukr = "https://www.reuters.com/news/archive/ukraine?view=page&page=" + str(page) + "&pageSize=10"
                 rus = "https://www.reuters.com/news/archive/russia?view=page&page=" + str(page) + "&pageSize=10"
@@ -240,7 +240,7 @@ class Reuters:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title="→ Reuters: Scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title="-> Reuters: Scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     title_tags = ["text__text__1FZLe text__dark-grey__3Ml43 text__medium__1kbOh text__heading_2__1K_hh heading__base__2T28j heading__heading_2__3Fcw5"]
@@ -274,9 +274,9 @@ class Reuters:
         data = self.concatData(self.new_data)
         lenAfter = len(data) - len(self.reuters_data)
         if lenAfter == 0:
-            print(f"→ No new articles found. Total articles: {len(data)}")
+            print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"→ {lenAfter} new articles saved to Reuters.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to Reuters.csv! Total articles: {len(data)}")
         data.to_csv(REUTERS_DIR, index=True)
 
         return data
@@ -317,10 +317,10 @@ class CNN:
         if self.from_scratch == False:
             last_url = self.old_data.iloc[0, 1]
         elif self.from_scratch == True:
-            print(f"→ {self.source}: No CSV file found. Creating...")
+            print(f"-> {self.source}: No CSV file found. Creating...")
             last_url = "https://www.cnn.com/2021/05/11/politics/romania-nato-exercises-russia/index.html"
 
-        with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             for page in range(0, 95):  # 95
                 url = "https://edition.cnn.com/search?q=ukraine+russia&from=" + str(page * 50) + "&size=50&page=1&sort=newest&types=article&section="
                 title_tag = "//div//a[@class='container__link __link']"
@@ -356,7 +356,7 @@ class CNN:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"→ {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     title_tags = ["pg-headline"]
@@ -389,9 +389,9 @@ class CNN:
         data = self.concatData()
         lenAfter = len(data) - len(self.old_data)
         if lenAfter == 0:
-            print(f"→ No new articles found. Total articles: {len(data)}")
+            print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(CNN_DIR, index=True)
 
@@ -405,7 +405,7 @@ class DailyMail:
     def fromScratch(self):
         if not os.path.exists(DAILYMAIL_DIR):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
-            print(f"→ {self.source}: No CSV file found. Creating...")
+            print(f"-> {self.source}: No CSV file found. Creating...")
             self.from_scratch = True
         else:
             self.old_data = pd.read_csv(DAILYMAIL_DIR)
@@ -427,7 +427,7 @@ class DailyMail:
         elif self.from_scratch == True:
             last_url = "https://www.dailymail.co.uk/news/article-9622483/Russia-biggest-disinformation-culprit-says-Facebook-threat-report.html"
 
-        with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             for page in range(0, 400):  # 95
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
@@ -463,7 +463,7 @@ class DailyMail:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"→ {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     title_tags = ["pg-headline"]
@@ -497,9 +497,9 @@ class DailyMail:
         data = self.concatData()
         lenAfter = len(data) - len(self.old_data)
         if lenAfter == 0:
-            print(f"→ No new articles found. Total articles: {len(data)}")
+            print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
             print("")
         data.to_csv(DAILYMAIL_DIR, index=True)
 
@@ -535,7 +535,7 @@ class AssociatedPress:
         elif self.from_scratch == True:
             last_url = "https://www.dailymail.co.uk/wires/ap/article-9373269/Irans-final-report-Ukraine-jet-crash-blames-human-error.html"
 
-        with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             for page in range(0, 200):  # 95
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
@@ -560,7 +560,7 @@ class AssociatedPress:
                     pass
                 bar()
         self.unique_urls = list(dict.fromkeys(self.urls))
-        print(f"→ {len(self.unique_urls)} URLs fetched successfully!")
+        print(f"-> {len(self.unique_urls)} URLs fetched successfully!")
 
     def articleScraper(self):
         bodies = []
@@ -574,7 +574,7 @@ class AssociatedPress:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"→ {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     text_box = ["articleBody"]
@@ -608,9 +608,9 @@ class AssociatedPress:
         data = self.concatData()
         lenAfter = len(data) - len(self.old_data)
         if lenAfter == 0:
-            print(f"→ No new articles found. Total articles: {len(data)}")
+            print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         data.to_csv(self.dir, index=True)
 
         return data
@@ -653,9 +653,9 @@ class Fox:
             last_url = self.old_data.iloc[0, 1]
         elif self.from_scratch == True:
             last_url = [""]
-            print(f"→ {self.source}: No CSV file found. Creating...")
+            print(f"-> {self.source}: No CSV file found. Creating...")
 
-        with alive_bar(title=f"→ {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             urls = ["https://www.foxnews.com/category/world/world-regions/russia", "https://www.foxnews.com/category/world/conflicts/ukraine"]
             for url in urls:
                 title_tag = "//div[@class='content article-list']//article//header//h4//a"
@@ -669,7 +669,7 @@ class Fox:
                         titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
                         for title in titles[-10:]:
                             url = title.get_attribute("href")
-                            if any(s in url for s in inc_list): #  not any(s in url for s in exc_list) and 
+                            if any(s in url for s in inc_list): #  not any(s in url for s  in exc_list) and 
                                 self.urls.append(url)
                                 bar()
                             if url in last_url:
@@ -700,7 +700,7 @@ class Fox:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"→ {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     article_tag = ["article-body"]
@@ -737,9 +737,9 @@ class Fox:
         data = self.concatData()
         lenAfter = len(data) - len(self.old_data)
         if lenAfter == 0:
-            print(f"→ No new articles found. Total articles: {len(data)}")
+            print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"→ {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 
@@ -842,7 +842,7 @@ class NTR:
         sets = [self.data_guardian, self.data_reuters, self.data_cnn, self.data_dailymail, self.data_ap, self.data_fox]
         for i in range(0, len(sources)):
             data, source = sets[i], sources[i]
-            print(f"→ Starting {source} topic modeling (LDA)...")
+            print(f"-> Starting {source} topic modeling (LDA)...")
             doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
             topics = []
             for i in range(len(data)):
@@ -858,7 +858,7 @@ class NTR:
             ntr_data.to_csv(ROOT_DIR + "/results/" + source + "_Results.csv", index=False)
             print("")
 
-        print("→ All LDA data saved.\n")
+        print("-> All LDA data saved.\n")
 
 
 class Uncertainty:
@@ -926,7 +926,7 @@ class Uncertainty:
         indexes = []
         dates = []
         titles = []
-        with alive_bar(len(dataframe), title=f"→ Calculating {source} indexes", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(dataframe), title=f"-> Calculating {source} indexes", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for i in range(0, len(dataframe)):
                 bar()
                 index = self.article_index(dataframe.iloc[i, 3])
