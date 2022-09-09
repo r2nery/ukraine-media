@@ -37,6 +37,7 @@ CNN_DIR = os.path.join(ROOT_DIR, "data", "CNN.csv")
 DAILYMAIL_DIR = os.path.join(ROOT_DIR, "data", "DailyMail.csv")
 AP_DIR = os.path.join(ROOT_DIR, "data", "AssociatedPress.csv")
 FOX_DIR = os.path.join(ROOT_DIR, "data", "Fox.csv")
+NBC_DIR = os.path.join(ROOT_DIR, "data", "NBC.csv")
 
 
 class Guardian:
@@ -450,7 +451,6 @@ class DailyMail:
                 bar()
         self.unique_urls = list(dict.fromkeys(self.urls))
 
-
     def articleScraper(self):
         bodies = []
         titles = []
@@ -624,7 +624,7 @@ class Fox:
     def seleniumParams(self):
         s = Service(ChromeDriverManager(chrome_type=ChromeType.BRAVE, path=ROOT_DIR).install())
         o = webdriver.ChromeOptions()
-        #o.add_argument("headless")
+        # o.add_argument("headless")
         self.driver = webdriver.Chrome(service=s, options=o)
         ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
         self.wait = WebDriverWait(self.driver, 30, ignored_exceptions=ignored_exceptions)
@@ -651,64 +651,75 @@ class Fox:
 
         if self.from_scratch == False:
             last_url = self.old_data.iloc[0, 1]
+            with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+                sources = ["https://www.foxnews.com/category/world/world-regions/russia", "https://www.foxnews.com/category/world/conflicts/ukraine"]
+                for source in sources:
+                    title_tag = "//div[@class='content article-list']//article//header//h4//a"
+                    button_tag = "//section[@class='collection collection-article-list has-load-more']//div[@class='button load-more js-load-more']"
+                    inc_list = ["/media/", "/world/", "/politics/"]
+                    length = 30
+                    self.driver.get(source)
+                    for i in range(0, length):  # 320
+                        time.sleep(1)
+                        titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
+                        for title in titles[-15:]:
+                            url = title.get_attribute("href")
+                            if any(s in url for s in inc_list):
+                                self.urls.append(url)
+                                self.unique_urls = list(dict.fromkeys(self.urls))
+                                print(f"{len(self.unique_urls)}/{len(self.urls)}")
+                            if url == last_url:
+                                break
+                        if url == last_url:
+                            break
+                        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
+                        bar()
+
         elif self.from_scratch == True:
             last_url = [""]
             print(f"-> {self.source}: No CSV file found. Creating...")
 
-        with alive_bar(730,title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            sources = ["https://www.foxnews.com/category/world/world-regions/russia", "https://www.foxnews.com/category/world/conflicts/ukraine"]
-            for source in sources:
-                title_tag = "//div[@class='content article-list']//article//header//h4//a"
-                button_tag = "//section[@class='collection collection-article-list has-load-more']//div[@class='button load-more js-load-more']"
-                inc_list = ["/media/", "/world/", "/politics/"]
-                if source == sources[0]: 
-                    length = 90   
-                elif source == sources[1]:
-                    length = 40
-                self.driver.get(source)
-                for i in range(0, 300): #320
-                    time.sleep(1)
-                    titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
-                    for title in titles[-15:]:
-                        url = title.get_attribute("href")
-                        if any(s in url for s  in inc_list):
-                            self.urls.append(url)
-                            self.unique_urls = list(dict.fromkeys(self.urls))
-                            print(f"{len(self.unique_urls)}/{len(self.urls)}")
-                    self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
-                    bar()
-                self.driver.get(source)
-                for i in range(0,300):
-                    self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
-                for i in range(0, length): #320
-                    time.sleep(1)
-                    titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
-                    for title in titles[-15:]:
-                        url = title.get_attribute("href")
-                        if any(s in url for s  in inc_list):
-                            self.urls.append(url)
-                            self.unique_urls = list(dict.fromkeys(self.urls))
-                            print(f"{len(self.unique_urls)}/{len(self.urls)}")
-                    self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
-                    bar()
-                    
-                        # if any(s in url for s in inc_list): #  not any(s in url for s  in exc_list) and 
-                        #     self.urls.append(url)
-                        #     bar()
-                        # if url in last_url:
-                        #     break
-                
-                        
-            #self.driver.quit()
-        self.unique_urls = list(dict.fromkeys(self.urls))
-        with open(r'D:/Code/ukraine-media/pytest.txt', 'w') as fp:
-            for item in self.urls:
-                # write each item on a new line
-                fp.write("%s\n" % item)
-            print('Done')
+            with alive_bar(730, title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+                sources = ["https://www.foxnews.com/category/world/world-regions/russia", "https://www.foxnews.com/category/world/conflicts/ukraine"]
+                for source in sources:
+                    title_tag = "//div[@class='content article-list']//article//header//h4//a"
+                    button_tag = "//section[@class='collection collection-article-list has-load-more']//div[@class='button load-more js-load-more']"
+                    inc_list = ["/media/", "/world/", "/politics/"]
+                    if source == sources[0]:
+                        length = 90
+                    elif source == sources[1]:
+                        length = 40
+                    self.driver.get(source)
+                    for i in range(0, 300):  # 320
+                        time.sleep(1)
+                        titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
+                        for title in titles[-15:]:
+                            url = title.get_attribute("href")
+                            if any(s in url for s in inc_list):
+                                self.urls.append(url)
+                                self.unique_urls = list(dict.fromkeys(self.urls))
+                                print(f"{len(self.unique_urls)}/{len(self.urls)}")
+                        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
+                        bar()
+                    self.driver.get(source)
+                    for i in range(0, 300):
+                        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
+                    for i in range(0, length):  # 320
+                        time.sleep(1)
+                        titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
+                        for title in titles[-15:]:
+                            url = title.get_attribute("href")
+                            if any(s in url for s in inc_list):
+                                self.urls.append(url)
+                                self.unique_urls = list(dict.fromkeys(self.urls))
+                                print(f"{len(self.unique_urls)}/{len(self.urls)}")
+                        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
+                        bar()
+        self.driver.quit()
 
     def articleScraper(self):
         bodies = []
@@ -740,6 +751,127 @@ class Fox:
                     body = replaceAll(body, rep)
                     body = re.sub(r"\(([^\)]+)\)", "", body)  # inside parenthesis
                     body = re.sub(r"(\b[A-Z][A-Z]+|\b[A-Z][A-Z]\b)", "", body)  # all caps text
+                    body = replaceAll(body, rep)
+                    bodies.append(" ".join(body.split()))
+                    titles.append(title)
+                    urls.append(url)
+                    dates.append(date)
+                    bar()
+                except Exception as e:
+                    print(f"URL couldn't be scraped: {url} because {e}")
+                    pass
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        self.new_data = data
+
+    def scraper(self):
+        self.fromScratch()
+        self.URLFetcher()
+        self.articleScraper()
+        data = self.concatData()
+        lenAfter = len(data) - len(self.old_data)
+        if lenAfter == 0:
+            print(f"-> No new articles found. Total articles: {len(data)}")
+        else:
+            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+        print("")
+        data.to_csv(self.dir, index=True)
+
+        return data
+
+
+class NBC:
+    
+    def __init__(self) -> None:
+        self.source = "NBC"
+        self.dir = NBC_DIR
+
+    def seleniumParams(self):
+        s = Service(ChromeDriverManager(chrome_type=ChromeType.BRAVE, path=ROOT_DIR).install())
+        o = webdriver.ChromeOptions()
+        # o.add_argument("headless")
+        self.driver = webdriver.Chrome(service=s, options=o)
+        ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
+        self.wait = WebDriverWait(self.driver, 30, ignored_exceptions=ignored_exceptions)
+
+    def fromScratch(self):
+        if not os.path.exists(self.dir):
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            self.from_scratch = True
+        else:
+            self.old_data = pd.read_csv(self.dir)
+            self.from_scratch = False
+
+    def concatData(self):
+        result = pd.concat([self.old_data, self.new_data])
+        result = result.drop_duplicates(subset=["Text"])
+        result = result.set_index("Date")
+        result = result.sort_index(ascending=False)
+        return result
+
+    def URLFetcher(self):
+        self.urls = []
+        self.dates = []
+        self.seleniumParams()
+
+        if self.from_scratch == False:
+            last_url = self.old_data.iloc[0, 1]
+        elif self.from_scratch == True:
+            last_url = [""]
+            print(f"-> {self.source}: No CSV file found. Creating...")
+
+        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+            source = "https://www.nbcnews.com/world/russia-ukraine-news"
+            title_tag = "//div[@class='wide-tease-item__info-wrapper flex-grow-1-m']/a"
+            button_tag = "//button[@class='animated-ghost-button animated-ghost-button--normal styles_button__khb8K']"
+            inc_list = ["nbcnews"]
+            self.driver.get(source)
+            for i in range(0, 3): 
+                time.sleep(1)
+                titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
+                for title in titles[-20:]:
+                    url = title.get_attribute("href")
+                    if any(s in url for s in inc_list):
+                        self.urls.append(url)
+                        self.unique_urls = list(dict.fromkeys(self.urls))
+                        print(f"{len(self.unique_urls)}/{len(self.urls)}")
+                    if url == last_url:
+                        break
+                if url == last_url:
+                    break
+                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
+                bar()
+
+        self.driver.quit()
+
+    def articleScraper(self):
+        bodies = []
+        titles = []
+        dates = []
+        urls = []
+        rep = {}
+
+        def replaceAll(text, dic):
+            for i, j in dic.items():
+                text = text.replace(i, j)
+            return text
+
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+            for url in self.unique_urls:
+                try:
+                    article_tag = ["article-body__content"]
+                    title_tags = ["article-hero-headline__htag lh-none-print black-print"]
+                    html_text = requests.get(url).text
+                    soup = BeautifulSoup(html_text, "lxml")
+                    title = soup.find("h1", class_=title_tags)
+                    date = soup.find("time")
+                    date = date['datetime']
+                    date = date[:10]
+                    article = soup.find("div", class_=article_tag)
+                    paragraphs = article.find_all("p")
+                    body = ""
+                    for i in range(0, len(paragraphs)):
+                        body += " " + paragraphs[i].text
                     body = replaceAll(body, rep)
                     bodies.append(" ".join(body.split()))
                     titles.append(title)
@@ -978,5 +1110,6 @@ if __name__ == "__main__":
     # CNN().scraper() # OK
     # DailyMail().scraper() # OK
     # AssociatedPress().scraper() # OK, NEEDS RUN FROM SCRATCH
-    # Fox().scraper()
+    # Fox().scraper() # OK
+    NBC().scraper()
     NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=2000)
