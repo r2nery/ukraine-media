@@ -1021,7 +1021,7 @@ class RT:
     def seleniumParams(self):
         s = Service(ChromeDriverManager(chrome_type=ChromeType.BRAVE, path=ROOT_DIR).install())
         o = webdriver.ChromeOptions()
-        o.add_argument("headless")
+        # o.add_argument("headless")
         self.driver = webdriver.Chrome(service=s, options=o)
         ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
         self.wait = WebDriverWait(self.driver, 30, ignored_exceptions=ignored_exceptions)
@@ -1053,35 +1053,29 @@ class RT:
             print(f"-> {self.source}: No CSV file found. Creating...")
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            source = "https://www.rt.com/search?q=russia+ukraine&type=News&xcategory=sport"
-            title_tag = "//div[@class='list-card__content--title link_hover']/a"
+            source = "https://www.rt.com/russia/"
+            title_tag = "//ul[@class='listCard-rows js-listing__list']/li/div/div/div[@class='list-card__content']/div[@class='list-card__content--title link_hover']/a"
             button_tag = "//div[@class='button']/a"
             inc_list = [""]
             leading_url = "https://www.rt.com"
             self.driver.get(source)
-            for i in range(0, 1):
+            for i in range(0, 42):
                 time.sleep(1)
                 titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
-                for title in titles[-10:]:
+                for title in titles[-24:]:
                     url = title.get_attribute("href")
                     if any(s in url for s in inc_list):
-                        url = leading_url + url
+                        if url[0] != "h":
+                            url = leading_url + url
                         self.urls.append(url)
                         self.unique_urls = list(dict.fromkeys(self.urls))
+                        bar()
                     if url == last_url:
                         break
                 if url == last_url:
                     break
                 self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
-                bar()
-            titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
-            for title in titles[-20:]:
-                url = title.get_attribute("href")
-                if any(s in url for s in inc_list):
-                    self.urls.append(url)
-                    self.unique_urls = list(dict.fromkeys(self.urls))
-                    print(f"{len(self.unique_urls)}/{len(self.urls)}")
         self.driver.quit()
 
     def articleScraper(self):
@@ -1100,12 +1094,15 @@ class RT:
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
-                    article_tag = ["article__text text "]
+                    article_tag = ["article__text text"]
                     date_tag = ["date date_article-header"]
-                    html_text = requests.get(url, headers=agent).text
+                    title_tag = ["article__heading"]
+                    html_text = requests.get(url, headers=agent, timeout=5).text
                     soup = BeautifulSoup(html_text, "lxml")
-                    title = soup.find("title").text
-                    date = soup.find("span", class_=date_tag)
+                    title = soup.find("h1", class_=title_tag).text
+                    title = " ".join(title.split())
+                    date = soup.find("span", class_=date_tag).text
+                    date = str(datetime.strptime(date[:-8], "%d %b, %Y").date())
                     article = soup.find("div", class_=article_tag)
                     paragraphs = article.find_all("p")
                     body = ""
@@ -1115,7 +1112,7 @@ class RT:
                     bodies.append(" ".join(body.split()))
                     titles.append(title)
                     urls.append(url)
-                    dates.append(str(datetime.strptime(date, "%d %B, %Y").date()))
+                    dates.append(date)
                     bar()
                 except Exception as e:
                     print(f"URL couldn't be scraped: {url} because {e}")
