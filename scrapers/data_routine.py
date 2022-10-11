@@ -227,7 +227,7 @@ class Reuters:
                             page_urls = headline.find_all("a", href=True)
                             for _ in page_urls:
                                 self.urls.append("https://www.reuters.com" + _["href"])
-                        bar()
+                                bar()
                     except Exception as e:
                         print(f"Error in page {page}: {e}")
                         pass
@@ -658,11 +658,11 @@ class Fox:
         self.seleniumParams()
 
         if self.from_scratch == False:
-            last_url = self.old_data.iloc[0, 1]
+            last_url = self.old_data.iloc[0:20, 1]
             with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
                 sources = ["https://www.foxnews.com/category/world/world-regions/russia", "https://www.foxnews.com/category/world/conflicts/ukraine"]
                 for source in sources:
-                    title_tag = "//div[@class='content article-list']//article//header//h4//a"
+                    title_tag = "//section[@class='collection collection-article-list has-load-more']//div[@class='content article-list']//article//header//h4//a"
                     button_tag = "//section[@class='collection collection-article-list has-load-more']//div[@class='button load-more js-load-more']"
                     inc_list = ["/media/", "/world/", "/politics/"]
                     length = 30
@@ -670,19 +670,19 @@ class Fox:
                     for i in range(0, length):  # 320
                         time.sleep(1)
                         titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
-                        for title in titles[-15:]:
+                        for title in titles[-10:]:
                             url = title.get_attribute("href")
                             if any(s in url for s in inc_list):
                                 self.urls.append(url)
                                 self.unique_urls = list(dict.fromkeys(self.urls))
-                                print(f"{len(self.unique_urls)}/{len(self.urls)}")
-                            if url == last_url:
+                                bar()
+                                # print(f"{len(self.unique_urls)}/{len(self.urls)}")
+                            if url in last_url:
                                 break
-                        if url == last_url:
+                        if url in last_url:
                             break
                         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                         self.wait.until(EC.element_to_be_clickable((By.XPATH, button_tag))).click()
-                        bar()
 
         elif self.from_scratch == True:
             last_url = [""]
@@ -700,7 +700,7 @@ class Fox:
                         length = 40
                     self.driver.get(source)
                     for i in range(0, 300):  # 320
-                        time.sleep(1)
+                        time.sleep(2)
                         titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
                         for title in titles[-15:]:
                             url = title.get_attribute("href")
@@ -1568,12 +1568,12 @@ class Uncertainty:
 
 
 if __name__ == "__main__":
-    # Guardian().scraper() # OK
-    # Reuters().scraper() # OK
-    # CNN().scraper() # OK
-    # DailyMail().scraper() # OK
+    # Guardian().scraper()  # OK
+    Reuters().scraper()  # OK
+    CNN().scraper()  # OK
+    DailyMail().scraper()  # OK
     # AssociatedPress().scraper() # OK, NEEDS RUN FROM SCRATCH
-    # Fox().scraper() # OK
+    # Fox().scraper()
     # NBC().scraper() # OK, few articles (jul-22)
     # Mirror().scraper() # OK, few articles, needs title fix (feb-22)
     # RT().scraper() # OK, few articles (jun-22)
