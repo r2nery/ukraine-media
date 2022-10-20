@@ -29,6 +29,10 @@ from alive_progress import alive_bar
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
+# insomnia
+# https://search.api.cnn.com/content?q=ukraine%20russia&size=50&from=0&page=1&sort=newest&types=article
+# https://www.rt.com/listing/category.russia.xwidget.russiaWidgets/prepare/last-news/500/0
+# https://www.foxnews.com/api/article-search?searchBy=tags&values=fox-news%2Fworld%2Fworld-regions%2Frussia,fox-news%2Fworld%2Fconflicts%2Fukraine&excludeBy=tags&excludeValues&size=10&from=0
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
@@ -319,8 +323,6 @@ class CNN:
 
     def URLFetcher(self):
         self.urls = []
-        self.dates = []
-        self.seleniumParams()
 
         if self.from_scratch == False:
             last_url = self.old_data.iloc[0, 1]
@@ -329,28 +331,17 @@ class CNN:
             last_url = "https://www.cnn.com/2021/05/11/politics/romania-nato-exercises-russia/index.html"
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            for page in range(0, 95):  # 95
-                url = "https://edition.cnn.com/search?q=ukraine+russia&from=" + str(page * 50) + "&size=50&page=1&sort=newest&types=article&section="
-                title_tag = "//div//a[@class='container__link __link']"
+            for page in range(0, 1):  # 95
                 exc_list = ["/tennis/", "/live-news/", "/opinions/", "/tech/", "/sport/", "/us/", "/football/", "/china/", "/style/", "/business-food/", "/americas/", "/travel/", "/business/"]
-                inc_list = ["/2022/", "/2021/"]
-                self.driver.get(url)
-                try:
-                    titles = self.wait.until(EC.presence_of_all_elements_located((By.XPATH, title_tag)))
-                    for title in titles:
-                        url = title.get_attribute("href")
-                        if not any(s in url for s in exc_list) and any(s in url for s in inc_list):
-                            self.urls.append(url)
-                        if last_url == url:
-                            break
-                    if last_url == url:
-                        break
-                except Exception as e:
-                    print(f"Error in page {page}: {e}")
-                    pass
+                source = "https://search.api.cnn.com/content?q=ukraine%20russia&size=50&from=" + str(page * 50) + "&page=1&sort=newest&types=article"
+                r = requests.get(source).json()
+                new_urls = [i["url"] for i in r["result"] if not any(s in i["url"] for s in exc_list)]
+                self.urls.extend(new_urls)
+                if last_url in new_urls:
+                    break
                 bar()
-            self.driver.quit()
-        self.unique_urls = list(dict.fromkeys(self.urls))
+            self.unique_urls = list(dict.fromkeys(self.urls))
+            print(len(self.unique_urls))
 
     def articleScraper(self):
         bodies = []
@@ -367,20 +358,18 @@ class CNN:
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
-                    title_tags = ["pg-headline"]
-                    text_tags = ["zn-body__paragraph"]
-                    opener_tag = ["zn-body__paragraph speakable"]
+                    title_tags = ["headline__text inline-placeholder"]
+                    text_tags = ["paragraph inline-placeholder"]
                     html_text = requests.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     title = soup.find("h1", class_=title_tags).text
-                    opener = soup.find("p", class_=opener_tag).text
-                    paragraphs = soup.find_all("div", class_=text_tags)
-                    body = opener + ""
+                    paragraphs = soup.find_all("p", class_=text_tags)
+                    body = ""
                     for _ in paragraphs:
                         body += " " + _.text
                     body = replaceAll(body, rep)
                     bodies.append(re.sub(r"^[^\)]*\)", "", " ".join(body.split())))  # Local tag
-                    titles.append(title)
+                    titles.append(" ".join(title.split()))
                     urls.append(url)
                     dates.append(url[20:][:10].replace("/", "-"))
                     bar()
@@ -1569,9 +1558,9 @@ class Uncertainty:
 
 if __name__ == "__main__":
     # Guardian().scraper()  # OK
-    Reuters().scraper()  # OK
+    # Reuters().scraper()  # OK
     CNN().scraper()  # OK
-    DailyMail().scraper()  # OK
+    # DailyMail().scraper()  # OK
     # AssociatedPress().scraper() # OK, NEEDS RUN FROM SCRATCH
     # Fox().scraper()
     # NBC().scraper() # OK, few articles (jul-22)
