@@ -9,6 +9,8 @@ import time
 from numpy import linalg as LA
 import regex as re
 import pandas as pd
+from lxml import etree, html
+from parsel import Selector
 from lda import LDA
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -359,14 +361,20 @@ class CNN:
             for url in self.unique_urls:
                 try:
                     title_tags = ["headline__text inline-placeholder"]
-                    text_tags = ["paragraph inline-placeholder"]
+                    text_tags = ["body-text"]
                     html_text = requests.get(url).text
-                    soup = BeautifulSoup(html_text, "lxml")
-                    title = soup.find("h1", class_=title_tags).text
-                    paragraphs = soup.find_all("p", class_=text_tags)
-                    body = ""
-                    for _ in paragraphs:
-                        body += " " + _.text
+                    sel = Selector(html_text)
+                    title = sel.xpath('//h1/text()').get()
+                    body = sel.xpath('//*[@id="body-text"]').getall()
+                    #soup = BeautifulSoup(html_text, "lxml")
+                    #dom = etree.HTML(str(soup))
+                    print(body)
+                    print(title)
+                    # title = soup.find("h1", class_=title_tags).text
+                    # paragraphs = soup.find("section", id=text_tags)
+                    # body = ""
+                    # for _ in paragraphs:
+                    #     body += " " + _.text
                     body = replaceAll(body, rep)
                     bodies.append(re.sub(r"^[^\)]*\)", "", " ".join(body.split())))  # Local tag
                     titles.append(" ".join(title.split()))
