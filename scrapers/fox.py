@@ -41,7 +41,7 @@ class Fox:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         elif self.from_scratch == True:
             print(f"-> {self.source}: No CSV file found. Creating...")
-            last_urls = [""]
+            last_urls = ["https://www.foxnews.com/media/mark-levin-alexandra-chalupa-trump-impeachment-inquiry-witness"]
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             sources = [
@@ -51,7 +51,7 @@ class Fox:
             session = requests.Session()
             for source in sources:
                 last_url_found = False
-                for page in range(0, 100):
+                for page in range(0, 165):
                     exc_list = ["/video/", "/lifestyle/", "/sports/"]
                     domain = "https://www.foxnews.com"
                     r = session.get(source + str(page * 30)).json()
@@ -63,7 +63,6 @@ class Fox:
                         if not any(s in url for s in exc_list):
                             self.urls.append(url)
                             bar()
-                    print(self.urls[-1])
                     if last_url_found is True:
                         break
             self.unique_urls = list(dict.fromkeys(self.urls))
