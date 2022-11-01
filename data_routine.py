@@ -17,7 +17,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 if __name__ == "__main__":
     # CNN().scraper()  # OK ## REMADE
     # RT().scraper() # OK ## REMADE
-    Fox().scraper()
+    # Fox().scraper() # OK ## REMADE ## NEEDS RUN FROM SCRATCH
     # Guardian().scraper()  # OK
     # Reuters().scraper()  # OK
     # DailyMail().scraper()  # OK
