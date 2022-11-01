@@ -38,10 +38,10 @@ class Fox:
         self.urls = []
 
         if self.from_scratch == False:
-            last_url = self.old_data.iloc[0:20, 1]
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         elif self.from_scratch == True:
             print(f"-> {self.source}: No CSV file found. Creating...")
-            last_url = [""]
+            last_urls = [""]
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             sources = [
@@ -50,17 +50,22 @@ class Fox:
             ]
             session = requests.Session()
             for source in sources:
+                last_url_found = False
                 for page in range(0, 100):
-                    exc_list = [
-                        "/video/",
-                        "/lifestyle/",
-                        "/sports/",
-                    ]
+                    exc_list = ["/video/", "/lifestyle/", "/sports/"]
                     domain = "https://www.foxnews.com"
                     r = session.get(source + str(page * 30)).json()
-                    self.urls += [domain + i["url"] for i in r if not any(s in i["url"] for s in exc_list)]
-                    bar()
+                    for i in r:
+                        url = domain + i["url"]
+                        if url.strip() in last_urls:
+                            last_url_found = True
+                            break
+                        if not any(s in url for s in exc_list):
+                            self.urls.append(url)
+                            bar()
                     print(self.urls[-1])
+                    if last_url_found is True:
+                        break
             self.unique_urls = list(dict.fromkeys(self.urls))
 
     def articleScraper(self):
