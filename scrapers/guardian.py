@@ -1,4 +1,3 @@
-
 import os
 import warnings
 import requests
@@ -13,112 +12,85 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 GUARDIAN_DIR = os.path.join(ROOT_DIR, "data", "Guardian.csv")
 
+
 class Guardian:
     def __init__(self) -> None:
+        self.source = "Guardian"
+        self.dir = GUARDIAN_DIR
         self.keyG = "fad78733-31a0-4ea7-8823-ba815b578899"
 
-    def getLen(self):
-        if os.path.exists(GUARDIAN_DIR):
-            check = pd.read_csv(GUARDIAN_DIR)
-            return len(check)
+    def fromScratch(self):
+        if not os.path.exists(self.dir):
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            self.from_scratch = True
         else:
-            return 0
+            self.old_data = pd.read_csv(self.dir)
+            self.from_scratch = False
 
-    def getDate(self):
-        if os.path.exists(GUARDIAN_DIR):
-            check = pd.read_csv(GUARDIAN_DIR)
-            return check.iloc[0, 0]
-        else:
-            return "2021-07-20"
-
-    def numArticlesInPage(self, json):
-        if json["response"]["total"] - json["response"]["startIndex"] >= 200:
-            return 200
-        else:
-            return json["response"]["total"] - json["response"]["startIndex"] + 1
+    def concatData(self):
+        result = pd.concat([self.old_data, self.new_data])
+        result = result.drop_duplicates(subset=["Text"])
+        result = result.set_index("Date")
+        result = result.sort_index(ascending=False)
+        return result
 
     def replaceAll(self, text, dic):
         for i, j in dic.items():
             text = text.replace(i, j)
         return text
 
-    def concatData(self, old, new):
-        result = pd.concat([old, new])
-        result = result.drop_duplicates(subset=["Text"])
-        result = result.set_index("Date")
-        result = result.sort_index(ascending=False)
-        return result
+    def articleScraper(self):
 
-    def guardian(self, page, tag):
-        return requests.get("https://content.guardianapis.com/search?api-key=" + self.keyG + "&from-date=" + str(self.getDate()) + "&type=article" + "&page=" + str(page) + "&tag=world/" + tag + "&order-by=oldest" + "&show-fields=body" + "&page-size=200")
+        if not self.from_scratch:
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+        elif self.from_scratch:
+            print(f"-> {self.source}: No CSV file found. Creating...")
+            last_urls = [""]
+
+        with alive_bar(title=f"-> {self.source}: Article scraper", bar=None, spinner="dots", force_tty=True) as bar:
+            bodies, titles, dates, urls = [], [], [], []
+            tags = ["russia", "ukraine"]
+            rep = {
+                "Sign up to First Edition, our free daily newsletter – every weekday morning at 7am": "",
+                "Sign up to First Edition, our free daily newsletter – every weekday at 7am BST": "",
+                "Sign up to receive Guardian Australia’s fortnightly Rural Network email newsletter": "",
+                "Sign up for the Rural Network email newsletter Join the Rural Network group on Facebook to be part of the community": "",
+                "Sign up to the daily Business Today email or follow Guardian Business on Twitter at @BusinessDesk": "",
+                "Photograph:": "",
+                "Related:": "",
+            }
+            session = requests.Session()
+            for tag in tags:
+                for page in range(1, 22):  # 95
+                    exc_list = ["/film/", "/books/", "/music/"]
+                    source = "https://content.guardianapis.com/search?api-key=fad78733-31a0-4ea7-8823-ba815b578899&type=article&page=" + str(page) + "&tag=world/" + tag + "&order-by=newest&show-fields=body&page-size=200"
+                    r = session.get(source).json()
+                    results = [i for i in r["response"]["results"] if not any(s in i["webUrl"] for s in exc_list)]
+                    for i in range(0, len(results)):
+                        if results[i]["webUrl"] in last_urls:
+                            break
+                        urls.append(results[i]["webUrl"])
+                        body = BeautifulSoup(results[i]["fields"]["body"], "html.parser").get_text()
+                        body = self.replaceAll(body, rep)
+                        bodies.append(" ".join(body.split()))
+                        titles.append(results[i]["webTitle"])
+                        dates.append(results[i]["webPublicationDate"][:10])
+                        bar()
+                    if results[i]["webUrl"] in last_urls:
+                        break
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        self.new_data = data
 
     def scraper(self):
-
-        os.makedirs(os.path.join(ROOT_DIR, "data"), exist_ok=True)
-
-        rep = {
-            "Sign up to First Edition, our free daily newsletter – every weekday morning at 7am": "",
-            "Sign up to First Edition, our free daily newsletter – every weekday at 7am BST": "",
-            "Sign up to receive Guardian Australia’s fortnightly Rural Network email newsletter": "",
-            "Sign up for the Rural Network email newsletter Join the Rural Network group on Facebook to be part of the community": "",
-            "Sign up to the daily Business Today email or follow Guardian Business on Twitter at @BusinessDesk": "",
-            "Photograph:": "",
-            "Related:": "",
-        }
-
-        if os.path.exists(GUARDIAN_DIR):
-            print("-> Guardian: Checking articles from latest date onward...")
-        else:
-            print(f"-> Guardian: No CSV file found. Creating...")
-
-        lenBefore = self.getLen()
-        urls = []
-        titles = []
-        bodies = []
-        dates = []
-
-        with alive_bar(title="-> Guardian: API Request", bar=None, spinner="dots", force_tty=True) as bar:
-            numPages = self.guardian(1, "ukraine").json()["response"]["pages"]
-            for i in range(1, numPages + 1):
-                json_guardian = self.guardian(i, "ukraine").json()
-                for j in range(0, self.numArticlesInPage(json_guardian)):
-                    if os.path.exists(GUARDIAN_DIR):
-                        old_data = pd.read_csv(GUARDIAN_DIR)
-                        if json_guardian["response"]["results"][j]["webUrl"] == old_data.iloc[-1, 0]:
-                            continue
-                    urls.append(json_guardian["response"]["results"][j]["webUrl"])
-                    fulldate = json_guardian["response"]["results"][j]["webPublicationDate"]
-                    dates.append(fulldate[: len(fulldate) - 10])
-                    title = json_guardian["response"]["results"][j]["webTitle"]
-                    titles.append(re.sub(r"\|.*$", "", title))  # removing authors from titles
-                    body = BeautifulSoup(json_guardian["response"]["results"][j]["fields"]["body"], "html.parser").get_text()
-                    body = self.replaceAll(body, rep)  # replacing substrings
-                    bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
-                    bar()
-            numPages = self.guardian(1, "russia").json()["response"]["pages"]
-            for i in range(1, numPages + 1):
-                json_guardian = self.guardian(i, "russia").json()
-                for j in range(0, self.numArticlesInPage(json_guardian)):
-                    if os.path.exists(GUARDIAN_DIR):
-                        old_data = pd.read_csv(GUARDIAN_DIR)
-                        if json_guardian["response"]["results"][j]["webUrl"] == old_data.iloc[-1, 0]:
-                            continue
-                    urls.append(json_guardian["response"]["results"][j]["webUrl"])
-                    fulldate = json_guardian["response"]["results"][j]["webPublicationDate"]
-                    dates.append(fulldate[: len(fulldate) - 10])
-                    title = json_guardian["response"]["results"][j]["webTitle"]
-                    titles.append(re.sub(r"\|.*$", "", title))  # removing authors from titles
-                    body = BeautifulSoup(json_guardian["response"]["results"][j]["fields"]["body"], "html.parser").get_text()
-                    body = self.replaceAll(body, rep)  # replacing substrings
-                    bodies.append(re.sub(r"[\t\r\n]", "", body))  # removing line breaks
-                    bar()
-        new_data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
-        data = self.concatData(old_data, new_data)
-        lenAfter = len(data) - lenBefore
+        self.fromScratch()
+        self.articleScraper()
+        data = self.concatData()
+        lenAfter = len(data) - len(self.old_data)
         if lenAfter == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {lenAfter} new articles saved to Guardian.csv! Total articles: {len(data)}")
+            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
-        data.to_csv(GUARDIAN_DIR)
+        data.to_csv(self.dir, index=True)
+
         return data

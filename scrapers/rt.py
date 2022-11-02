@@ -19,6 +19,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 RT_DIR = os.path.join(ROOT_DIR, "data", "RT.csv")
 
+
 class RT:
     def __init__(self) -> None:
         self.source = "RT"
@@ -51,9 +52,9 @@ class RT:
         self.urls = []
         self.unique_urls = []
 
-        if self.from_scratch == False:
+        if not self.from_scratch:
             last_urls = [self.old_data.iloc[0, 1]]
-        elif self.from_scratch == True:
+        elif self.from_scratch:
             last_urls = [""]
             print(f"-> {self.source}: No CSV file found. Creating...")
 

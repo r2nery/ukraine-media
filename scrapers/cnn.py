@@ -10,6 +10,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 CNN_DIR = os.path.join(ROOT_DIR, "data", "CNN.csv")
 
+
 class CNN:
     def __init__(self) -> None:
         self.source = "CNN"
@@ -31,15 +32,14 @@ class CNN:
         return result
 
     def articleScraper(self):
-        
-        if self.from_scratch == False:
-            last_url = self.old_data.iloc[0, 1]
-            print(f"last url {last_url}")
-        elif self.from_scratch == True:
-            print(f"-> {self.source}: No CSV file found. Creating...")
-            last_url = ["https://www.cnn.com/2019/01/05/politics/nasa-cancels-russian-space-official-visit/index.html"]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        if not self.from_scratch:
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+        elif self.from_scratch:
+            print(f"-> {self.source}: No CSV file found. Creating...")
+            last_urls = ["https://www.cnn.com/2019/01/05/politics/nasa-cancels-russian-space-official-visit/index.html"]
+
+        with alive_bar(title=f"-> {self.source}: Article scraper", bar=None, spinner="dots", force_tty=True) as bar:
             bodies, titles, dates, urls = [], [], [], []
             session = requests.Session()
             for page in range(0, 95):  # 95
@@ -48,14 +48,14 @@ class CNN:
                 r = session.get(source).json()
                 results = [i for i in r["result"] if not any(s in i["url"] for s in exc_list)]
                 for i in range(0, len(results)):
-                    if results[i]["url"] in last_url:
+                    if results[i]["url"] in last_urls:
                         break
                     urls.append(results[i]["url"])
                     bodies.append(" ".join(results[i]["body"].split()))
                     titles.append(results[i]["headline"])
                     dates.append(results[i]["firstPublishDate"][:10])
                     bar()
-                if results[i]["url"] in last_url:
+                if results[i]["url"] in last_urls:
                     break
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data

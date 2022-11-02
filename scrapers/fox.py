@@ -36,10 +36,11 @@ class Fox:
 
     def URLFetcher(self):
         self.urls = []
+        self.last_url_found = False
 
-        if self.from_scratch == False:
+        if not self.from_scratch:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
-        elif self.from_scratch == True:
+        elif self.from_scratch:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = ["https://www.foxnews.com/media/mark-levin-alexandra-chalupa-trump-impeachment-inquiry-witness"]
 
@@ -50,7 +51,6 @@ class Fox:
             ]
             session = requests.Session()
             for source in sources:
-                last_url_found = False
                 for page in range(0, 165):
                     exc_list = ["/video/", "/lifestyle/", "/sports/"]
                     domain = "https://www.foxnews.com"
@@ -58,12 +58,12 @@ class Fox:
                     for i in r:
                         url = domain + i["url"]
                         if url.strip() in last_urls:
-                            last_url_found = True
+                            self.last_url_found = True
                             break
                         if not any(s in url for s in exc_list):
                             self.urls.append(url)
                             bar()
-                    if last_url_found is True:
+                    if self.last_url_found:
                         break
             self.unique_urls = list(dict.fromkeys(self.urls))
 

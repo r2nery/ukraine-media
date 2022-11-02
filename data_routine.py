@@ -1,7 +1,7 @@
 import os
 from metrics.ntr import NTR
 from scrapers.ap import AP
-from scrapers.rt import RT 
+from scrapers.rt import RT
 from scrapers.fox import Fox
 from scrapers.nbc import NBC
 from scrapers.cnn import CNN
@@ -17,9 +17,9 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 if __name__ == "__main__":
     # CNN().scraper()  # OK ## REMADE
     # RT().scraper() # OK ## REMADE
-    # Fox().scraper() # OK ## REMADE ## NEEDS RUN FROM SCRATCH
-    
-    # Guardian().scraper()  # OK
+    # Fox().scraper() # OK ## REMADE ## NEEDS RUN FROM SCRATCH # opinion on
+
+    Guardian().scraper()  # OK ## REMADE ## # opinion on /commentisfree/
     # Reuters().scraper()  # OK
     # DailyMail().scraper()  # OK
     # AP().scraper() # OK, NEEDS RUN FROM SCRATCH
