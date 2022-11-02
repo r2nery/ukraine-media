@@ -44,7 +44,7 @@ class Fox:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = ["https://www.foxnews.com/media/mark-levin-alexandra-chalupa-trump-impeachment-inquiry-witness"]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
             sources = [
                 "https://www.foxnews.com/api/article-search?searchBy=tags&values=fox-news%2Fworld%2Fworld-regions%2Frussia&excludeBy=tags&excludeValues&size=30&from=",
                 "https://www.foxnews.com/api/article-search?searchBy=tags&values=fox-news%2Fworld%2Fconflicts%2Fukraine&excludeBy=tags&excludeValues&size=30&from=",
@@ -80,7 +80,7 @@ class Fox:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     article_tag = ["article-body"]

@@ -23,10 +23,10 @@ class Reuters:
     def fromScratch(self):
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -42,21 +42,22 @@ class Reuters:
 
     def URLFetcher(self):
         self.urls = []
-        self.dates = []
 
-        if not self.from_scratch:
+        if not self.fromScratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
-        elif self.from_scratch:
-            last_urls = ["https://www.reuters.com/article/us-russia-wikipedia/russia-to-upgrade-homegrown-encyclopedia-after-putin-pans-wikipedia-idUSKBN1Y61DA", 
-            "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/russia-and-ukraine-leaders-in-first-talks-agree-to-exchange-prisoners-idUSKBN1YD2GA"]
+        else:
+            last_urls = [
+                "https://www.reuters.com/article/us-russia-wikipedia/russia-to-upgrade-homegrown-encyclopedia-after-putin-pans-wikipedia-idUSKBN1Y61DA",
+                "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/russia-and-ukraine-leaders-in-first-talks-agree-to-exchange-prisoners-idUSKBN1YD2GA",
+            ]
             print(f"-> {self.source}: No CSV file found. Creating...")
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
             exc_list = ["/tennis/"]
             tags = ["ukraine", "russia"]
             session = requests.Session()
             for tag in tags:
-                for page in range(1, 1300):
+                for page in range(1, 3):  # 1300
                     source = "https://www.reuters.com/news/archive/" + tag + "?view=page&page=" + str(page) + "&pageSize=10"
                     html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
@@ -81,7 +82,7 @@ class Reuters:
             "read more": "",
             "All quotes delayed a minimum of 15 minutes. See here for a complete list of exchanges and delays.": "",
             "© 2022 Reuters. All rights reserved": "",
-            "2022 Reuters. All rights reserved":"",
+            "2022 Reuters. All rights reserved": "",
         }
 
         def replaceAll(text, dic):
@@ -89,13 +90,17 @@ class Reuters:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title="-> Reuters: Scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
             session = requests.Session()
             for url in self.unique_urls:
                 try:
-                    text_tags = ["text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr text__large__nEccO body__full_width__ekUdw body__large_body__FV5_X article-body__element__2p5pI",
-                    "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr text__large__nEccO body__full_width__ekUdw body__large_body__FV5_X article-body__element__2p5pI",
-                    "Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x"]
+                    if len(urls) % 20 == 0:
+                        session = requests.Session()  # restarting session every 20 urls
+                    text_tags = [
+                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr text__large__nEccO body__full_width__ekUdw body__large_body__FV5_X article-body__element__2p5pI",
+                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr text__large__nEccO body__full_width__ekUdw body__large_body__FV5_X article-body__element__2p5pI",
+                        "Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x",
+                    ]
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
@@ -107,7 +112,7 @@ class Reuters:
                         body += " " + _.text
                     body = replaceAll(body, rep)
                     body = re.sub(r"^[^-]*-", "", " ".join(body.split()))
-                    body = re.sub(r'http\S+', '', body)
+                    body = re.sub(r"http\S+", "", " ".join(body.split()))
                     bodies.append(body)
                     titles.append(title)
                     dates.append(date)
@@ -120,7 +125,6 @@ class Reuters:
         self.new_data = data
 
     def scraper(self):
-        self.fromScratch()
         self.URLFetcher()
         self.articleScraper()
         data = self.concatData()
