@@ -47,7 +47,8 @@ class Reuters:
         if not self.from_scratch:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         elif self.from_scratch:
-            last_urls = ["https://www.mirror.co.uk/news/world-news/inside-chernobyls-mega-tomb-protects-26120551"]
+            last_urls = ["https://www.reuters.com/article/us-russia-wikipedia/russia-to-upgrade-homegrown-encyclopedia-after-putin-pans-wikipedia-idUSKBN1Y61DA", 
+            "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/russia-and-ukraine-leaders-in-first-talks-agree-to-exchange-prisoners-idUSKBN1YD2GA"]
             print(f"-> {self.source}: No CSV file found. Creating...")
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
@@ -55,7 +56,7 @@ class Reuters:
             tags = ["ukraine", "russia"]
             session = requests.Session()
             for tag in tags:
-                for page in range(1, 5):
+                for page in range(1, 1300):
                     source = "https://www.reuters.com/news/archive/" + tag + "?view=page&page=" + str(page) + "&pageSize=10"
                     html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
