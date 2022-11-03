@@ -16,12 +16,13 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 if __name__ == "__main__":
     # CNN().scraper()  # OK ## REMADE
+
     # Guardian().scraper()  # OK ## REMADE ## # opinion on /commentisfree/
     # RT().scraper()  # OK ## REMADE
     # Fox().scraper()  # OK ## REMADE ## NEEDS RUN FROM SCRATCH # opinion on /opinion/
-    Reuters().scraper()  # OK ## REMADE ## NEEDS RUN FROM SCRATCH
+    # Reuters().scraper()  # OK ## REMADE ## NEEDS RUN FROM SCRATCH
 
-    # DailyMail().scraper()  # OK
+    DailyMail().scraper()  # OK
     # AP().scraper() # OK, NEEDS RUN FROM SCRATCH
     # NBC().scraper() # OK, few articles (jul-22)
     # Mirror().scraper() # OK, few articles, needs title fix (feb-22)

@@ -20,10 +20,10 @@ class DailyMail:
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
             print(f"-> {self.source}: No CSV file found. Creating...")
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -36,24 +36,26 @@ class DailyMail:
         self.urls = []
         self.dates = []
 
-        if self.from_scratch == False:
-            last_url = self.old_data.iloc[0, 1]
-        elif self.from_scratch == True:
+        if not self.fromScratch():
+            last_url = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+        else:
             last_url = "https://www.dailymail.co.uk/news/article-9622483/Russia-biggest-disinformation-culprit-says-Facebook-threat-report.html"
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            for page in range(0, 400):  # 95
+            session = requests.Session()
+            for page in range(0, 5):  # 165
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
                 try:
-                    html_text = requests.get(url).text
+                    html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     headlines = soup.find_all("h3", class_=title_tag)
                     for headline in headlines:
                         _ = headline.find("a", href=True)
                         url = leading_url + _["href"]
                         self.urls.append(url)
+                        bar()
                         if last_url == url:
                             break
                     if last_url == url:
@@ -61,14 +63,10 @@ class DailyMail:
                 except Exception as e:
                     print(f"Error in page {page}: {e}")
                     pass
-                bar()
         self.unique_urls = list(dict.fromkeys(self.urls))
 
     def articleScraper(self):
-        bodies = []
-        titles = []
-        dates = []
-        urls = []
+        bodies, titles, dates, urls = [], [], [], []
         rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": ""}
 
         def replaceAll(text, dic):
@@ -76,13 +74,15 @@ class DailyMail:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+            session = requests.Session()
             for url in self.unique_urls:
                 try:
-                    title_tags = ["pg-headline"]
+                    if len(urls) % 20 == 0:
+                        session = requests.Session()
                     text_tags = ["mol-para-with-font"]
                     date_box_tag = ["article-timestamp article-timestamp-published"]
-                    html_text = requests.get(url).text
+                    html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     title = soup.find("h2").text
                     date_box = soup.find("span", class_=date_box_tag)
@@ -104,7 +104,6 @@ class DailyMail:
         self.new_data = data
 
     def scraper(self):
-        self.fromScratch()
         self.URLFetcher()
         self.articleScraper()
         data = self.concatData()
