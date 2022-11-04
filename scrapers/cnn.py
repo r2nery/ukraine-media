@@ -19,10 +19,10 @@ class CNN:
     def fromScratch(self):
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -33,9 +33,9 @@ class CNN:
 
     def articleScraper(self):
 
-        if not self.from_scratch:
+        if not self.fromScratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
-        elif self.from_scratch:
+        else:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = ["https://www.cnn.com/2019/01/05/politics/nasa-cancels-russian-space-official-visit/index.html"]
 

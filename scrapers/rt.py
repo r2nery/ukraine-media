@@ -36,10 +36,10 @@ class RT:
     def fromScratch(self):
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -52,9 +52,9 @@ class RT:
         self.urls = []
         self.unique_urls = []
 
-        if not self.from_scratch:
+        if not self.fromScratch():
             last_urls = [self.old_data.iloc[0, 1]]
-        elif self.from_scratch:
+        else:
             last_urls = [""]
             print(f"-> {self.source}: No CSV file found. Creating...")
 

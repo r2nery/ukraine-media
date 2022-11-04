@@ -22,10 +22,10 @@ class Fox:
     def fromScratch(self):
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -38,9 +38,9 @@ class Fox:
         self.urls = []
         self.last_url_found = False
 
-        if not self.from_scratch:
+        if not self.fromScratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
-        elif self.from_scratch:
+        else:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = ["https://www.foxnews.com/media/mark-levin-alexandra-chalupa-trump-impeachment-inquiry-witness"]
 
@@ -57,13 +57,13 @@ class Fox:
                     r = session.get(source + str(page * 30)).json()
                     for i in r:
                         url = domain + i["url"]
-                        if url.strip() in last_urls:
-                            self.last_url_found = True
-                            break
+                        url = url.strip()
                         if not any(s in url for s in exc_list):
                             self.urls.append(url)
                             bar()
-                    if self.last_url_found:
+                        if url in last_urls:
+                            break
+                    if url in last_urls:
                         break
             self.unique_urls = list(dict.fromkeys(self.urls))
 

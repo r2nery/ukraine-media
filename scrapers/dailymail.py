@@ -37,18 +37,18 @@ class DailyMail:
         self.dates = []
 
         if not self.fromScratch():
-            last_url = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
-            last_url = "https://www.dailymail.co.uk/news/article-7699743/Senator-Ron-Johnson-writes-no-recollection-Trump-telling-delegation-work-Rudy.html"
+            last_urls = "https://www.dailymail.co.uk/news/article-7699743/Senator-Ron-Johnson-writes-no-recollection-Trump-telling-delegation-work-Rudy.html"
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             session = requests.Session()
             for page in range(0, 165):  # 165
                 leading_url = "https://www.dailymail.co.uk"
-                url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
+                source = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
                 try:
-                    html_text = session.get(url).text
+                    html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
                     headlines = soup.find_all("h3", class_=title_tag)
                     for headline in headlines:
@@ -56,9 +56,9 @@ class DailyMail:
                         url = leading_url + _["href"]
                         self.urls.append(url)
                         bar()
-                        if last_url == url:
+                        if url in last_urls:
                             break
-                    if last_url == url:
+                    if url in last_urls:
                         break
                 except Exception as e:
                     print(f"Error in page {page}: {e}")

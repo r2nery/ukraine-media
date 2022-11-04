@@ -34,7 +34,6 @@ class AP:
 
     def URLFetcher(self):
         self.urls = []
-        self.dates = []
 
         if not self.fromScratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
@@ -42,14 +41,15 @@ class AP:
             last_urls = ["https://www.dailymail.co.uk/wires/ap/article-7768063/Trump-Giuliani-wants-information-Barr-Congress.html"]
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+            session = requests.Session()
             for page in range(0, 150):  # 150
                 leading_url = "https://www.dailymail.co.uk"
-                url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
+                source = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
                 title_tag = "sch-res-title"
                 exc_list = ["AP-News-Brief", "Roundup", "Results", "WTA", "Standings", "AP-Week", "Highlights", "/Live-updates--"]
                 inc_list = ["/ap/"]
                 try:
-                    html_text = requests.get(url).text
+                    html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
                     headlines = soup.find_all("h3", class_=title_tag)
                     for headline in headlines:
@@ -78,11 +78,14 @@ class AP:
             return text
 
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+            session = requests.Session()
             for url in self.unique_urls:
                 try:
+                    if len(urls) % 20 == 0:
+                        session = requests.Session()
                     text_box = ["articleBody"]
                     date_box_tag = ["article-timestamp article-timestamp-published"]
-                    html_text = requests.get(url).text
+                    html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     title = soup.find("h2").text
                     date_box = soup.find("span", class_=date_box_tag)
