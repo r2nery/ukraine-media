@@ -3,7 +3,6 @@ from metrics.ntr import NTR
 from scrapers.ap import AP
 from scrapers.rt import RT
 from scrapers.fox import Fox
-from scrapers.nbc import NBC
 from scrapers.cnn import CNN
 from scrapers.mirror import Mirror
 from scrapers.reuters import Reuters
@@ -25,7 +24,6 @@ if __name__ == "__main__":
     # AP().scraper() # NEEDS RUN FROM SCRATCH
 
     ## TODO REFORM THESE
-    # NBC().scraper() # OK, few articles (jul-22)
     # Mirror().scraper() # OK, few articles, needs title fix (feb-22)
     # Express().scraper()  # OK, NEEDS RUN FROM SCRATCH
     # Huffpost().scraper() # OK, NEEDS RUN FROM SCRATCH, almost all news are AP
