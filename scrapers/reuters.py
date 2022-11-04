@@ -55,9 +55,9 @@ class Reuters:
         with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
             exc_list = ["/tennis/"]
             tags = ["ukraine", "russia"]
-            session = requests.Session()
             for tag in tags:
-                for page in range(1, 3):  # 1300
+                session = requests.Session()
+                for page in range(1, 1300):  # 1300
                     source = "https://www.reuters.com/news/archive/" + tag + "?view=page&page=" + str(page) + "&pageSize=10"
                     html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
