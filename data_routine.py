@@ -22,9 +22,10 @@ if __name__ == "__main__":
     # Reuters().scraper()
     # DailyMail().scraper()
     # AP().scraper() # NEEDS RUN FROM SCRATCH
+    Mirror().scraper() # few articles
 
     ## TODO REFORM THESE
-    # Mirror().scraper() # OK, few articles, needs title fix (feb-22)
+    
     # Express().scraper()  # OK, NEEDS RUN FROM SCRATCH
     # Huffpost().scraper() # OK, NEEDS RUN FROM SCRATCH, almost all news are AP
     # NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=2000)

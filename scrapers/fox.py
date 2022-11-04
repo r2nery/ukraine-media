@@ -111,7 +111,6 @@ class Fox:
         self.new_data = data
 
     def scraper(self):
-        self.fromScratch()
         self.URLFetcher()
         self.articleScraper()
         data = self.concatData()

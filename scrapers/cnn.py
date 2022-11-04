@@ -61,7 +61,6 @@ class CNN:
         self.new_data = data
 
     def scraper(self):
-        self.fromScratch()
         self.articleScraper()
         data = self.concatData()
         lenAfter = len(data) - len(self.old_data)
