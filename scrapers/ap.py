@@ -20,10 +20,10 @@ class AP:
     def fromScratch(self):
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -36,13 +36,13 @@ class AP:
         self.urls = []
         self.dates = []
 
-        if self.from_scratch == False:
-            last_url = self.old_data.iloc[0, 1]
-        elif self.from_scratch == True:
-            last_url = "https://www.dailymail.co.uk/wires/ap/article-9373269/Irans-final-report-Ukraine-jet-crash-blames-human-error.html"
+        if not self.fromScratch():
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+        else:
+            last_urls = ["https://www.dailymail.co.uk/wires/ap/article-7768063/Trump-Giuliani-wants-information-Barr-Congress.html"]
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            for page in range(0, 200):  # 95
+            for page in range(0, 150):  # 150
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
                 title_tag = "sch-res-title"
@@ -57,9 +57,9 @@ class AP:
                         url = leading_url + _["href"]
                         if not any(s in url for s in exc_list) and any(s in url for s in inc_list):
                             self.urls.append(url)
-                        if last_url == url:
+                        if url in last_urls:
                             break
-                    if last_url == url:
+                    if url in last_urls:
                         break
                 except Exception as e:
                     print(f"Error in page {page}: {e}")
@@ -69,10 +69,7 @@ class AP:
         print(f"-> {len(self.unique_urls)} URLs fetched successfully!")
 
     def articleScraper(self):
-        bodies = []
-        titles = []
-        dates = []
-        urls = []
+        bodies, titles, dates, urls = [], [], [], []
         rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": ""}
 
         def replaceAll(text, dic):
@@ -80,7 +77,7 @@ class AP:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
             for url in self.unique_urls:
                 try:
                     text_box = ["articleBody"]

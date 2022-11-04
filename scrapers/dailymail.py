@@ -39,11 +39,11 @@ class DailyMail:
         if not self.fromScratch():
             last_url = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
-            last_url = "https://www.dailymail.co.uk/news/article-9622483/Russia-biggest-disinformation-culprit-says-Facebook-threat-report.html"
+            last_url = "https://www.dailymail.co.uk/news/article-7699743/Senator-Ron-Johnson-writes-no-recollection-Trump-telling-delegation-work-Rudy.html"
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             session = requests.Session()
-            for page in range(0, 5):  # 165
+            for page in range(0, 165):  # 165
                 leading_url = "https://www.dailymail.co.uk"
                 url = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
