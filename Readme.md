@@ -15,6 +15,7 @@ Thesis project for my bachelor's in economics
 - Guardian
 - HuffPost
 - Mirror
+- NY Times
 - Reuters
 - RT
 

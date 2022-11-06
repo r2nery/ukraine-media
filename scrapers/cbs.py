@@ -74,9 +74,12 @@ class CBS:
             return text
 
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+            session = requests.Session()
             for url in self.unique_urls:
                 try:
-                    html_text = requests.get(url).text
+                    if len(urls) % 20 == 0:
+                        session = requests.Session()
+                    html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
                     title = info_json["headline"]

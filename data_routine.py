@@ -6,6 +6,7 @@ from scrapers.fox import Fox
 from scrapers.cnn import CNN
 from scrapers.abc import ABC
 from scrapers.cbs import CBS
+from scrapers.nyt import NYT
 from scrapers.mirror import Mirror
 from scrapers.reuters import Reuters
 from scrapers.express import Express
@@ -27,9 +28,11 @@ if __name__ == "__main__":
     # Express().scraper()  
     # Huffpost().scraper()
 
-    CBS().scraper() # needs run from scratch
+    # CBS().scraper() # needs run from scratch
     # DailyMail().scraper() # needs run from scratch
     # ABC().scraper() # needs run from scratch
+    NYT().scraper()
+
     
     
     # NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=2000)
