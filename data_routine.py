@@ -4,6 +4,8 @@ from scrapers.ap import AP
 from scrapers.rt import RT
 from scrapers.fox import Fox
 from scrapers.cnn import CNN
+from scrapers.abc import ABC
+from scrapers.cbs import CBS
 from scrapers.mirror import Mirror
 from scrapers.reuters import Reuters
 from scrapers.express import Express
@@ -14,7 +16,7 @@ from scrapers.dailymail import DailyMail
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 if __name__ == "__main__":
-    ## REFORMED SCRAPERS
+    
     # CNN().scraper()
     # Guardian().scraper() # opinion on /commentisfree/
     # RT().scraper()
@@ -22,11 +24,16 @@ if __name__ == "__main__":
     # Reuters().scraper()
     # DailyMail().scraper()
     # AP().scraper() # NEEDS RUN FROM SCRATCH
-    Mirror().scraper() # few articles
+    # Mirror().scraper() # few articles
+    # Express().scraper()  # NEEDS RUN FROM SCRATCH
+    # Huffpost().scraper() # NEEDS RUN FROM SCRATCH
+    # ABC().scraper()
+    CBS().scraper()
 
-    ## TODO REFORM THESE
+    AP().scraper() # NEEDS RUN FROM SCRATCH
+    Express().scraper()  # NEEDS RUN FROM SCRATCH
+    Huffpost().scraper() # NEEDS RUN FROM SCRATCH
     
-    # Express().scraper()  # OK, NEEDS RUN FROM SCRATCH
-    # Huffpost().scraper() # OK, NEEDS RUN FROM SCRATCH, almost all news are AP
+    
     # NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=2000)
     pass

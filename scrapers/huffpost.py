@@ -21,10 +21,10 @@ class Huffpost:
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
             print(f"-> {self.source}: No CSV file found. Creating...")
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -34,35 +34,50 @@ class Huffpost:
         return result
 
     def URLFetcher(self):
-        self.urls, self.dates = [], []
+        self.urls = []
 
-        if self.from_scratch == False:
-            last_urls = self.old_data.iloc[0:5, 1].tolist()
-        elif self.from_scratch == True:
-            last_urls = []
+        if not self.fromScratch():
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+        else:
+            last_urls = ["https://www.huffpost.com/entry/fiona-hill-impeachment-inquiry_n_5dd6b96fe4b0e29d72808ce5", "https://www.huffpost.com/entry/joe-biden-damn-liar-voter_n_5de97689e4b0d50f32b0d9d7"]
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             sources = ["https://www.huffpost.com/news/topic/ukraine?page=", "https://www.huffpost.com/news/topic/russia?page="]
             for source in sources:
-                for page in range(0, 10):  # 92
+                session = requests.Session()
+                for page in range(0, 130):  # 105
                     url = source + str(page)
+                    section_tag = "zone zone--twilight js-cet-subunit"
+                    card_tag = "card__text"
+                    author_tag = "card__byline"
                     title_tag = "card__headline card__headline--long"
                     inc_list = ["huffpost"]
+                    exc_list = ["AP","Video","Associated Press"]
                     try:
-                        html_text = requests.get(url).text
+                        html_text = session.get(url).text
                         soup = BeautifulSoup(html_text, "lxml")
-                        headlines = soup.find_all("a", class_=title_tag)
-                        for headline in headlines:
-                            url = headline["href"]
-                            if any(s in url for s in inc_list):
-                                self.urls.append(url)
-                                bar()
+                        sections = soup.find_all("section", class_=section_tag)
+                        for section in sections:
+                            cards = section.find_all("div", class_=card_tag)
+                            headlines = []
+                            for card in cards:
+                                author = card.find("div",class_=author_tag).text
+                                if not any(s in author for s in exc_list):
+                                    title = card.find("a",class_=title_tag)
+                                    headlines.append(title)
+                            for headline in headlines:
+                                url = headline["href"]
+                                if any(s in url for s in inc_list):
+                                    self.urls.append(url)
+                                    bar()
+                                if url in last_urls:
+                                    break
                             if url in last_urls:
                                 break
                         if url in last_urls:
-                            break
+                                break
                     except Exception as e:
-                        print(f"Error in page {page}: {e}")
+                        # print(f"Error in page {page}: {e}")
                         pass
         self.unique_urls = list(dict.fromkeys(self.urls))
 
@@ -77,11 +92,14 @@ class Huffpost:
             return text
 
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+            session = requests.Session()
             for url in self.unique_urls:
                 try:
+                    if len(urls) % 20 == 0:
+                        session = requests.Session()
                     title_box_tags = ["headline"]
                     text_box_tags = ["entry__content-list js-entry-content js-cet-subunit"]
-                    html_text = requests.get(url).text
+                    html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     title = soup.find("h1", class_=title_box_tags).text
                     date_box = soup.find("time")
@@ -93,13 +111,15 @@ class Huffpost:
                         body += " " + p.text
                     body = replaceAll(body, replacements_dict)
                     body = " ".join(body.split())
+                    body = re.sub(r"http\S+", "", " ".join(body.split()))
+                    body = re.sub(r"pic\.twitter\.com/\S+", "", " ".join(body.split()))
                     bodies.append(body)
                     titles.append(title)
                     urls.append(url)
                     dates.append(date)
                     bar()
                 except Exception as e:
-                    print(f"URL couldn't be scraped: {url} because {e}")
+                    # print(f"URL couldn't be scraped: {url} because {e}")
                     pass
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data

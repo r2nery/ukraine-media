@@ -12,6 +12,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 EXPRESS_DIR = os.path.join(ROOT_DIR, "data", "Express.csv")
 
+
 class Express:
     def __init__(self) -> None:
         self.source = "Express"
@@ -21,10 +22,10 @@ class Express:
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
             print(f"-> {self.source}: No CSV file found. Creating...")
-            self.from_scratch = True
+            return True
         else:
             self.old_data = pd.read_csv(self.dir)
-            self.from_scratch = False
+            return False
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
@@ -34,23 +35,24 @@ class Express:
         return result
 
     def URLFetcher(self):
-        self.urls, self.dates = [], []
+        self.urls = []
 
-        if self.from_scratch == False:
-            last_urls = self.old_data.iloc[0:5, 1].tolist()
-        elif self.from_scratch == True:
-            last_urls = ["https://www.express.co.uk/news/world/1573537/ukraine-russia-cluster-bombing-kills-dozens-civillians"]
+        if not self.fromScratch():
+            last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
+        else:
+            last_urls = ["https://www.express.co.uk/news/world/1212144/putin-news-russia-missile-weapons-nato-spt"]
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             sources = ["https://www.express.co.uk/latest/ukraine?pageNumber=", "https://www.express.co.uk/latest/russia?pageNumber="]
             for source in sources:
-                for page in range(0, 5):  # 600
+                session = requests.Session()
+                for page in range(0, 5):  # 630
                     url = source + str(page)
                     leading_url = "https://www.express.co.uk"
                     title_tag = "post"
                     inc_list = ["/science/", "/world/", "/politics/", "/uk/"]
                     try:
-                        html_text = requests.get(url).text
+                        html_text = session.get(url).text
                         soup = BeautifulSoup(html_text, "lxml")
                         headlines = soup.find_all("li", class_=title_tag)
                         for headline in headlines:
@@ -79,9 +81,12 @@ class Express:
                 text = re.sub(r"[\\].....", "", text)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+            session = requests.Session()
             for url in self.unique_urls:
                 try:
+                    if len(urls) % 20 == 0:
+                        session = requests.Session()
                     title_box_tags = ["clearfix"]
                     text_tags = ["text-description"]
                     exc_p = ["<strong>"]
@@ -112,7 +117,6 @@ class Express:
         self.new_data = data
 
     def scraper(self):
-        self.fromScratch()
         self.URLFetcher()
         self.articleScraper()
         data = self.concatData()
