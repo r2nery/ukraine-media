@@ -91,7 +91,7 @@ class Huffpost:
                 text = re.sub(r"[\\].....", "", text)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
             session = requests.Session()
             for url in self.unique_urls:
                 try:
@@ -133,7 +133,7 @@ class Huffpost:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
             print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
-            print("")
+        print("")
         data.to_csv(self.dir, index=True)
 
         return data

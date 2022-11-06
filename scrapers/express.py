@@ -125,7 +125,7 @@ class Express:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
             print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
-            print("")
+        print("")
         data.to_csv(self.dir, index=True)
 
         return data

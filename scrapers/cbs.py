@@ -50,8 +50,8 @@ class CBS:
             "https://api.queryly.com/json.aspx?queryly_key=4690eece66c6499f&batchsize=100&query=russia&showfaceted=true&facetedkey=pubDate&endindex=",]
             session = requests.Session()
             for source in sources:
-                for page in range(0, 70): #65
-                    exc_list = ["/video/"]
+                for page in range(0, 70): #70
+                    exc_list = ["/video/","/episode-schedule/","/pictures/","transcript","live-news"]
                     r = session.get(source + str(page * 100)).json()
                     for i in r["items"]:
                         url = i["link"]
@@ -87,6 +87,7 @@ class CBS:
                         body += " " + paragraphs[i].text
                     body = replaceAll(body, rep)
                     body = " ".join(body.split())
+                    body = re.sub(r"http\S+", "", " ".join(body.split()))
                     bodies.append(body)
                     titles.append(title)
                     urls.append(url)

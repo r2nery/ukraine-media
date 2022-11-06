@@ -5,13 +5,6 @@ import pandas as pd
 from datetime import datetime
 from bs4 import BeautifulSoup
 from alive_progress import alive_bar
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.utils import ChromeType
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
@@ -24,14 +17,6 @@ class RT:
     def __init__(self) -> None:
         self.source = "RT"
         self.dir = RT_DIR
-
-    def seleniumParams(self):
-        s = Service(ChromeDriverManager(chrome_type=ChromeType.BRAVE, path=ROOT_DIR).install())
-        o = webdriver.ChromeOptions()
-        # o.add_argument("headless")
-        self.driver = webdriver.Chrome(service=s, options=o)
-        ignored_exceptions = (NoSuchElementException, StaleElementReferenceException)
-        self.wait = WebDriverWait(self.driver, 30, ignored_exceptions=ignored_exceptions)
 
     def fromScratch(self):
         if not os.path.exists(self.dir):

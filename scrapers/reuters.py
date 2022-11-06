@@ -3,7 +3,6 @@ import warnings
 import requests
 import regex as re
 import pandas as pd
-from datetime import datetime
 from bs4 import BeautifulSoup
 from alive_progress import alive_bar
 import json
@@ -133,7 +132,7 @@ class Reuters:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
             print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
-            print("")
+        print("")
         data.to_csv(self.dir, index=True)
 
         return data

@@ -22,17 +22,14 @@ if __name__ == "__main__":
     # RT().scraper()
     # Fox().scraper() # opinion on /opinion/
     # Reuters().scraper()
-    # DailyMail().scraper()
-    # AP().scraper() # NEEDS RUN FROM SCRATCH
+    # AP().scraper()
     # Mirror().scraper() # few articles
-    # Express().scraper()  # NEEDS RUN FROM SCRATCH
-    # Huffpost().scraper() # NEEDS RUN FROM SCRATCH
-    # ABC().scraper()
-    CBS().scraper()
+    # Express().scraper()  
+    # Huffpost().scraper()
 
-    AP().scraper() # NEEDS RUN FROM SCRATCH
-    Express().scraper()  # NEEDS RUN FROM SCRATCH
-    Huffpost().scraper() # NEEDS RUN FROM SCRATCH
+    CBS().scraper() # needs run from scratch
+    # DailyMail().scraper() # needs run from scratch
+    # ABC().scraper() # needs run from scratch
     
     
     # NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=2000)

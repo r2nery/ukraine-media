@@ -66,7 +66,6 @@ class AP:
                     pass
                 bar()
         self.unique_urls = list(dict.fromkeys(self.urls))
-        print(f"-> {len(self.unique_urls)} URLs fetched successfully!")
 
     def articleScraper(self):
         bodies, titles, dates, urls = [], [], [], []
@@ -116,6 +115,7 @@ class AP:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
             print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+        print("")
         data.to_csv(self.dir, index=True)
 
         return data

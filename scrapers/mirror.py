@@ -71,7 +71,7 @@ class Mirror:
             return text
 
         agent = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"}
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", spinner="dots_waves", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
             session = requests.Session()
             for url in self.unique_urls:
                 try:
@@ -111,7 +111,7 @@ class Mirror:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
             print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
-            print("")
+        print("")
         data.to_csv(self.dir, index=True)
 
         return data
