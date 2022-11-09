@@ -27,6 +27,7 @@ class AP:
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
+        result = result.dropna()
         result = result.drop_duplicates(subset=["Text"])
         result = result.set_index("Date")
         result = result.sort_index(ascending=False)
@@ -69,7 +70,7 @@ class AP:
 
     def articleScraper(self):
         bodies, titles, dates, urls = [], [], [], []
-        rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": ""}
+        rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": "", "___":""}
 
         def replaceAll(text, dic):
             for i, j in dic.items():
@@ -95,7 +96,9 @@ class AP:
                     for _ in paragraphs:
                         body += " " + _.text
                     body = replaceAll(body, rep)
-                    bodies.append(re.sub(r".+?(?=\) -)\) - ", "", " ".join(body.split())))
+                    body = re.sub(r"http\S+", "", " ".join(body.split()))
+                    body = re.sub(r".+?(?=\) -)\) - ", "", " ".join(body.split()))
+                    bodies.append(body)
                     titles.append(title)
                     urls.append(url)
                     dates.append(date.get("datetime")[:10])

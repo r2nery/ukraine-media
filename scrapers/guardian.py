@@ -29,6 +29,7 @@ class Guardian:
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
+        result = result.dropna()
         result = result.drop_duplicates(subset=["Text"])
         result = result.set_index("Date")
         result = result.sort_index(ascending=False)

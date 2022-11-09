@@ -18,22 +18,20 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 if __name__ == "__main__":
     
-    # CNN().scraper()
+    # CNN().scraper()   
     # Guardian().scraper() # opinion on /commentisfree/
     # RT().scraper()
     # Fox().scraper() # opinion on /opinion/
     # Reuters().scraper()
-    # AP().scraper()
     # Mirror().scraper() # few articles
     # Express().scraper()  
     # Huffpost().scraper()
-
+    # NYT().scraper() # opinion on /opinion/
+    # AP().scraper() # needs run from scratch
     # CBS().scraper() # needs run from scratch
     # DailyMail().scraper() # needs run from scratch
     # ABC().scraper() # needs run from scratch
-    NYT().scraper()
 
-    
-    
-    # NTR().routine(period=7, topicnum=30, vocabsize=10000, num_iter=2000)
+
+    NTR().routine(period=7, topicnum=10, vocabsize=10000, num_iter=100)
     pass

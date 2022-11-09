@@ -1,50 +1,51 @@
 import os
-import warnings
+import regex as re
 import numpy as np
 import pandas as pd
 from lda import LDA
-from alive_progress import alive_bar
 from gensim.parsing.preprocessing import remove_stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 
-warnings.simplefilter(action="ignore", category=FutureWarning)
-warnings.simplefilter(action="ignore", category=RuntimeWarning)
+from scrapers.ap import AP_DIR
+from scrapers.rt import RT_DIR
+from scrapers.fox import FOX_DIR
+from scrapers.cnn import CNN_DIR
+from scrapers.abc import ABC_DIR
+from scrapers.cbs import CBS_DIR
+from scrapers.nyt import NYT_DIR
+from scrapers.mirror import MIRROR_DIR
+from scrapers.reuters import REUTERS_DIR
+from scrapers.express import EXPRESS_DIR
+from scrapers.huffpost import HUFFPOST_DIR
+from scrapers.guardian import GUARDIAN_DIR
+from scrapers.dailymail import DAILYMAIL_DIR
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
-AP_DIR = os.path.join(ROOT_DIR, "data", "AP.csv")
-EXPRESS_DIR = os.path.join(ROOT_DIR, "data", "Express.csv")
-FOX_DIR = os.path.join(ROOT_DIR, "data", "Fox.csv")
-DAILYMAIL_DIR = os.path.join(ROOT_DIR, "data", "DailyMail.csv")
-GUARDIAN_DIR = os.path.join(ROOT_DIR, "data", "Guardian.csv")
-HUFFPOST_DIR = os.path.join(ROOT_DIR, "data", "HuffPost.csv")
-MIRROR_DIR = os.path.join(ROOT_DIR, "data", "Mirror.csv")
-NBC_DIR = os.path.join(ROOT_DIR, "data", "NBC.csv")
-REUTERS_DIR = os.path.join(ROOT_DIR, "data", "Reuters.csv")
-RT_DIR = os.path.join(ROOT_DIR, "data", "RT.csv")
-CNN_DIR = os.path.join(ROOT_DIR, "data", "CNN.csv")
+
 
 class NTR:
     def __init__(self) -> None:
-        self.data_guardian = pd.read_csv(GUARDIAN_DIR)
-        self.data_reuters = pd.read_csv(REUTERS_DIR)
-        self.data_cnn = pd.read_csv(CNN_DIR)
-        self.data_dailymail = pd.read_csv(DAILYMAIL_DIR)
-        self.data_ap = pd.read_csv(AP_DIR)
-        self.data_fox = pd.read_csv(FOX_DIR)
+        self.data = [pd.read_csv(i) for i in globals().values() if str(i).endswith(".csv")]
+        self.sources = [str(re.sub(r"^(.*?)data\/", "", i[:-4])) for i in globals().values() if str(i).endswith(".csv")]
         pass
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
-
         # Removes stopwords
         texts = dataframe["Text"].tolist()
         texts_no_sw = []
         for text in texts:
             text_no_sw = remove_stopwords(text)
             texts_no_sw.append(text_no_sw)
+
+        # Get vocab and word counts. Use the top 10k most frequent
+        # lowercase unigrams with at least 2 alphabetical, non-numeric characters,
+        # punctuation treated as separators.
         texts = texts_no_sw
         CVzer = CountVectorizer(token_pattern=r"(?u)\b[^\W\d]{2,}\b", max_features=vocabsize, lowercase=True)
         doc_vcnts = CVzer.fit_transform(texts)
         vocabulary = CVzer.get_feature_names_out()
+
+        # Learn topics.
         lda_model = LDA(topicnum, n_iter=num_iter, refresh=100)
         doc_topic = lda_model.fit_transform(doc_vcnts)
         topic_word = lda_model.topic_word_
@@ -52,6 +53,9 @@ class NTR:
         return doc_topic, topic_word, vocabulary
 
     def save_topicmodel(self, doc_topic, topic_word, vocabulary, source):
+
+        if not os.path.exists(os.path.join(ROOT_DIR, "results")):
+            os.makedirs((os.path.join(ROOT_DIR, "results")))
 
         topicmixture_outpath = os.path.join(ROOT_DIR, "results", source + "_TopicMixtures.txt")
         np.savetxt(topicmixture_outpath, doc_topic)
@@ -110,29 +114,39 @@ class NTR:
 
     def save_novel_trans_reson(self, novelties, transiences, resonances, source):
 
-        outpath = ROOT_DIR + "/results/" + source + "_NovelTransReson.txt"
+        outpath = os.path.join(ROOT_DIR, "results", source + "_NovelTransReson.txt")
         np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
 
     def routine(self, period, topicnum, vocabsize, num_iter):
 
-        sources = ["Guardian", "Reuters", "CNN", "DailyMail", "AssociatedPress", "Fox"]
-        sets = [self.data_guardian, self.data_reuters, self.data_cnn, self.data_dailymail, self.data_ap, self.data_fox]
-        for i in range(0, len(sources)):
-            data, source = sets[i], sources[i]
+        for i in range(0, len(self.sources)):
+            data, source = self.data[i], self.sources[i]
             print(f"-> Starting {source} topic modeling (LDA)...")
             doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
+
+            # getting topic of each text
             topics = []
             for i in range(len(data)):
                 topics.append(doc_topic[i].argmax())
+
             self.save_topicmodel(doc_topic, topic_word, vocabulary, source)
             novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, period)
             self.save_novel_trans_reson(novelties, transiences, resonances, source)
             ntr_data = data
             ntr_data["Novelty"] = novelties
-            ntr_data["Transience"] = novelties
+            ntr_data["Transience"] = transiences
             ntr_data["Resonance"] = resonances
             ntr_data["Topic"] = topics
-            ntr_data.to_csv(ROOT_DIR + "/results/" + source + "_Results.csv", index=False)
+            ntr_data.to_csv(os.path.join(ROOT_DIR, "results", source + "_Results.csv"), index=False)
+
+            # geting words of each topic
+            words = []
+            for i, topic_dist in enumerate(topic_word):
+                topic_words = np.array(vocabulary)[np.argsort(topic_dist)][:-16:-1]
+                words.append(f"Topic {i}: {' '.join(topic_words)}")
+            with open(os.path.join(ROOT_DIR, "results", source + "_TopicsWords.txt"), "w") as f:
+                f.write("\n".join(map(str, words)))
+
             print("")
 
         print("-> All LDA data saved.\n")

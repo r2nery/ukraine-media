@@ -3,12 +3,9 @@ import time
 import warnings
 import json
 import requests
-import regex as re
 import pandas as pd
-from datetime import datetime
 from bs4 import BeautifulSoup
 from alive_progress import alive_bar
-from requests_html import HTMLSession
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
@@ -32,6 +29,7 @@ class NYT:
 
     def concatData(self):
         result = pd.concat([self.old_data, self.new_data])
+        result = result.dropna()
         result = result.drop_duplicates(subset=["Text"])
         result = result.set_index("Date")
         result = result.sort_index(ascending=False)
@@ -81,10 +79,10 @@ class NYT:
             return text
 
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
-            session = HTMLSession()
+            session = requests.Session()
             for url in self.unique_urls:
                 try:
-                    html_text = requests.get(url, headers=headers).text
+                    html_text = session.get(url, headers=headers).text
                     soup = BeautifulSoup(html_text, "lxml")
                     info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
                     title = info_json["headline"]
