@@ -49,12 +49,12 @@ class ABC:
         with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
             source = "https://abcnews.go.com/meta/api/search?q=ukraine%20russia&limit=125&sort=date&totalrecords=true&offset="
             session = requests.Session()
-            for page in range(0, 5): #75
-                exc_list = ["technology", "sports", "business", "theview", "gma", "MovingImage","Video","WireStory"]
+            for page in range(0, 75):  # 75
+                exc_list = ["technology", "sports", "business", "theview", "gma", "MovingImage", "Video", "WireStory"]
                 url_exc_list = ["transcript"]
                 r = session.get(source + str(page * 125)).json()
                 for i in r["item"]:
-                    exclusions = [i["category"]["text"],i["dcType"][0],i["dcType"][1]]
+                    exclusions = [i["category"]["text"], i["dcType"][0], i["dcType"][1]]
                     url = i["link"]
                     if not any(s in exclusions for s in exc_list) and not any(s in url for s in url_exc_list):
                         self.urls.append(url)

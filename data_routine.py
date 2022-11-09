@@ -17,21 +17,20 @@ from scrapers.dailymail import DailyMail
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 if __name__ == "__main__":
-    
-    # CNN().scraper()   
-    # Guardian().scraper() # opinion on /commentisfree/
-    # RT().scraper()
-    # Fox().scraper() # opinion on /opinion/
-    # Reuters().scraper()
-    # Mirror().scraper() # few articles
-    # Express().scraper()  
-    # Huffpost().scraper()
-    # NYT().scraper() # opinion on /opinion/
-    # AP().scraper() # needs run from scratch
-    # CBS().scraper() # needs run from scratch
-    # DailyMail().scraper() # needs run from scratch
-    # ABC().scraper() # needs run from scratch
 
+    # CNN().scraper()
+    # Guardian().scraper()  # opinion on /commentisfree/
+    # RT().scraper()
+    # Fox().scraper()  # opinion on /opinion/
+    # Reuters().scraper()
+    # Mirror().scraper()  # few articles
+    Express().scraper()
+    # Huffpost().scraper()
+    # NYT().scraper()  # opinion on /opinion/ # error updating
+    # AP().scraper()
+    # CBS().scraper()  # needs run from scratch
+    # DailyMail().scraper()
+    # ABC().scraper()  # needs run from scratch
 
     NTR().routine(period=7, topicnum=10, vocabsize=10000, num_iter=100)
     pass

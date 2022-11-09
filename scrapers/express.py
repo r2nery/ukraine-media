@@ -47,7 +47,7 @@ class Express:
             sources = ["https://www.express.co.uk/latest/ukraine?pageNumber=", "https://www.express.co.uk/latest/russia?pageNumber="]
             for source in sources:
                 session = requests.Session()
-                for page in range(0, 5):  # 630
+                for page in range(0, 630):  # 630
                     url = source + str(page)
                     leading_url = "https://www.express.co.uk"
                     title_tag = "post"

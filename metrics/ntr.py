@@ -26,7 +26,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 class NTR:
     def __init__(self) -> None:
         self.data = [pd.read_csv(i) for i in globals().values() if str(i).endswith(".csv")]
-        self.sources = [str(re.sub(r"^(.*?)data\/", "", i[:-4])) for i in globals().values() if str(i).endswith(".csv")]
+        self.sources = [str(re.sub(r"^(.*data)(\W+)", "", i[:-4])) for i in globals().values() if str(i).endswith(".csv")]
         pass
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
