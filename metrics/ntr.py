@@ -15,7 +15,7 @@ from scrapers.cbs import CBS_DIR
 from scrapers.nyt import NYT_DIR
 from scrapers.mirror import MIRROR_DIR
 from scrapers.reuters import REUTERS_DIR
-from scrapers.express import EXPRESS_DIR
+# from scrapers.express import EXPRESS_DIR
 from scrapers.huffpost import HUFFPOST_DIR
 from scrapers.guardian import GUARDIAN_DIR
 from scrapers.dailymail import DAILYMAIL_DIR

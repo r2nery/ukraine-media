@@ -24,7 +24,7 @@ if __name__ == "__main__":
     # Fox().scraper()  # opinion on /opinion/
     # Reuters().scraper()
     # Mirror().scraper()  # few articles
-    Express().scraper()
+    # Express().scraper()
     # Huffpost().scraper()
     # NYT().scraper()  # opinion on /opinion/ # error updating
     # AP().scraper()
