@@ -7,7 +7,6 @@ from gensim.parsing.preprocessing import remove_stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 
 from scrapers.ap import AP_DIR
-from scrapers.rt import RT_DIR
 from scrapers.fox import FOX_DIR
 from scrapers.cnn import CNN_DIR
 from scrapers.abc import ABC_DIR
@@ -15,7 +14,7 @@ from scrapers.cbs import CBS_DIR
 from scrapers.nyt import NYT_DIR
 from scrapers.mirror import MIRROR_DIR
 from scrapers.reuters import REUTERS_DIR
-# from scrapers.express import EXPRESS_DIR
+from scrapers.express import EXPRESS_DIR
 from scrapers.huffpost import HUFFPOST_DIR
 from scrapers.guardian import GUARDIAN_DIR
 from scrapers.dailymail import DAILYMAIL_DIR
@@ -28,6 +27,17 @@ class NTR:
         self.data = [pd.read_csv(i) for i in globals().values() if str(i).endswith(".csv")]
         self.sources = [str(re.sub(r"^(.*data)(\W+)", "", i[:-4])) for i in globals().values() if str(i).endswith(".csv")]
         pass
+
+    def kld_window(self, dataframe, date_start, date_end, kld_days_window):
+        df = dataframe
+        df['Date'] = pd.to_datetime(df['Date'])
+        df_split = df.loc[(df['Date'] >= date_start) & (df['Date'] < date_end)]
+        df_count = df_split.resample("D", on="Date").apply({"URL": "count"})
+        n = int(sum(df_count["URL"].tolist()) / len(df_count["URL"].tolist()))
+        print(f"-> This dataset has an average of {n} daily stories from {date_start} to {date_end}.")
+        print(f"-> KLD window will be of {kld_days_window}*{n} = {kld_days_window*n} articles.")
+        print("")
+        return kld_days_window*n
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
         # Removes stopwords
@@ -117,20 +127,22 @@ class NTR:
         outpath = os.path.join(ROOT_DIR, "results", source + "_NovelTransReson.txt")
         np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
 
-    def routine(self, period, topicnum, vocabsize, num_iter):
+    def routine(self, date_start, date_end, kld_days_window, topicnum, vocabsize, num_iter):
 
         for i in range(0, len(self.sources)):
             data, source = self.data[i], self.sources[i]
             print(f"-> Starting {source} topic modeling (LDA)...")
-            doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
+            n = self.kld_window(data, date_start, date_end, kld_days_window)
 
+            doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
+            
             # getting topic of each text
             topics = []
             for i in range(len(data)):
                 topics.append(doc_topic[i].argmax())
 
             self.save_topicmodel(doc_topic, topic_word, vocabulary, source)
-            novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, period)
+            novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, n)
             self.save_novel_trans_reson(novelties, transiences, resonances, source)
             ntr_data = data
             ntr_data["Novelty"] = novelties

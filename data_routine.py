@@ -1,7 +1,6 @@
 import os
 from metrics.ntr import NTR
 from scrapers.ap import AP
-from scrapers.rt import RT
 from scrapers.fox import Fox
 from scrapers.cnn import CNN
 from scrapers.abc import ABC
@@ -20,17 +19,16 @@ if __name__ == "__main__":
 
     # CNN().scraper()
     # Guardian().scraper()  # opinion on /commentisfree/
-    # RT().scraper()
     # Fox().scraper()  # opinion on /opinion/
     # Reuters().scraper()
     # Mirror().scraper()  # few articles
     # Express().scraper()
     # Huffpost().scraper()
-    # NYT().scraper()  # opinion on /opinion/ # error updating
+    # NYT().scraper()  # opinion on /opinion/
     # AP().scraper()
-    # CBS().scraper()  # needs run from scratch
+    # CBS().scraper()
     # DailyMail().scraper()
-    # ABC().scraper()  # needs run from scratch
+    # ABC().scraper()
 
-    NTR().routine(period=7, topicnum=10, vocabsize=10000, num_iter=100)
+    NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=3, topicnum=30, vocabsize=10000, num_iter=300)
     pass

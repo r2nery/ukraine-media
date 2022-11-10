@@ -6,6 +6,7 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from alive_progress import alive_bar
+from requests_html import HTMLSession
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
@@ -70,8 +71,6 @@ class NYT:
         titles, bodies, dates, urls = [], [], [], []
         rep = {"": ""}
         # Add your headers here (w/ cookies, beware)
-        headers = {
-        }
 
         def replaceAll(text, dic):
             for i, j in dic.items():
@@ -79,10 +78,12 @@ class NYT:
             return text
 
         with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
-            session = requests.Session()
+            session = HTMLSession()
             for url in self.unique_urls:
                 try:
-                    html_text = session.get(url, headers=headers).text
+                    html_text = session.get(url, headers=headers)
+                    html_text.html.render()
+                    html_text = html_text.text
                     soup = BeautifulSoup(html_text, "lxml")
                     info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
                     title = info_json["headline"]
