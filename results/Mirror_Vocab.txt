@@ -748,10 +748,14 @@ barney
 barracks
 barrage
 barrages
+barraging
 barred
 barrel
+barrels
+barricaded
 barrier
 barriers
+barrons
 bars
 basanov
 base
@@ -760,14 +764,19 @@ baseless
 basement
 basements
 bases
+bash
 bashar
 basic
 basically
+basics
 basil
 basis
 bastards
 bastion
 bastrykin
+batallion
+batch
+bath
 bathroom
 bathrooms
 battalion
@@ -1050,6 +1059,7 @@ borodianka
 borodyanka
 borrell
 bortnikov
+boryspil
 bosnia
 bosnian
 boss
@@ -1065,14 +1075,17 @@ bought
 bound
 boundaries
 bow
+bowed
 box
 boxer
 boxes
 boxing
 boy
 boychenko
+boycotting
 boyfriend
 boys
+bp
 brace
 braced
 bracing
@@ -1100,6 +1113,7 @@ brazil
 brazilian
 breach
 breached
+breaching
 bread
 break
 breakaway
@@ -1110,6 +1124,7 @@ breaks
 breakthrough
 breakthroughs
 breakup
+breasts
 breath
 breathing
 brent
@@ -1125,6 +1140,7 @@ brief
 briefcase
 briefed
 briefing
+briefings
 briefly
 brigade
 brigades
@@ -1634,6 +1650,7 @@ collaborators
 collapse
 collapsed
 collapsing
+collateral
 colleague
 colleagues
 collect
@@ -1646,12 +1663,14 @@ college
 colonel
 colonels
 colonies
+colonising
 colony
 colossal
 colour
 coloured
 colours
 column
+columnist
 columns
 com
 coma
@@ -1667,6 +1686,7 @@ comedy
 comes
 comfort
 comfortable
+comfortably
 comfy
 coming
 command
@@ -1676,6 +1696,8 @@ commanders
 commanding
 commandos
 commands
+commemorate
+commemorates
 commemorating
 commemoration
 commenced
@@ -1699,6 +1721,7 @@ commits
 committed
 committee
 committing
+commodity
 common
 commonly
 commonplace
@@ -1708,6 +1731,7 @@ communicate
 communicating
 communication
 communications
+communism
 communist
 communities
 community
@@ -2740,7 +2764,6 @@ dug
 dugin
 dugina
 duma
-dump
 dumped
 dumping
 during
@@ -4318,7 +4341,6 @@ increasing
 increasingly
 incredible
 incredibly
-incremental
 incurable
 incursion
 indeed
@@ -4338,6 +4360,7 @@ indicative
 indicators
 indifferent
 indirect
+indirectly
 indiscriminate
 indiscriminately
 individual
@@ -4345,7 +4368,6 @@ individually
 individuals
 indonesia
 industrial
-industrialist
 industries
 industry
 ineffective
@@ -4355,10 +4377,13 @@ inexperienced
 infamous
 infant
 infantry
+infantryman
 infants
 inferno
 infiltrate
+infiltrated
 infiltrating
+inflated
 inflation
 inflict
 inflicted
@@ -4371,6 +4396,8 @@ info
 inform
 information
 informed
+informing
+informnapalm
 infosys
 infrastructure
 ing
@@ -4383,6 +4410,7 @@ initial
 initially
 initiated
 initiative
+inject
 injected
 injured
 injuries
@@ -4428,7 +4456,6 @@ instance
 instances
 instantly
 instead
-instinct
 institute
 institution
 institutions
@@ -4467,7 +4494,6 @@ intent
 intention
 intentional
 intentionally
-intentioned
 intentions
 interaction
 intercept
@@ -4481,7 +4507,6 @@ interfax
 interfere
 interference
 interfering
-intergovernmental
 interim
 interior
 intermediary
@@ -4602,7 +4627,6 @@ ivanova
 izabelle
 izhevsk
 izium
-izvestia
 izyum
 jack
 jacket
@@ -4614,7 +4638,6 @@ jake
 jakub
 jam
 james
-jams
 jan
 january
 japan
@@ -4651,11 +4674,8 @@ jokes
 jolie
 jonathan
 jones
-jong
-jordan
 jorrit
 josef
-josep
 joseph
 journal
 journalism
@@ -4664,7 +4684,6 @@ journalists
 journey
 journeys
 joy
-jubilant
 judge
 judged
 judgement
@@ -4760,8 +4779,6 @@ killers
 killing
 killings
 kills
-kilogram
-kilograms
 kilometre
 kilometres
 kim
@@ -4783,7 +4800,6 @@ kis
 kiselyov
 kit
 kitchen
-kits
 kitted
 kivinen
 kleptocrats
@@ -4791,7 +4807,6 @@ klitschko
 klympush
 km
 knee
-kneeling
 knees
 knew
 knife
@@ -4845,11 +4860,13 @@ ksenia
 kuleba
 kupiansk
 kuprin
+kura
 kurdish
 kurdistan
 kurenkov
 kurilo
 kursk
+kutnyak
 kutuzov
 kuvshynova
 kuzminski
@@ -4885,6 +4902,7 @@ land
 landed
 landing
 landmark
+landmarks
 landmine
 landmines
 lands
@@ -4892,6 +4910,7 @@ landsbergis
 lanes
 language
 languages
+lantratova
 large
 largely
 larger
@@ -4944,15 +4963,11 @@ leak
 leaked
 leaks
 leaning
-leap
-leaps
 learn
 learned
 learning
 learnt
-lease
 least
-leather
 leave
 leaves
 leaving
@@ -4984,7 +4999,6 @@ leo
 leonid
 lesia
 less
-lessen
 lesson
 lessons
 let
@@ -4993,7 +5007,6 @@ letter
 lettering
 letters
 letting
-lev
 level
 levelled
 levelling
@@ -5114,7 +5127,6 @@ logical
 logistical
 logistics
 logo
-lomachenko
 london
 long
 longer
@@ -5194,7 +5206,6 @@ made
 madman
 madness
 madrid
-mafia
 maganov
 magazine
 magazines
@@ -5227,6 +5238,7 @@ makeup
 making
 maksim
 maksym
+malaya
 male
 males
 malfunction
@@ -5424,7 +5436,6 @@ messaging
 met
 meta
 metal
-metals
 meter
 meters
 method
@@ -5457,14 +5468,10 @@ militaries
 militarily
 military
 militia
-millennium
-miller
 milley
 million
 millionaire
 millions
-milosevic
-mincing
 mind
 minded
 minds
@@ -5529,7 +5536,6 @@ mobilise
 mobilised
 mobilising
 mobility
-mobilization
 mock
 mocked
 mockery
@@ -5657,13 +5663,11 @@ must
 mutilated
 mutiny
 mutual
-muzyka
 my
 mykhailo
 mykola
 mykolaiv
 mykolayiv
-mykyta
 myself
 mysterious
 mysteriously
@@ -5843,7 +5847,6 @@ noses
 not
 notable
 notably
-notam
 note
 noted
 notes
@@ -5852,9 +5855,7 @@ notice
 noticeable
 noticeably
 noticed
-noticing
 notified
-noting
 notorious
 notoriously
 nottinghamshire
@@ -5951,12 +5952,9 @@ officially
 officials
 offline
 offshore
-offspring
 ogpu
 oh
-ohchr
 oil
-oils
 ok
 okay
 okhmatdyt
@@ -6043,7 +6041,6 @@ ordered
 ordering
 orders
 ordinary
-ordination
 org
 organisation
 organisations
@@ -6057,7 +6054,6 @@ origin
 original
 originally
 origins
-orlan
 orlov
 orphanage
 orphanages
@@ -6065,8 +6061,6 @@ orphaned
 orphans
 orsk
 orthodox
-orwell
-oryx
 osborne
 oscar
 osce
@@ -6083,7 +6077,6 @@ ousted
 out
 outages
 outbreak
-outbreaks
 outburst
 outcome
 outdated
@@ -6183,9 +6176,7 @@ paraded
 parades
 parallel
 parallels
-paralympics
 paramedic
-paramilitary
 paranoia
 paranoid
 paratroop
@@ -6228,7 +6219,6 @@ pass
 passage
 passed
 passenger
-passengers
 passes
 passing
 passion
@@ -6241,7 +6231,6 @@ patch
 patel
 path
 pathetic
-pathogens
 patient
 patients
 patriarch
@@ -6464,7 +6453,6 @@ plus
 plushenko
 plymouth
 pm
-pneumonia
 pochkaenko
 pocket
 pockets
@@ -6615,7 +6603,6 @@ preliminary
 premature
 premeditated
 premier
-premise
 preparation
 preparations
 prepare
@@ -6664,6 +6651,7 @@ prigozhin
 primarily
 primary
 prime
+primetime
 primorsky
 prince
 princess
@@ -6683,7 +6671,9 @@ privacy
 private
 privately
 prize
+prizes
 pro
+proactive
 probability
 probable
 probably
@@ -6716,16 +6706,20 @@ prof
 professional
 professionalism
 professionals
+professions
 professor
 profile
 profit
 profiting
 profits
 profound
+profoundly
+prognosis
 program
 programme
 programmes
 progress
+progressed
 progressing
 prohibited
 prohibition
@@ -6733,6 +6727,7 @@ project
 projectile
 projectiles
 projects
+prokopenko
 prolong
 prolonged
 prominent
@@ -6836,11 +6831,8 @@ published
 publishing
 puffy
 pull
-pullback
 pulled
 pulling
-pulls
-pulse
 pulverised
 pulya
 pummel
@@ -6877,7 +6869,6 @@ purpose
 purposefully
 purposes
 pursue
-pursued
 pursuing
 push
 pushed
@@ -6892,8 +6883,6 @@ putting
 puzanova
 pyjamas
 pyotr
-pyrotechnicians
-qatar
 quagmire
 qualified
 qualifies
@@ -6998,13 +6987,11 @@ rash
 rashists
 rasputin
 rat
-ratcheted
 ratcheting
 rate
 rates
 rather
 ratification
-ratified
 ration
 rational
 rationality
@@ -7016,7 +7003,6 @@ ravaged
 ravil
 raw
 razed
-razor
 razvozhaev
 razvozhayev
 re
@@ -7053,7 +7039,6 @@ reason
 reasonable
 reasons
 reassure
-reassured
 rebecca
 rebel
 rebels
@@ -7061,9 +7046,7 @@ reborn
 rebuffed
 rebuild
 rebuilding
-rebuilt
 rebuked
-recall
 recalled
 recalling
 recalls
@@ -7092,7 +7075,6 @@ recommendations
 recommended
 recommends
 reconnaissance
-reconstruction
 record
 recorded
 recording
@@ -7140,7 +7122,6 @@ reform
 reforms
 refrigerated
 refrigerators
-refuelled
 refuelling
 refuge
 refugee
@@ -7192,6 +7173,7 @@ reiterated
 reject
 rejected
 rejection
+relate
 related
 relating
 relation
@@ -7221,8 +7203,10 @@ relief
 relies
 relieved
 religious
+relinquish
 relocated
 relocating
+reluctance
 reluctant
 rely
 relying
@@ -7236,10 +7220,15 @@ remarkably
 remarks
 remember
 remembered
+remembering
+remembers
 remind
 reminded
 reminder
+reminding
+reminiscent
 remnants
+remorseless
 remote
 remotely
 removal
@@ -7250,7 +7239,6 @@ renamed
 renaud
 rendered
 renew
-renewable
 renewed
 rent
 rented
@@ -7774,7 +7762,6 @@ seeks
 seemingly
 seems
 seen
-seeping
 sees
 segment
 segodnya
@@ -8953,14 +8940,17 @@ threshold
 threw
 thriving
 throat
+throats
 through
 throughout
 throw
 throwing
 thrown
+throws
 thrust
 thugs
 thursday
+thus
 thwart
 thwarted
 thyroid
@@ -8983,11 +8973,13 @@ tiktok
 tim
 timchenko
 time
+timeline
 timely
 times
 timescale
 timetable
 timing
+tin
 tina
 tinkov
 tiny
@@ -9310,13 +9302,17 @@ underway
 underwear
 underwent
 undisclosed
+undisguised
 undoubtedly
 undress
+unemployed
 unexpected
 unexpectedly
 unexplained
 unexploded
 unfair
+unfettered
+unfit
 unfolding
 unfolds
 unfortunate
@@ -9329,7 +9325,9 @@ unharmed
 unhcr
 unhinged
 unicef
+unicorn
 unidentified
+unified
 uniform
 uniformed
 uniforms
@@ -9346,6 +9344,7 @@ unity
 universal
 universities
 university
+unjust
 unjustified
 unknown
 unlawful
@@ -9542,6 +9541,7 @@ villagers
 villages
 villain
 villas
+vilnius
 vinnytsia
 violate
 violated

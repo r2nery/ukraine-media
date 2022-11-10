@@ -30,5 +30,5 @@ if __name__ == "__main__":
     # DailyMail().scraper()
     # ABC().scraper()
 
-    NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=3, topicnum=30, vocabsize=10000, num_iter=300)
+    NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=1, topicnum=30, vocabsize=10000, num_iter=100)
     pass
