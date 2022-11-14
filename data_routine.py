@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from metrics.ntr import NTR
 from scrapers.ap import AP
 from scrapers.fox import Fox
@@ -17,6 +18,10 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 if __name__ == "__main__":
 
+    # Collect dates at url stage
+    # add initial date to init of classes
+    s = datetime.today()
+
     # CNN().scraper()
     # Guardian().scraper()  # opinion on /commentisfree/
     # Fox().scraper()  # opinion on /opinion/
@@ -28,7 +33,7 @@ if __name__ == "__main__":
     # AP().scraper()
     # CBS().scraper()
     # DailyMail().scraper()
-    # ABC().scraper()
+    ABC().scraper()
 
-    NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=1, topicnum=30, vocabsize=10000, num_iter=100)
+    # NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=3, topicnum=30, vocabsize=10000, num_iter=100)
     pass

@@ -16,13 +16,14 @@ NYT_DIR = os.path.join(ROOT_DIR, "data", "NYT.csv")
 
 
 class NYT:
-    def __init__(self) -> None:
+    def __init__(self,amount=100) -> None:
         self.source = "NYT"
         self.dir = NYT_DIR
+        self.amount = amount
 
     def fromScratch(self):
         if not os.path.exists(self.dir):
-            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text", "Comments"])
             return True
         else:
             self.old_data = pd.read_csv(self.dir)
@@ -54,7 +55,7 @@ class NYT:
             for date in begin_dates:
                 source = "https://api.nytimes.com/svc/search/v2/articlesearch.json?facet=false&fq=source%3A(%22The%20New%20York%20Times%22)%20AND%20section_name%3A(%22Opinion%22%20%22Politics%22%20%22Foreign%22%20%22U.S%22%20%22World%22)%20AND%20glocations%3A(%22Russia%22%20%22Ukraine%22)%20AND%20document_type%3A(%22article%22)&api-key=DeNQy6aiS8FdkQdIgPmNUcQzohAQ0q6G&sort=" + sort + "&begin_date=" + date + "&fl=web_url&page="
                 session = requests.Session()
-                for page in range(0, 200):  # 75
+                for page in range(0, 200*int(self.amount/100)):  # 75
                     time.sleep(6)
                     r = session.get(source + str(page)).json()
                     for i in r["response"]["docs"]:
@@ -68,7 +69,7 @@ class NYT:
             self.unique_urls = list(dict.fromkeys(self.urls))
 
     def articleScraper(self):
-        titles, bodies, dates, urls = [], [], [], []
+        titles, bodies, dates, urls, comments = [], [], [], [], []
         rep = {"": ""}
         # Add your headers here (w/ cookies, beware)
 
@@ -89,6 +90,7 @@ class NYT:
                     title = info_json["headline"]
                     title = " ".join(title.split())
                     date = info_json["datePublished"][:10]
+                    comment_count = soup.select_one("#comments-speech-bubble-header > div > span").text
                     paragraphs = soup.select("section > div > div > p")
                     body = ""
                     for i in range(0, len(paragraphs)):
@@ -99,11 +101,12 @@ class NYT:
                     titles.append(title)
                     urls.append(url)
                     dates.append(date)
+                    comments.append(comment_count)
                     bar()
                 except Exception as e:
                     print(f"URL couldn't be scraped: {url} because {e}")
                     pass
-        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Comments": comments})
         self.new_data = data
 
     def scraper(self):

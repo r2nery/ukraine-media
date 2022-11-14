@@ -12,13 +12,14 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 DAILYMAIL_DIR = os.path.join(ROOT_DIR, "data", "DailyMail.csv")
 
 class DailyMail:
-    def __init__(self) -> None:
+    def __init__(self, amount=100) -> None:
         self.source = "DailyMail"
         self.dir = DAILYMAIL_DIR
+        self.amount = amount
 
     def fromScratch(self):
         if not os.path.exists(self.dir):
-            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text", "Comments"])
             print(f"-> {self.source}: No CSV file found. Creating...")
             return True
         else:
@@ -44,7 +45,7 @@ class DailyMail:
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             session = requests.Session()
-            for page in range(0, 165):  # 165
+            for page in range(0, 165*int(self.amount/100)):  # 165
                 leading_url = "https://www.dailymail.co.uk"
                 source = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
@@ -67,7 +68,7 @@ class DailyMail:
         self.unique_urls = list(dict.fromkeys(self.urls))
 
     def articleScraper(self):
-        bodies, titles, dates, urls = [], [], [], []
+        bodies, titles, dates, urls, comments = [], [], [], [], []
         rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": ""}
 
         def replaceAll(text, dic):
@@ -88,6 +89,7 @@ class DailyMail:
                     title = soup.find("h2").text
                     date_box = soup.find("span", class_=date_box_tag)
                     date = date_box.find("time")
+                    comment_count = soup.select_one("#articleIconLinksContainer > a > p.count-number").text
                     paragraphs = soup.find_all("p", class_=text_tags)
                     body = ""
                     for _ in paragraphs:
@@ -97,11 +99,12 @@ class DailyMail:
                     titles.append(title)
                     urls.append(url)
                     dates.append(date.get("datetime")[:10])
+                    comments.append(comment_count)
                     bar()
                 except Exception as e:
                     print(f"URL couldn't be scraped: {url} because {e}")
                     pass
-        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Comments":comments})
         self.new_data = data
 
     def scraper(self):

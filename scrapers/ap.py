@@ -13,9 +13,10 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 AP_DIR = os.path.join(ROOT_DIR, "data", "AP.csv")
 
 class AP:
-    def __init__(self) -> None:
+    def __init__(self, amount=100) -> None:
         self.source = "AP"
         self.dir = AP_DIR
+        self.amont = amount/100
 
     def fromScratch(self):
         if not os.path.exists(self.dir):
@@ -35,6 +36,7 @@ class AP:
 
     def URLFetcher(self):
         self.urls = []
+        pages = int(150 * self.amount)
 
         if not self.fromScratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
@@ -43,7 +45,7 @@ class AP:
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             session = requests.Session()
-            for page in range(0, 150):  # 150
+            for page in range(0, pages):
                 leading_url = "https://www.dailymail.co.uk"
                 source = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
                 title_tag = "sch-res-title"
