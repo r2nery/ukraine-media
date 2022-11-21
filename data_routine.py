@@ -1,4 +1,5 @@
 import os
+import metrics.utils as utils
 from datetime import datetime
 from metrics.ntr import NTR
 from scrapers.ap import AP
@@ -20,20 +21,21 @@ if __name__ == "__main__":
 
     # Collect dates at url stage
     # add initial date to init of classes
-    s = datetime.today()
-
-    # CNN().scraper()
-    # Guardian().scraper()  # opinion on /commentisfree/
-    # Fox().scraper()  # opinion on /opinion/
-    # Reuters().scraper()
-    # Mirror().scraper()  # few articles
-    # Express().scraper()
-    # Huffpost().scraper()
-    # NYT().scraper()  # opinion on /opinion/
-    # AP().scraper()
-    # CBS().scraper()
-    # DailyMail().scraper()
+    
+    CNN().scraper()
+    Guardian().scraper()  # opinion on /commentisfree/
+    Fox().scraper()  # opinion on /opinion/
+    Reuters().scraper()
+    Huffpost().scraper()
+    AP().scraper()
+    CBS().scraper()
     ABC().scraper()
+    NYT().scraper()  # opinion on /opinion/
+    Express().scraper()
+    Mirror().scraper()  # few articles
+    DailyMail().scraper() # comments ok
 
-    # NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=3, topicnum=30, vocabsize=10000, num_iter=100)
+    utils.unite_sources()
+    NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=1, topicnum=30, vocabsize=10000, num_iter=100)
+    
     pass

@@ -12,14 +12,13 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 MIRROR_DIR = os.path.join(ROOT_DIR, "data", "Mirror.csv")
 
 class Mirror:
-    def __init__(self, amount=100) -> None:
+    def __init__(self) -> None:
         self.source = "Mirror"
         self.dir = MIRROR_DIR
-        self.amount = amount
 
     def fromScratch(self):
         if not os.path.exists(self.dir):
-            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text", "Comments"])
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
             return True
         else:
             self.old_data = pd.read_csv(self.dir)
@@ -46,7 +45,7 @@ class Mirror:
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             inc_list = ["/world-news/", "/politics/"]
             session = requests.Session()
-            for i in range(1, 200*int(self.amount/100)): #200
+            for i in range(1, 200): #200
                 source = "https://www.mirror.co.uk/all-about/russia-ukraine-war?pageNumber=" + str(i)
                 html_text = session.get(source, headers=agent).text
                 soup = BeautifulSoup(html_text, "lxml")
@@ -64,7 +63,7 @@ class Mirror:
                     break
 
     def articleScraper(self):
-        bodies, titles, dates, urls, comments = [], [], [], [], []
+        bodies, titles, dates, urls = [], [], [], []
         rep = {"": ""}
 
         def replaceAll(text, dic):
@@ -86,7 +85,6 @@ class Mirror:
                     title = title["content"]
                     date = soup.find("meta", {"name":"parsely-pub-date"})
                     date = date["content"][:10]
-                    comment_count = soup.select_one("#share-top > ul > li.count-comments > a > span").text
                     article = soup.find("div", class_=article_tag)
                     paragraphs = article.find_all("p")
                     body = ""
@@ -97,13 +95,12 @@ class Mirror:
                     titles.append(title)
                     urls.append(url)
                     dates.append(date)
-                    comments.append(comment_count)
                     bar()
                 except Exception as e:
                     print(f"URL couldn't be scraped: {url} because {e}")
                     pass
 
-        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Comments":comments})
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data
 
     def scraper(self):

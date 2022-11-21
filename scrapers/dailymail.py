@@ -1,6 +1,7 @@
 import os
 import warnings
 import requests
+import regex as re
 import pandas as pd
 from bs4 import BeautifulSoup
 from alive_progress import alive_bar
@@ -33,6 +34,20 @@ class DailyMail:
         result = result.set_index("Date")
         result = result.sort_index(ascending=False)
         return result
+        
+        
+    def convert_str_to_number(self,x):
+        if "k" in list(x):
+            k=x[:-1]
+            if "." in list(x):
+                before = re.sub(r"(?<=\.).*","",x)
+                after = re.sub(r"(.*?)\.","",k)     
+                total_stars = str(before[:-1]) + str(int(after)*100)
+            else:
+                total_stars = int(x[:-1]) * 1000
+        else: 
+            total_stars = x
+        return int(total_stars)
 
     def URLFetcher(self):
         self.urls = []
@@ -45,7 +60,7 @@ class DailyMail:
 
         with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
             session = requests.Session()
-            for page in range(0, 165*int(self.amount/100)):  # 165
+            for page in range(0, int(165*self.amount/100)):  # 165
                 leading_url = "https://www.dailymail.co.uk"
                 source = "https://www.dailymail.co.uk/home/search.html?offset=" + str(page * 50) + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=news&type=article&days=all"
                 title_tag = "sch-res-title"
@@ -84,12 +99,17 @@ class DailyMail:
                         session = requests.Session()
                     text_tags = ["mol-para-with-font"]
                     date_box_tag = ["article-timestamp article-timestamp-published"]
+                    comment_count_tag = "#articleIconLinksContainer > a > p.count-number"
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     title = soup.find("h2").text
                     date_box = soup.find("span", class_=date_box_tag)
                     date = date_box.find("time")
-                    comment_count = soup.select_one("#articleIconLinksContainer > a > p.count-number").text
+                    comment_count = soup.select_one(comment_count_tag).text.strip()
+                    if comment_count is not None:
+                        comment_count = self.convert_str_to_number(comment_count)
+                    else:
+                        comment_count = ""
                     paragraphs = soup.find_all("p", class_=text_tags)
                     body = ""
                     for _ in paragraphs:

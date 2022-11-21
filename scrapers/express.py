@@ -14,14 +14,13 @@ EXPRESS_DIR = os.path.join(ROOT_DIR, "data", "Express.csv")
 
 
 class Express:
-    def __init__(self, amount=100) -> None:
+    def __init__(self) -> None:
         self.source = "Express"
         self.dir = EXPRESS_DIR
-        self.amount = amount
 
     def fromScratch(self):
         if not os.path.exists(self.dir):
-            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text", "Comments"])
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
             print(f"-> {self.source}: No CSV file found. Creating...")
             return True
         else:
@@ -48,7 +47,7 @@ class Express:
             sources = ["https://www.express.co.uk/latest/ukraine?pageNumber=", "https://www.express.co.uk/latest/russia?pageNumber="]
             for source in sources:
                 session = requests.Session()
-                for page in range(0, 630*int(self.amount/100)):  # 630
+                for page in range(0, 630):  # 630
                     url = source + str(page)
                     leading_url = "https://www.express.co.uk"
                     title_tag = "post"
@@ -74,7 +73,7 @@ class Express:
         self.unique_urls = list(dict.fromkeys(self.urls))
 
     def articleScraper(self):
-        bodies, titles, dates, urls, comments = [], [], [], [], []
+        bodies, titles, dates, urls = [], [], [], []
         replacements_dict = {"FOLLOW BELOW FOR LIVE UPDATES…": ""}
 
         def replaceAll(text, dict):
@@ -98,7 +97,6 @@ class Express:
                     title = title_box.find("h1").text
                     date_box = soup.find("time")
                     date = date_box["datetime"][:10]
-                    comment_count = soup.select_one("#comments-count").text
                     blocks = soup.find_all("div", class_=text_tags)
                     body = ""
                     for block in blocks:
@@ -112,12 +110,11 @@ class Express:
                     titles.append(title)
                     urls.append(url)
                     dates.append(date)
-                    comments.append(comment_count)
                     bar()
                 except Exception as e:
                     print(f"URL couldn't be scraped: {url} because {e}")
                     pass
-        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Comments":comments})
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data
 
     def scraper(self):
