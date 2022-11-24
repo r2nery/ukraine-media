@@ -62,7 +62,7 @@ class Guardian:
             }
             session = requests.Session()
             for tag in tags:
-                for page in range(1, 22):  # 95
+                for page in range(1, 95):  # 95
                     exc_list = ["/film/", "/books/", "/music/"]
                     source = "https://content.guardianapis.com/search?api-key=fad78733-31a0-4ea7-8823-ba815b578899&type=article&page=" + str(page) + "&tag=world/" + tag + "&order-by=newest&show-fields=body&page-size=200"
                     r = session.get(source).json()

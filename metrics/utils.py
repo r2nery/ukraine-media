@@ -19,6 +19,7 @@ from scrapers.dailymail import DAILYMAIL_DIR
 
 def unite_sources():
 
+    total = 0
     data = [pd.read_csv(i) for i in globals().values() if str(i).endswith(".csv")]
     sources = [str(re.sub(r"^(.*data)(\W+)", "", i[:-4])) for i in globals().values() if str(i).endswith(".csv")]
     result = pd.DataFrame(columns=["Source","Date", "URL", "Title", "Text", "Comments"])
@@ -28,9 +29,10 @@ def unite_sources():
             continue
         i["Source"] = j
         print(f"{j}: {len(i)} Articles")
+        total += len(i)
         result = pd.concat([result, i])
     result = result.drop_duplicates(subset=["Text"])
     result = result.set_index("Date")
     result = result.sort_index(ascending=False)
     result.to_csv(os.path.join(ROOT_DIR, "data", "All.csv"), index=True)
-    print("-> Saved CSV with all sources.\n")
+    print(f"-> Saved CSV with {total} articles.\n")

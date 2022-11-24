@@ -72,6 +72,23 @@ class NYT:
         titles, bodies, dates, urls, comments = [], [], [], [], []
         rep = {"": ""}
         # Add your headers here (w/ cookies, beware)
+        headers = {
+            'authority': 'samizdat-graphql.nytimes.com',
+            'accept': '*/*',
+            'accept-language': 'en-US,en;q=0.9',
+            'content-type': 'application/json',
+            'cookie': 'nyt-a=mVNEU8LHIMyL3CqI1J5M91; purr-pref-agent=<Go; nyt-purr=cfhheaihhcdlh; purr-cache=<K0<r<C_<Go<S0; nyt-auth-method=sso; nyt-gdpr=0; nyt-geo=BR; SIDNY=CBMSKQiLxbCbBhDiouybBhoSMS0z_9SRUZoBeHymEVzZ0LzLIJfmt0EqAh4BGkCshQzr0WOMpJQagMaVIq86xrNbi96F4WLXoVNxpO1gt23rE110SFoLro9tp41zYvAlOo4A3cVzEzh3Mei4AeoB; b2b_cig_opt=%7B%22isCorpUser%22%3Afalse%7D; edu_cig_opt=%7B%22isEduUser%22%3Afalse%7D; NYT-S=20AN2wCOFeE2IC.lVhGqPGNnB4SxCwKBPQmSRYorA/wpOKJGry8gEja6KdYLBr968WjOoea6bgYnSicFMFA/RSUvnoaI4D/blzkYajtKjZEFisUTTiSpE1vRS2eEiXhkDNnRRI.pDJ.mM81pk.8yAe4uQG8ouYAo.Hj8.hjhXLwUs0^^^^CBMSKQiLxbCbBhDiouybBhoSMS0z_9SRUZoBeHymEVzZ0LzLIJfmt0EqAh4BGkCshQzr0WOMpJQagMaVIq86xrNbi96F4WLXoVNxpO1gt23rE110SFoLro9tp41zYvAlOo4A3cVzEzh3Mei4AeoB; nyt-us=0; nyt-b3-traceid=ce4a861c7c584b88ae91c15bf11bcf11; nyt-jkidd=uid=137229079&lastRequest=1669009672038&activeDays=%5B0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C0%2C1%2C1%2C0%2C1%2C1%2C0%2C0%2C1%2C1%2C0%2C0%2C0%2C0%2C0%2C1%2C1%5D&adv=8&a7dv=2&a14dv=6&a21dv=8&lastKnownType=sub&newsStartDate=1667729762&entitlements=AAA+MM+MOW+MSD+MTD; nyt-m=2565FFFB2F75BB42F1D8C360EF2B7F37&ier=i.0&uuid=s.14d4e3f9-aeec-4ef8-9968-956889403b9b&igu=i.1&imu=i.1&s=s.core&e=i.1669903200&rc=i.0&iir=i.0&igd=i.0&iga=i.0&v=i.0&ird=i.0&t=i.2&vr=l.4.0.0.0.0&vp=i.0&fv=i.0&ica=i.0&ifv=i.0&igf=i.0&n=i.2&er=i.1669009672&prt=i.0&iub=i.0&iru=i.1&pr=l.4.0.0.0.0&cav=i.1&iue=i.1&g=i.0&ira=i.0&ft=i.0&imv=i.0; datadome=3w46keycVBP8v--1~PxhEVlF85rgak8JCqlgejFjBEDohTtk7Q0lqGKltAVhMT8eBIksjNsD8ykcFifGFLZpV4WZXgpKsKWYsS9eztNA5AeO_5CZQcQBEs2GIJiwtvxp',
+            'nyt-app-type': 'project-vi',
+            'nyt-app-version': '0.0.5',
+            'nyt-token': 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs+/oUCTBmD/cLdmcecrnBMHiU/pxQCn2DDyaPKUOXxi4p0uUSZQzsuq1pJ1m5z1i0YGPd1U1OeGHAChWtqoxC7bFMCXcwnE1oyui9G1uobgpm1GdhtwkR7ta7akVTcsF8zxiXx7DNXIPd2nIJFH83rmkZueKrC4JVaNzjvD+Z03piLn5bHWU6+w+rA+kyJtGgZNTXKyPh6EC6o5N+rknNMG5+CdTq35p8f99WjFawSvYgP9V64kgckbTbtdJ6YhVP58TnuYgr12urtwnIqWP9KSJ1e5vmgf3tunMqWNm6+AnsqNj8mCLdCuc5cEB74CwUeQcP2HQQmbCddBy2y0mEwIDAQAB',
+            'origin': 'https://www.nytimes.com',
+            'referer': 'https://www.nytimes.com/',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
+            'sec-gpc': '1',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
+        }
 
         def replaceAll(text, dic):
             for i, j in dic.items():
@@ -90,7 +107,6 @@ class NYT:
                     title = info_json["headline"]
                     title = " ".join(title.split())
                     date = info_json["datePublished"][:10]
-                    comment_count = soup.select_one("#comments-speech-bubble-header > div > span").text
                     paragraphs = soup.select("section > div > div > p")
                     body = ""
                     for i in range(0, len(paragraphs)):
@@ -101,12 +117,11 @@ class NYT:
                     titles.append(title)
                     urls.append(url)
                     dates.append(date)
-                    comments.append(comment_count)
                     bar()
                 except Exception as e:
                     print(f"URL couldn't be scraped: {url} because {e}")
                     pass
-        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies, "Comments": comments})
+        data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data
 
     def scraper(self):

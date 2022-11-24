@@ -11,7 +11,21 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 class NTR:
     def __init__(self) -> None:
-        self.sources = ["AP", "Fox", "CNN", "ABC", "CBS", "NYT", "Mirror", "Reuters", "Express", "HuffPost", "Guardian", "DailyMail", "All"]
+        self.sources = [
+            # "AP",
+            # "Fox",
+            # "CNN",
+            # "ABC",
+            # "CBS",
+            # "NYT",
+            "Mirror",
+            "Reuters",
+            "Express",
+            "HuffPost",
+            "Guardian",
+            "DailyMail",
+            "All",
+        ]
         self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data", i + ".csv")) for i in self.sources]
         pass
 
