@@ -1,9 +1,6 @@
 import pandas as pd
 import regex as re
 import os
-
-ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
-
 from scrapers.ap import AP_DIR
 from scrapers.fox import FOX_DIR
 from scrapers.cnn import CNN_DIR
@@ -16,6 +13,8 @@ from scrapers.express import EXPRESS_DIR
 from scrapers.huffpost import HUFFPOST_DIR
 from scrapers.guardian import GUARDIAN_DIR
 from scrapers.dailymail import DAILYMAIL_DIR
+
+ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 def unite_sources():
 

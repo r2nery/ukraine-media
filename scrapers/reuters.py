@@ -18,8 +18,11 @@ class Reuters:
     def __init__(self) -> None:
         self.source = "Reuters"
         self.dir = REUTERS_DIR
+        self.urls = []
+        self.old_data = None
+        self.new_data = None
 
-    def fromScratch(self):
+    def from_scratch(self):
         if not os.path.exists(self.dir):
             self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text"])
             return True
@@ -27,7 +30,7 @@ class Reuters:
             self.old_data = pd.read_csv(self.dir)
             return False
 
-    def concatData(self):
+    def concat_data(self):
         result = pd.concat([self.old_data, self.new_data])
         result = result.dropna()
         result = result.drop_duplicates(subset=["Text"])
@@ -35,15 +38,15 @@ class Reuters:
         result = result.sort_index(ascending=False)
         return result
 
-    def replaceAll(self, text, dic):
+    def replace_all(self, text, dic):
         for i, j in dic.items():
             text = text.replace(i, j)
         return text
 
-    def URLFetcher(self):
+    def url_fetcher(self):
         self.urls = []
 
-        if not self.fromScratch():
+        if not self.from_scratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             last_urls = [
@@ -73,9 +76,9 @@ class Reuters:
                             bar()
                     if url in last_urls:
                         break
-            self.unique_urls = list(dict.fromkeys(self.urls))
+            self.urls = list(dict.fromkeys(self.urls))
 
-    def articleScraper(self):
+    def article_scraper(self):
         bodies, titles, dates, urls = [], [], [], []
         rep = {
             "Our Standards: The Thomson Reuters Trust Principles.": "",
@@ -85,14 +88,14 @@ class Reuters:
             "2022 Reuters. All rights reserved": "",
         }
 
-        def replaceAll(text, dic):
+        def replace_all(text, dic):
             for i, j in dic.items():
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.unique_urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
             session = requests.Session()
-            for url in self.unique_urls:
+            for url in self.urls:
                 try:
                     if len(urls) % 20 == 0:
                         session = requests.Session()  # restarting session every 20 urls
@@ -110,7 +113,7 @@ class Reuters:
                     body = ""
                     for _ in paragraphs:
                         body += " " + _.text
-                    body = replaceAll(body, rep)
+                    body = replace_all(body, rep)
                     body = re.sub(r"^[^-]*-", "", " ".join(body.split()))
                     body = re.sub(r"http\S+", "", " ".join(body.split()))
                     bodies.append(body)
@@ -118,21 +121,21 @@ class Reuters:
                     dates.append(date)
                     urls.append(url)
                     bar()
-                except Exception as e:
-                    print(f"URL couldn't be parsed: {url} because {e}")
-                    pass
+                except Exception as exc:
+                    print(f"URL couldn't be parsed: {url} because {exc}")
+
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data
 
     def scraper(self):
-        self.URLFetcher()
-        self.articleScraper()
-        data = self.concatData()
-        lenAfter = len(data) - len(self.old_data)
-        if lenAfter == 0:
+        self.url_fetcher()
+        self.article_scraper()
+        data = self.concat_data()
+        len_after = len(data) - len(self.old_data)
+        if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {lenAfter} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 

@@ -12,12 +12,12 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 class NTR:
     def __init__(self) -> None:
         self.sources = [
-            # "AP",
-            # "Fox",
-            # "CNN",
-            # "ABC",
-            # "CBS",
-            # "NYT",
+            "AP",
+            "Fox",
+            "CNN",
+            "ABC",
+            "CBS",
+            "NYT",
             "Mirror",
             "Reuters",
             "Express",
@@ -27,17 +27,16 @@ class NTR:
             "All",
         ]
         self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data", i + ".csv")) for i in self.sources]
-        pass
 
     def kld_window(self, dataframe, date_start, date_end, kld_days_window):
-        df = dataframe
-        df["Date"] = pd.to_datetime(df["Date"])
-        df_split = df.loc[(df["Date"] >= date_start) & (df["Date"] < date_end)]
+        data = dataframe
+        data["Date"] = pd.to_datetime(data["Date"])
+        df_split = data.loc[(data["Date"] >= date_start) & (data["Date"] < date_end)]
         df_count = df_split.resample("D", on="Date").apply({"URL": "count"})
-        n = int(sum(df_count["URL"].tolist()) / len(df_count["URL"].tolist()))
-        print(f"-> This dataset has an average of {n} daily stories from {date_start} to {date_end}.")
-        print(f"-> KLD window will be of {kld_days_window}*{n} = {kld_days_window*n} articles.\n")
-        return kld_days_window * n
+        daily_count = int(sum(df_count["URL"].tolist()) / len(df_count["URL"].tolist()))
+        print(f"-> This dataset has an average of {daily_count} daily stories from {date_start} to {date_end}.")
+        print(f"-> KLD window will be of {kld_days_window}*{daily_count} = {kld_days_window*daily_count} articles.\n")
+        return kld_days_window * daily_count
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
         # Removes stopwords
@@ -51,9 +50,9 @@ class NTR:
         # lowercase unigrams with at least 2 alphabetical, non-numeric characters,
         # punctuation treated as separators.
         texts = texts_no_sw
-        CVzer = CountVectorizer(token_pattern=r"(?u)\b[^\W\d]{2,}\b", max_features=vocabsize, lowercase=True)
-        doc_vcnts = CVzer.fit_transform(texts)
-        vocabulary = CVzer.get_feature_names_out()
+        count_vectorizer = CountVectorizer(token_pattern=r"(?u)\b[^\W\d]{2,}\b", max_features=vocabsize, lowercase=True)
+        doc_vcnts = count_vectorizer.fit_transform(texts)
+        vocabulary = count_vectorizer.get_feature_names_out()
 
         # Learn topics.
         lda_model = LDA(topicnum, n_iter=num_iter, refresh=100)
@@ -72,21 +71,21 @@ class NTR:
         topic_outpath = os.path.join(ROOT_DIR, "results", source + "_Topics.txt")
         np.savetxt(topic_outpath, topic_word)
         vocab_outpath = os.path.join(ROOT_DIR, "results", source + "_Vocab.txt")
-        with open(vocab_outpath, mode="w", encoding="utf-8") as f:
-            for v in vocabulary:
-                f.write(v + "\n")
+        with open(vocab_outpath, mode="w", encoding="utf-8") as file:
+            for word in vocabulary:
+                file.write(word + "\n")
 
         return topicmixture_outpath, topic_outpath, vocab_outpath
 
-    def KLdivergence_from_probdist_arrays(self, pdists0, pdists1):
+    def kullback_leibler_divergence_from_probdist_arrays(self, pdists0, pdists1):
 
         assert pdists0.shape == pdists1.shape, "pdist* shapes must be identical"
         if len(pdists0.shape) == 1:
-            KLdivs = (pdists1 * np.log2(pdists1 / pdists0)).sum()
+            kl_divergences = (pdists1 * np.log2(pdists1 / pdists0)).sum()
         elif len(pdists0.shape) == 2:
-            KLdivs = (pdists1 * np.log2(pdists1 / pdists0)).sum(axis=1)
+            kl_divergences = (pdists1 * np.log2(pdists1 / pdists0)).sum(axis=1)
 
-        return KLdivs
+        return kl_divergences
 
     def novelty_transience_resonance(self, thetas_arr, scale):
 
@@ -105,14 +104,14 @@ class NTR:
             after_theta_arr = thetas_arr[j + 1 : after_boxend]
             afternum = after_theta_arr.shape[0]
             after_centertheta_arr = np.tile(center_theta, reps=(afternum, 1))
-            before_KLDs = self.KLdivergence_from_probdist_arrays(before_theta_arr, before_centertheta_arr)
-            after_KLDs = self.KLdivergence_from_probdist_arrays(after_theta_arr, after_centertheta_arr)
-            novelty = np.mean(before_KLDs)
-            transience = np.mean(after_KLDs)
+            before_klds = self.kullback_leibler_divergence_from_probdist_arrays(before_theta_arr, before_centertheta_arr)
+            after_klds = self.kullback_leibler_divergence_from_probdist_arrays(after_theta_arr, after_centertheta_arr)
+            novelty = np.mean(before_klds)
+            transience = np.mean(after_klds)
             novelties.append(novelty)
             transiences.append(transience)
             resonances.append(novelty - transience)
-        for index in range(0, scale):
+        for _ in range(0, scale):
             transiences.insert(0, 0)
             transiences.append(0)
             novelties.insert(0, 0)
@@ -129,10 +128,10 @@ class NTR:
 
     def routine(self, date_start, date_end, kld_days_window, topicnum, vocabsize, num_iter):
 
-        for i in range(0, len(self.sources)):
+        for i, source in enumerate(self.sources):
             data, source = self.data[i], self.sources[i]
             print(f"-> Starting {source} topic modeling (LDA)...")
-            n = self.kld_window(data, date_start, date_end, kld_days_window)
+            scale = self.kld_window(data, date_start, date_end, kld_days_window)
 
             doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
 
@@ -142,7 +141,7 @@ class NTR:
                 topics.append(doc_topic[i].argmax())
 
             self.save_topicmodel(doc_topic, topic_word, vocabulary, source)
-            novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, n)
+            novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, scale)
             self.save_novel_trans_reson(novelties, transiences, resonances, source)
             ntr_data = data
             ntr_data["Novelty"] = novelties
@@ -156,8 +155,8 @@ class NTR:
             for i, topic_dist in enumerate(topic_word):
                 topic_words = np.array(vocabulary)[np.argsort(topic_dist)][:-16:-1]
                 words.append(f"Topic {i}: {' '.join(topic_words)}")
-            with open(os.path.join(ROOT_DIR, "results", source + "_TopicsWords.txt"), "w") as f:
-                f.write("\n".join(map(str, words)))
+            with open(os.path.join(ROOT_DIR, "results", source + "_TopicsWords.txt"), "w") as file:
+                file.write("\n".join(map(str, words)))
 
             print("")
 

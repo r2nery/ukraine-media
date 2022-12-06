@@ -1,6 +1,6 @@
 import os
-import metrics.utils as utils
 from datetime import datetime
+from metrics import utils
 from metrics.ntr import NTR
 from scrapers.ap import AP
 from scrapers.fox import Fox
@@ -21,13 +21,12 @@ if __name__ == "__main__":
 
     # Collect dates at url stage
     # add initial date to init of classes
-    
     # CNN().scraper()
     # Guardian().scraper()  # opinion on /commentisfree/
     # Fox().scraper()  # opinion on /opinion/
     # Reuters().scraper()
-    Huffpost().scraper()
-    # AP().scraper()
+    # Huffpost().scraper()
+    AP().scraper()
     # CBS().scraper() Run from scratch to update?
     # ABC().scraper()
     # NYT().scraper()  # opinion on /opinion/
@@ -39,4 +38,3 @@ if __name__ == "__main__":
     utils.unite_sources()
     # NTR().routine(date_start="2022-03-01", date_end="2022-08-01", kld_days_window=2, topicnum=30, vocabsize=10000, num_iter=300)
     
-    pass
