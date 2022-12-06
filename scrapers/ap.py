@@ -42,16 +42,25 @@ class AP:
         if not self.from_scratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
-            last_urls = ["https://www.dailymail.co.uk/wires/ap/article-7768063/Trump-Giuliani-wants-information-Barr-Congress.html"]
+            last_urls = [
+                "https://www.dailymail.co.uk/wires/ap/article-7768063/"
+                "Trump-Giuliani-wants-information-Barr-Congress.html"
+            ]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs in pages",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for page in range(0, 150):  # 150
                 leading_url = "https://www.dailymail.co.uk"
                 source = (
-                    "https://www.dailymail.co.uk/home/search.html?offset="
-                    + str(page * 50)
-                    + "&size=50&sel=site&searchPhrase=ukraine+russia&sort=recent&channel=ap&type=article&days=all"
+                    "https://www.dailymail.co.uk/home/search.html?"
+                    "offset=" + str(page * 50) + "&size=50&sel=site&"
+                    "searchPhrase=ukraine+russia&sort=recent&channel=ap"
+                    "&type=article&days=all"
                 )
                 title_tag = "sch-res-title"
                 exc_list = [
@@ -72,7 +81,9 @@ class AP:
                     for headline in headlines:
                         _ = headline.find("a", href=True)
                         url = leading_url + _["href"]
-                        if not any(s in url for s in exc_list) and any(s in url for s in inc_list):
+                        if not any(s in url for s in exc_list) and any(
+                            s in url for s in inc_list
+                        ):
                             self.urls.append(url)
                         if url in last_urls:
                             break
@@ -85,14 +96,26 @@ class AP:
 
     def article_scraper(self):
         bodies, titles, dates, urls = [], [], [], []
-        rep = {"The Mail on Sunday can reveal:": "", "RELATED ARTICLES": "", "Share this article": "", "___": ""}
+        rep = {
+            "The Mail on Sunday can reveal:": "",
+            "RELATED ARTICLES": "",
+            "Share this article": "",
+            "___": "",
+        }
 
         def replace_all(text, dic):
             for i, j in dic.items():
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 try:
@@ -111,8 +134,9 @@ class AP:
                     for _ in paragraphs:
                         body += " " + _.text
                     body = replace_all(body, rep)
-                    body = re.sub(r"http\S+", "", " ".join(body.split()))
-                    body = re.sub(r".+?(?=\) -)\) - ", "", " ".join(body.split()))
+                    body = " ".join(body.split())
+                    body = re.sub(r"http\S+", "", body)
+                    body = re.sub(r".+?(?=\) -)\) - ", "", body)
                     bodies.append(body)
                     titles.append(title)
                     urls.append(url)
@@ -131,7 +155,10 @@ class AP:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

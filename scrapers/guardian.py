@@ -50,7 +50,12 @@ class Guardian:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = [""]
 
-        with alive_bar(title=f"-> {self.source}: Article scraper", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Article scraper",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             bodies, titles, dates, urls = [], [], [], []
             tags = ["russia", "ukraine"]
             rep = {
@@ -68,20 +73,27 @@ class Guardian:
                     exc_list = ["/film/", "/books/", "/music/"]
                     loop_break = None
                     source = (
-                        "https://content.guardianapis.com/search?api-key=fad78733-31a0-4ea7-8823-ba815b578899&type=article&page="
+                        "https://content.guardianapis.com/search?"
+                        "api-key=fad78733-31a0-4ea7-8823-ba815b578899&type=article&page="
                         + str(page)
                         + "&tag=world/"
                         + tag
                         + "&order-by=newest&show-fields=body&page-size=200"
                     )
                     request = session.get(source).json()
-                    results = [i for i in request["response"]["results"] if not any(s in i["webUrl"] for s in exc_list)]
+                    results = [
+                        i
+                        for i in request["response"]["results"]
+                        if not any(s in i["webUrl"] for s in exc_list)
+                    ]
                     for _, result in enumerate(results):
                         if result["webUrl"] in last_urls:
                             loop_break = 1
                             break
                         urls.append(result["webUrl"])
-                        body = BeautifulSoup(result["fields"]["body"], "html.parser").get_text()
+                        body = BeautifulSoup(
+                            result["fields"]["body"], "html.parser"
+                        ).get_text()
                         body = self.replace_all(body, rep)
                         bodies.append(" ".join(body.split()))
                         titles.append(result["webTitle"])
@@ -99,7 +111,10 @@ class Guardian:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

@@ -45,12 +45,24 @@ class Fox:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             print(f"-> {self.source}: No CSV file found. Creating...")
-            last_urls = ["https://www.foxnews.com/media/mark-levin-alexandra-chalupa-trump-impeachment-inquiry-witness"]
+            last_urls = [
+                "https://www.foxnews.com/media/mark-levin-alexandra-chalupa"
+                "-trump-impeachment-inquiry-witness"
+            ]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             sources = [
-                "https://www.foxnews.com/api/article-search?searchBy=tags&values=fox-news%2Fworld%2Fworld-regions%2Frussia&excludeBy=tags&excludeValues&size=30&from=",
-                "https://www.foxnews.com/api/article-search?searchBy=tags&values=fox-news%2Fworld%2Fconflicts%2Fukraine&excludeBy=tags&excludeValues&size=30&from=",
+                "https://www.foxnews.com/api/article-search?searchBy=tags&"
+                "values=fox-news%2Fworld%2Fworld-regions%2Frussia&"
+                "excludeBy=tags&excludeValues&size=30&from=",
+                "https://www.foxnews.com/api/article-search?searchBy=tags&"
+                "values=fox-news%2Fworld%2Fconflicts%2Fukraine&"
+                "excludeBy=tags&excludeValues&size=30&from=",
             ]
             session = requests.Session()
             for source in sources:
@@ -75,7 +87,8 @@ class Fox:
         rep = {
             "CLICK HERE TO GET THE FOX NEWS APP": "",
             "is a Fox News Digital reporter. You can reach": "",
-            "Fox News Flash top headlines are here. Check out what's clicking on Foxnews.com.": "",
+            "Fox News Flash top headlines are here. Check out what's clicking on "
+            "Foxnews.com.": "",
         }
 
         def replace_all(text, dic):
@@ -83,7 +96,14 @@ class Fox:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             for url in self.urls:
                 try:
                     article_tag = ["article-body"]
@@ -96,11 +116,15 @@ class Fox:
                     article = soup.find("div", class_=article_tag)
                     paragraphs = article.find_all("p")
                     body = ""
-                    for i in range(0, len(paragraphs) - 1):  # excluding last paragraph (journalist information)
+                    for i in range(
+                        0, len(paragraphs) - 1
+                    ):  # excluding last paragraph (journalist information)
                         body += " " + paragraphs[i].text
                     body = replace_all(body, rep)
                     body = re.sub(r"\(([^\)]+)\)", "", body)  # inside parenthesis
-                    body = re.sub(r"(\b[A-Z][A-Z]+|\b[A-Z][A-Z]\b)", "", body)  # all caps text
+                    body = re.sub(
+                        r"(\b[A-Z][A-Z]+|\b[A-Z][A-Z]\b)", "", body
+                    )  # all caps text
                     body = " ".join(body.split())
                     bodies.append(body)
                     titles.append(title)
@@ -121,7 +145,10 @@ class Fox:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

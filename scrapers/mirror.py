@@ -11,6 +11,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 MIRROR_DIR = os.path.join(ROOT_DIR, "data", "Mirror.csv")
 
+
 class Mirror:
     def __init__(self) -> None:
         self.source = "Mirror"
@@ -41,15 +42,29 @@ class Mirror:
         if not self.from_scratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
-            last_urls = ["https://www.mirror.co.uk/news/world-news/inside-chernobyls-mega-tomb-protects-26120551"]
+            last_urls = [
+                "https://www.mirror.co.uk/news/world-news/"
+                "inside-chernobyls-mega-tomb-protects-26120551"
+            ]
             print(f"-> {self.source}: No CSV file found. Creating...")
 
-        agent = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"}
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
+        agent = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+        }
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs in pages",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             inc_list = ["/world-news/", "/politics/"]
             session = requests.Session()
-            for i in range(1, 200): #200
-                source = "https://www.mirror.co.uk/all-about/russia-ukraine-war?pageNumber=" + str(i)
+            for i in range(1, 200):  # 200
+                source = (
+                    "https://www.mirror.co.uk/all-about/russia-ukraine-war?pageNumber="
+                    + str(i)
+                )
                 html_text = session.get(source, headers=agent).text
                 soup = BeautifulSoup(html_text, "lxml")
                 articles = soup.find_all("article", class_="story story--news")
@@ -74,8 +89,18 @@ class Mirror:
                 text = text.replace(i, j)
             return text
 
-        agent = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"}
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        agent = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+        }
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 try:
@@ -84,9 +109,9 @@ class Mirror:
                     article_tag = ["article-body"]
                     html_text = session.get(url, headers=agent).text
                     soup = BeautifulSoup(html_text, "lxml")
-                    title = soup.find("meta", {"name":"parsely-title"})
+                    title = soup.find("meta", {"name": "parsely-title"})
                     title = title["content"]
-                    date = soup.find("meta", {"name":"parsely-pub-date"})
+                    date = soup.find("meta", {"name": "parsely-pub-date"})
                     date = date["content"][:10]
                     article = soup.find("div", class_=article_tag)
                     paragraphs = article.find_all("p")
@@ -113,7 +138,10 @@ class Mirror:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

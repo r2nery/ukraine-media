@@ -50,18 +50,30 @@ class Reuters:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             last_urls = [
-                "https://www.reuters.com/article/us-russia-wikipedia/russia-to-upgrade-homegrown-encyclopedia-after-putin-pans-wikipedia-idUSKBN1Y61DA",
-                "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/russia-and-ukraine-leaders-in-first-talks-agree-to-exchange-prisoners-idUSKBN1YD2GA",
+                "https://www.reuters.com/article/us-russia-wikipedia/"
+                "russia-to-upgrade-homegrown-encyclopedia-after-"
+                "putin-pans-wikipedia-idUSKBN1Y61DA",
+                "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/"
+                "russia-and-ukraine-leaders-in-first-talks-agree-"
+                "to-exchange-prisoners-idUSKBN1YD2GA",
             ]
             print(f"-> {self.source}: No CSV file found. Creating...")
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             exc_list = ["/tennis/"]
             tags = ["ukraine", "russia"]
             for tag in tags:
                 session = requests.Session()
                 for page in range(1, 1300):  # 1300
-                    source = "https://www.reuters.com/news/archive/" + tag + "?view=page&page=" + str(page) + "&pageSize=10"
+                    source = (
+                        "https://www.reuters.com/news/archive/" + tag + "?view=page"
+                        "&page=" + str(page) + "&pageSize=10"
+                    )
                     html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
                     headline_list = soup.find("div", class_="column1 col col-10")
@@ -83,7 +95,8 @@ class Reuters:
         rep = {
             "Our Standards: The Thomson Reuters Trust Principles.": "",
             "read more": "",
-            "All quotes delayed a minimum of 15 minutes. See here for a complete list of exchanges and delays.": "",
+            "All quotes delayed a minimum of 15 minutes. See here for a complete list of "
+            "exchanges and delays.": "",
             "© 2022 Reuters. All rights reserved": "",
             "2022 Reuters. All rights reserved": "",
         }
@@ -93,20 +106,32 @@ class Reuters:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 try:
                     if len(urls) % 20 == 0:
                         session = requests.Session()  # restarting session every 20 urls
                     text_tags = [
-                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr text__large__nEccO body__full_width__ekUdw body__large_body__FV5_X article-body__element__2p5pI",
-                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr text__large__nEccO body__full_width__ekUdw body__large_body__FV5_X article-body__element__2p5pI",
+                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr"
+                        " text__large__nEccO body__full_width__ekUdw body__large_body__"
+                        "FV5_X article-body__element__2p5pI",
+                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr"
+                        " text__large__nEccO body__full_width__ekUdw body__large_body__"
+                        "FV5_X article-body__element__2p5pI",
                         "Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x",
                     ]
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
-                    info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
+                    source = soup.find("script", attrs={"type": "application/ld+json"})
+                    info_json = json.loads(source.text)
                     title = info_json["headline"]
                     date = info_json["dateCreated"][:10]
                     paragraphs = soup.find_all("p", class_=text_tags)
@@ -135,7 +160,10 @@ class Reuters:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

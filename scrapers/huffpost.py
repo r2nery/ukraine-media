@@ -12,6 +12,7 @@ warnings.simplefilter(action="ignore", category=RuntimeWarning)
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 HUFFPOST_DIR = os.path.join(ROOT_DIR, "data", "HuffPost.csv")
 
+
 class Huffpost:
     def __init__(self) -> None:
         self.source = "Huffpost"
@@ -43,10 +44,23 @@ class Huffpost:
         if not self.from_scratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
-            last_urls = ["https://www.huffpost.com/entry/fiona-hill-impeachment-inquiry_n_5dd6b96fe4b0e29d72808ce5", "https://www.huffpost.com/entry/joe-biden-damn-liar-voter_n_5de97689e4b0d50f32b0d9d7"]
+            last_urls = [
+                "https://www.huffpost.com/entry/fiona-hill-"
+                "impeachment-inquiry_n_5dd6b96fe4b0e29d72808ce5",
+                "https://www.huffpost.com/entry/joe-biden-"
+                "damn-liar-voter_n_5de97689e4b0d50f32b0d9d7",
+            ]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            sources = ["https://www.huffpost.com/news/topic/ukraine?page=", "https://www.huffpost.com/news/topic/russia?page="]
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs in pages",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
+            sources = [
+                "https://www.huffpost.com/news/topic/ukraine?page=",
+                "https://www.huffpost.com/news/topic/russia?page=",
+            ]
             for source in sources:
                 session = requests.Session()
                 for page in range(0, 130):  # 105
@@ -56,7 +70,7 @@ class Huffpost:
                     author_tag = "card__byline"
                     title_tag = "card__headline card__headline--long"
                     inc_list = ["huffpost"]
-                    exc_list = ["AP","Video","Associated Press"]
+                    exc_list = ["AP", "Video", "Associated Press"]
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
                     sections = soup.find_all("section", class_=section_tag)
@@ -64,9 +78,9 @@ class Huffpost:
                         cards = section.find_all("div", class_=card_tag)
                         headlines = []
                         for card in cards:
-                            author = card.find("div",class_=author_tag).text
+                            author = card.find("div", class_=author_tag).text
                             if not any(s in author for s in exc_list):
-                                title = card.find("a",class_=title_tag)
+                                title = card.find("a", class_=title_tag)
                                 headlines.append(title)
                         for headline in headlines:
                             url = headline["href"]
@@ -92,7 +106,14 @@ class Huffpost:
                 text = re.sub(r"[\\].....", "", text)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 if len(urls) % 20 == 0:
@@ -130,7 +151,10 @@ class Huffpost:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

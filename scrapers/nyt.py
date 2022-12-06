@@ -16,7 +16,7 @@ NYT_DIR = os.path.join(ROOT_DIR, "data", "NYT.csv")
 
 
 class NYT:
-    def __init__(self,amount=100) -> None:
+    def __init__(self, amount=100) -> None:
         self.source = "NYT"
         self.dir = NYT_DIR
         self.amount = amount
@@ -26,7 +26,9 @@ class NYT:
 
     def from_scratch(self):
         if not os.path.exists(self.dir):
-            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text", "Comments"])
+            self.old_data = pd.DataFrame(
+                columns=["Date", "URL", "Title", "Text", "Comments"]
+            )
             return True
         else:
             self.old_data = pd.read_csv(self.dir)
@@ -49,15 +51,31 @@ class NYT:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = []
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             if self.from_scratch():
                 begin_dates, sort = ["20191201", "20220425"], "oldest"
             else:
                 begin_dates, sort = ["20220425"], "newest"
             for date in begin_dates:
-                source = "https://api.nytimes.com/svc/search/v2/articlesearch.json?facet=false&fq=source%3A(%22The%20New%20York%20Times%22)%20AND%20section_name%3A(%22Opinion%22%20%22Politics%22%20%22Foreign%22%20%22U.S%22%20%22World%22)%20AND%20glocations%3A(%22Russia%22%20%22Ukraine%22)%20AND%20document_type%3A(%22article%22)&api-key=DeNQy6aiS8FdkQdIgPmNUcQzohAQ0q6G&sort=" + sort + "&begin_date=" + date + "&fl=web_url&page="
+                source = (
+                    "https://api.nytimes.com/svc/search/v2/articlesearch.json?"
+                    "facet=false&fq=source%3A(%22The%20New%20York%20Times%22)%20"
+                    "AND%20section_name%3A(%22Opinion%22%20%22Politics%22%20%22"
+                    "Foreign%22%20%22U.S%22%20%22World%22)%20AND%20glocations%3A"
+                    "(%22Russia%22%20%22Ukraine%22)%20AND%20document_type%3A"
+                    "(%22article%22)&api-key=DeNQy6aiS8FdkQdIgPmNUcQzohAQ0q6G&sort="
+                    + sort
+                    + "&begin_date="
+                    + date
+                    + "&fl=web_url&page="
+                )
                 session = requests.Session()
-                for page in range(0, 200*int(self.amount/100)):  # 75
+                for page in range(0, 200 * int(self.amount / 100)):  # 75
                     time.sleep(6)
                     request = session.get(source + str(page)).json()
                     for i in request["response"]["docs"]:
@@ -74,15 +92,21 @@ class NYT:
         titles, bodies, dates, urls = [], [], [], []
         rep = {"": ""}
         # Add your headers here (w/ cookies, beware)
-        headers = {
-        }
+        headers = {}
 
         def replace_all(text, dic):
             for i, j in dic.items():
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = HTMLSession()
             for url in self.urls:
                 try:
@@ -90,7 +114,8 @@ class NYT:
                     html_text.html.render()
                     html_text = html_text.text
                     soup = BeautifulSoup(html_text, "lxml")
-                    info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
+                    source = soup.find("script", attrs={"type": "application/ld+json"})
+                    info_json = json.loads(source.text)
                     title = info_json["headline"]
                     title = " ".join(title.split())
                     date = info_json["datePublished"][:10]
@@ -119,7 +144,10 @@ class NYT:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

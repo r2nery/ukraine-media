@@ -45,19 +45,46 @@ class ABC:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             print(f"-> {self.source}: No CSV file found. Creating...")
-            last_urls = ["https://abcnews.go.com/Politics/bail-revoked-rudy-giuliani-associate-lev-parnas/story?id=67670466"]
+            last_urls = [
+                "https://abcnews.go.com/Politics/bail-revoked-rudy-"
+                "giuliani-associate-lev-parnas/story?id=67670466"
+            ]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
-            source = "https://abcnews.go.com/meta/api/search?q=ukraine%20russia&limit=125&sort=date&totalrecords=true&offset="
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
+            source = (
+                "https://abcnews.go.com/meta/api/search?q=ukraine%20"
+                "russia&limit=125&sort=date&totalrecords=true&offset="
+            )
+            print(source)
             session = requests.Session()
             for page in range(0, 75):  # 75
-                exc_list = ["technology", "sports", "business", "theview", "gma", "MovingImage", "Video", "WireStory"]
+                exc_list = [
+                    "technology",
+                    "sports",
+                    "business",
+                    "theview",
+                    "gma",
+                    "MovingImage",
+                    "Video",
+                    "WireStory",
+                ]
                 url_exc_list = ["transcript"]
                 request = session.get(source + str(page * 125)).json()
                 for i in request["item"]:
-                    exclusions = [i["category"]["text"], i["dcType"][0], i["dcType"][1]]
+                    exclusions = [
+                        i["category"]["text"],
+                        i["dcType"][0],
+                        i["dcType"][1],
+                    ]
                     url = i["link"]
-                    if not any(s in exclusions for s in exc_list) and not any(s in url for s in url_exc_list):
+                    if not any(s in exclusions for s in exc_list) and not any(
+                        s in url for s in url_exc_list
+                    ):
                         self.urls.append(url)
                         bar()
                     if url in last_urls:
@@ -75,7 +102,14 @@ class ABC:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 try:
@@ -83,7 +117,9 @@ class ABC:
                         session = requests.Session()
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
-                    info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
+                    info_json = json.loads(
+                        soup.find("script", attrs={"type": "application/ld+json"}).text
+                    )
                     title = info_json["headline"]
                     title = " ".join(title.split())
                     date = info_json["datePublished"][:10]
@@ -111,7 +147,10 @@ class ABC:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

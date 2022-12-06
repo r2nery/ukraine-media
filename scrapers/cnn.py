@@ -41,9 +41,17 @@ class CNN:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             print(f"-> {self.source}: No CSV file found. Creating...")
-            last_urls = ["https://www.cnn.com/2019/01/05/politics/nasa-cancels-russian-space-official-visit/index.html"]
+            last_urls = [
+                "https://www.cnn.com/2019/01/05/politics/nasa-cancels-russian-space"
+                "-official-visit/index.html"
+            ]
 
-        with alive_bar(title=f"-> {self.source}: Article scraper", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Article scraper",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             bodies, titles, dates, urls = [], [], [], []
             session = requests.Session()
             loop_break = None
@@ -63,9 +71,17 @@ class CNN:
                     "/travel/",
                     "/business/",
                 ]
-                source = "https://search.api.cnn.com/content?q=ukraine%20russia&size=50&from=" + str(page * 50) + "&page=1&sort=newest&types=article"
+                source = (
+                    "https://search.api.cnn.com/content?q=ukraine%20russia&size=50&from="
+                    + str(page * 50)
+                    + "&page=1&sort=newest&types=article"
+                )
                 request = session.get(source).json()
-                results = [i for i in request["result"] if not any(s in i["url"] for s in exc_list)]
+                results = [
+                    i
+                    for i in request["result"]
+                    if not any(s in i["url"] for s in exc_list)
+                ]
                 for _, result in enumerate(results):
                     if result["url"] in last_urls:
                         loop_break = 1
@@ -87,7 +103,10 @@ class CNN:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

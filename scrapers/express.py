@@ -44,10 +44,21 @@ class Express:
         if not self.from_scratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
-            last_urls = ["https://www.express.co.uk/news/world/1212144/putin-news-russia-missile-weapons-nato-spt"]
+            last_urls = [
+                "https://www.express.co.uk/news/world/1212144/"
+                "putin-news-russia-missile-weapons-nato-spt"
+            ]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs in pages", bar=None, spinner="dots", force_tty=True) as bar:
-            sources = ["https://www.express.co.uk/latest/ukraine?pageNumber=", "https://www.express.co.uk/latest/russia?pageNumber="]
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs in pages",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
+            sources = [
+                "https://www.express.co.uk/latest/ukraine?pageNumber=",
+                "https://www.express.co.uk/latest/russia?pageNumber=",
+            ]
             for source in sources:
                 session = requests.Session()
                 for page in range(0, 630):  # 630
@@ -85,7 +96,14 @@ class Express:
                 text = re.sub(r"[\\].....", "", text)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 try:
@@ -128,7 +146,10 @@ class Express:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 

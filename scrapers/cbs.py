@@ -47,18 +47,34 @@ class CBS:
         else:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = [
-                "https://www.cbsnews.com/news/this-week-on-face-the-nation-october-13-2019-mark-esper-adam-schiff-adam-kinzinger-ted-cruz/",
+                "https://www.cbsnews.com/news/this-week-on-face-the-nation-"
+                "october-13-2019-mark-esper-adam-schiff-adam-kinzinger-ted-cruz/",
             ]
 
-        with alive_bar(title=f"-> {self.source}: Fetching URLs", bar=None, spinner="dots", force_tty=True) as bar:
+        with alive_bar(
+            title=f"-> {self.source}: Fetching URLs",
+            bar=None,
+            spinner="dots",
+            force_tty=True,
+        ) as bar:
             sources = [
-                "https://api.queryly.com/json.aspx?queryly_key=4690eece66c6499f&batchsize=100&query=ukraine&showfaceted=true&facetedkey=pubDate&endindex=",
-                "https://api.queryly.com/json.aspx?queryly_key=4690eece66c6499f&batchsize=100&query=russia&showfaceted=true&facetedkey=pubDate&endindex=",
+                "https://api.queryly.com/json.aspx?queryly_key="
+                "4690eece66c6499f&batchsize=100&query=ukraine&"
+                "showfaceted=true&facetedkey=pubDate&endindex=",
+                "https://api.queryly.com/json.aspx?queryly_key="
+                "4690eece66c6499f&batchsize=100&query=russia&"
+                "showfaceted=true&facetedkey=pubDate&endindex=",
             ]
             session = requests.Session()
             for source in sources:
                 for page in range(0, 70):  # 70
-                    exc_list = ["/video/", "/episode-schedule/", "/pictures/", "transcript", "live-news"]
+                    exc_list = [
+                        "/video/",
+                        "/episode-schedule/",
+                        "/pictures/",
+                        "transcript",
+                        "live-news",
+                    ]
                     request = session.get(source + str(page * 100)).json()
                     for i in request["items"]:
                         url = i["link"]
@@ -80,7 +96,14 @@ class CBS:
                 text = text.replace(i, j)
             return text
 
-        with alive_bar(len(self.urls), title=f"-> {self.source}: Article scraper", length=20, spinner="dots", bar="smooth", force_tty=True) as bar:
+        with alive_bar(
+            len(self.urls),
+            title=f"-> {self.source}: Article scraper",
+            length=20,
+            spinner="dots",
+            bar="smooth",
+            force_tty=True,
+        ) as bar:
             session = requests.Session()
             for url in self.urls:
                 try:
@@ -88,7 +111,8 @@ class CBS:
                         session = requests.Session()
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
-                    info_json = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).text)
+                    source = soup.find("script", attrs={"type": "application/ld+json"})
+                    info_json = json.loads(source.text)
                     title = info_json["headline"]
                     date = info_json["datePublished"][:10]
                     paragraphs = soup.select("section > p")
@@ -116,7 +140,10 @@ class CBS:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
+            print(
+                f"-> {len_after} new articles saved to {self.source}.csv! "
+                f"Total articles: {len(data)}"
+            )
         print("")
         data.to_csv(self.dir, index=True)
 
