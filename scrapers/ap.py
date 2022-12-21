@@ -38,7 +38,6 @@ class AP:
         return result
 
     def url_fetcher(self) -> None:
-
         if not self.from_scratch():
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
@@ -81,9 +80,7 @@ class AP:
                     for headline in headlines:
                         _ = headline.find("a", href=True)
                         url = leading_url + _["href"]
-                        if not any(s in url for s in exc_list) and any(
-                            s in url for s in inc_list
-                        ):
+                        if not any(s in url for s in exc_list) and any(s in url for s in inc_list):
                             self.urls.append(url)
                         if url in last_urls:
                             break
@@ -146,7 +143,7 @@ class AP:
                     print(f"URL couldn't be scraped: {url} because {exc}")
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
         self.new_data = data
-
+    
     def scraper(self):
         self.url_fetcher()
         self.article_scraper()
@@ -155,10 +152,7 @@ class AP:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(
-                f"-> {len_after} new articles saved to {self.source}.csv! "
-                f"Total articles: {len(data)}"
-            )
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 

@@ -144,10 +144,7 @@ class NYT:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(
-                f"-> {len_after} new articles saved to {self.source}.csv! "
-                f"Total articles: {len(data)}"
-            )
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 

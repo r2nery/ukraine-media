@@ -116,15 +116,11 @@ class Fox:
                     article = soup.find("div", class_=article_tag)
                     paragraphs = article.find_all("p")
                     body = ""
-                    for i in range(
-                        0, len(paragraphs) - 1
-                    ):  # excluding last paragraph (journalist information)
-                        body += " " + paragraphs[i].text
+                    for i in range(0, len(paragraphs) - 1):  # excluding last paragraph 
+                        body += " " + paragraphs[i].text     # (journalist information)
                     body = replace_all(body, rep)
                     body = re.sub(r"\(([^\)]+)\)", "", body)  # inside parenthesis
-                    body = re.sub(
-                        r"(\b[A-Z][A-Z]+|\b[A-Z][A-Z]\b)", "", body
-                    )  # all caps text
+                    body = re.sub(r"(\b[A-Z][A-Z]+|\b[A-Z][A-Z]\b)", "", body)  # all caps text
                     body = " ".join(body.split())
                     bodies.append(body)
                     titles.append(title)
@@ -145,10 +141,7 @@ class Fox:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(
-                f"-> {len_after} new articles saved to {self.source}.csv! "
-                f"Total articles: {len(data)}"
-            )
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 

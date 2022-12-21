@@ -77,11 +77,7 @@ class CNN:
                     + "&page=1&sort=newest&types=article"
                 )
                 request = session.get(source).json()
-                results = [
-                    i
-                    for i in request["result"]
-                    if not any(s in i["url"] for s in exc_list)
-                ]
+                results = [i for i in request["result"] if not any(s in i["url"] for s in exc_list)]
                 for _, result in enumerate(results):
                     if result["url"] in last_urls:
                         loop_break = 1
@@ -103,10 +99,7 @@ class CNN:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(
-                f"-> {len_after} new articles saved to {self.source}.csv! "
-                f"Total articles: {len(data)}"
-            )
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 

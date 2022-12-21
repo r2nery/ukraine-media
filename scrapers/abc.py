@@ -71,16 +71,12 @@ class ABC:
                     "gma",
                     "MovingImage",
                     "Video",
-                    "WireStory",
+                    "WireStory"
                 ]
                 url_exc_list = ["transcript"]
                 request = session.get(source + str(page * 125)).json()
                 for i in request["item"]:
-                    exclusions = [
-                        i["category"]["text"],
-                        i["dcType"][0],
-                        i["dcType"][1],
-                    ]
+                    exclusions = [i["category"]["text"], i["dcType"][0], i["dcType"][1]]
                     url = i["link"]
                     if not any(s in exclusions for s in exc_list) and not any(
                         s in url for s in url_exc_list
@@ -108,7 +104,7 @@ class ABC:
             length=20,
             spinner="dots",
             bar="smooth",
-            force_tty=True,
+            force_tty=True
         ) as bar:
             session = requests.Session()
             for url in self.urls:
@@ -117,9 +113,8 @@ class ABC:
                         session = requests.Session()
                     html_text = session.get(url).text
                     soup = BeautifulSoup(html_text, "lxml")
-                    info_json = json.loads(
-                        soup.find("script", attrs={"type": "application/ld+json"}).text
-                    )
+                    source = soup.find("script", attrs={"type": "application/ld+json"})
+                    info_json = json.loads(source.text)
                     title = info_json["headline"]
                     title = " ".join(title.split())
                     date = info_json["datePublished"][:10]
@@ -147,10 +142,7 @@ class ABC:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(
-                f"-> {len_after} new articles saved to {self.source}.csv! "
-                f"Total articles: {len(data)}"
-            )
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 

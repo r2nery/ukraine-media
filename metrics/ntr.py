@@ -77,7 +77,7 @@ class NTR:
 
         return topicmixture_outpath, topic_outpath, vocab_outpath
 
-    def kullback_leibler_divergence_from_probdist_arrays(self, pdists0, pdists1):
+    def kld_from_probdists(self, pdists0, pdists1):
 
         assert pdists0.shape == pdists1.shape, "pdist* shapes must be identical"
         if len(pdists0.shape) == 1:
@@ -104,8 +104,8 @@ class NTR:
             after_theta_arr = thetas_arr[j + 1 : after_boxend]
             afternum = after_theta_arr.shape[0]
             after_centertheta_arr = np.tile(center_theta, reps=(afternum, 1))
-            before_klds = self.kullback_leibler_divergence_from_probdist_arrays(before_theta_arr, before_centertheta_arr)
-            after_klds = self.kullback_leibler_divergence_from_probdist_arrays(after_theta_arr, after_centertheta_arr)
+            before_klds = self.kld_from_probdists(before_theta_arr, before_centertheta_arr)
+            after_klds = self.kld_from_probdists(after_theta_arr, after_centertheta_arr)
             novelty = np.mean(before_klds)
             transience = np.mean(after_klds)
             novelties.append(novelty)

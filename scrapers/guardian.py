@@ -80,12 +80,8 @@ class Guardian:
                         + tag
                         + "&order-by=newest&show-fields=body&page-size=200"
                     )
-                    request = session.get(source).json()
-                    results = [
-                        i
-                        for i in request["response"]["results"]
-                        if not any(s in i["webUrl"] for s in exc_list)
-                    ]
+                    req = session.get(source).json()
+                    results = [i for i in req["response"]["results"] if not any(s in i["webUrl"] for s in exc_list)]
                     for _, result in enumerate(results):
                         if result["webUrl"] in last_urls:
                             loop_break = 1
@@ -111,10 +107,7 @@ class Guardian:
         if len_after == 0:
             print(f"-> No new articles found. Total articles: {len(data)}")
         else:
-            print(
-                f"-> {len_after} new articles saved to {self.source}.csv! "
-                f"Total articles: {len(data)}"
-            )
+            print(f"-> {len_after} new articles saved to {self.source}.csv! Total articles: {len(data)}")
         print("")
         data.to_csv(self.dir, index=True)
 
