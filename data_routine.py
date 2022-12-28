@@ -37,6 +37,6 @@ if __name__ == "__main__":
 
     # utils.unite_sources()
     NTR().routine(date_start="2022-03-01", date_end="2022-08-01",
-                  kld_days_window=7, topicnum=30, vocabsize=10000,
+                  kld_days_window=30, topicnum=30, vocabsize=10000,
                   num_iter=300)
     
