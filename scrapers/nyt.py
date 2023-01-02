@@ -26,9 +26,7 @@ class NYT:
 
     def from_scratch(self):
         if not os.path.exists(self.dir):
-            self.old_data = pd.DataFrame(
-                columns=["Date", "URL", "Title", "Text", "Comments"]
-            )
+            self.old_data = pd.DataFrame(columns=["Date", "URL", "Title", "Text", "Comments"])
             return True
         else:
             self.old_data = pd.read_csv(self.dir)
@@ -68,11 +66,7 @@ class NYT:
                     "AND%20section_name%3A(%22Opinion%22%20%22Politics%22%20%22"
                     "Foreign%22%20%22U.S%22%20%22World%22)%20AND%20glocations%3A"
                     "(%22Russia%22%20%22Ukraine%22)%20AND%20document_type%3A"
-                    "(%22article%22)&api-key=DeNQy6aiS8FdkQdIgPmNUcQzohAQ0q6G&sort="
-                    + sort
-                    + "&begin_date="
-                    + date
-                    + "&fl=web_url&page="
+                    "(%22article%22)&api-key=DeNQy6aiS8FdkQdIgPmNUcQzohAQ0q6G&sort=" + sort + "&begin_date=" + date + "&fl=web_url&page="
                 )
                 session = requests.Session()
                 for page in range(0, 200 * int(self.amount / 100)):  # 75

@@ -50,12 +50,8 @@ class Reuters:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             last_urls = [
-                "https://www.reuters.com/article/us-russia-wikipedia/"
-                "russia-to-upgrade-homegrown-encyclopedia-after-"
-                "putin-pans-wikipedia-idUSKBN1Y61DA",
-                "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/"
-                "russia-and-ukraine-leaders-in-first-talks-agree-"
-                "to-exchange-prisoners-idUSKBN1YD2GA",
+                "https://www.reuters.com/article/us-russia-wikipedia/" "russia-to-upgrade-homegrown-encyclopedia-after-" "putin-pans-wikipedia-idUSKBN1Y61DA",
+                "https://www.reuters.com/article/us-ukraine-crisis-summit-communique/" "russia-and-ukraine-leaders-in-first-talks-agree-" "to-exchange-prisoners-idUSKBN1YD2GA",
             ]
             print(f"-> {self.source}: No CSV file found. Creating...")
 
@@ -70,10 +66,7 @@ class Reuters:
             for tag in tags:
                 session = requests.Session()
                 for page in range(1, 1300):  # 1300
-                    source = (
-                        "https://www.reuters.com/news/archive/" + tag + "?view=page"
-                        "&page=" + str(page) + "&pageSize=10"
-                    )
+                    source = "https://www.reuters.com/news/archive/" + tag + "?view=page" "&page=" + str(page) + "&pageSize=10"
                     html_text = session.get(source).text
                     soup = BeautifulSoup(html_text, "lxml")
                     headline_list = soup.find("div", class_="column1 col col-10")
@@ -95,8 +88,7 @@ class Reuters:
         rep = {
             "Our Standards: The Thomson Reuters Trust Principles.": "",
             "read more": "",
-            "All quotes delayed a minimum of 15 minutes. See here for a complete list of "
-            "exchanges and delays.": "",
+            "All quotes delayed a minimum of 15 minutes. See here for a complete list of " "exchanges and delays.": "",
             "© 2022 Reuters. All rights reserved": "",
             "2022 Reuters. All rights reserved": "",
         }
@@ -120,12 +112,8 @@ class Reuters:
                     if len(urls) % 20 == 0:
                         session = requests.Session()  # restarting session every 20 urls
                     text_tags = [
-                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr"
-                        " text__large__nEccO body__full_width__ekUdw body__large_body__"
-                        "FV5_X article-body__element__2p5pI",
-                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr"
-                        " text__large__nEccO body__full_width__ekUdw body__large_body__"
-                        "FV5_X article-body__element__2p5pI",
+                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr" " text__large__nEccO body__full_width__ekUdw body__large_body__" "FV5_X article-body__element__2p5pI",
+                        "text__text__1FZLe text__dark-grey__3Ml43 text__regular__2N1Xr" " text__large__nEccO body__full_width__ekUdw body__large_body__" "FV5_X article-body__element__2p5pI",
                         "Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x",
                     ]
                     html_text = session.get(url).text
@@ -150,6 +138,7 @@ class Reuters:
                     print(f"URL couldn't be parsed: {url} because {exc}")
 
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        data = data.dropna()
         self.new_data = data
 
     def scraper(self):

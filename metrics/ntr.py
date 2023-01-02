@@ -63,14 +63,14 @@ class NTR:
 
     def save_topicmodel(self, doc_topic, topic_word, vocabulary, source):
 
-        if not os.path.exists(os.path.join(ROOT_DIR, "results")):
-            os.makedirs((os.path.join(ROOT_DIR, "results")))
+        if not os.path.exists(os.path.join(ROOT_DIR, f"results_{self.scale}")):
+            os.makedirs((os.path.join(ROOT_DIR, f"results_{self.scale}")))
 
-        topicmixture_outpath = os.path.join(ROOT_DIR, "results", source + "_TopicMixtures.txt")
+        topicmixture_outpath = os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_TopicMixtures.txt")
         np.savetxt(topicmixture_outpath, doc_topic)
-        topic_outpath = os.path.join(ROOT_DIR, "results", source + "_Topics.txt")
+        topic_outpath = os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_Topics.txt")
         np.savetxt(topic_outpath, topic_word)
-        vocab_outpath = os.path.join(ROOT_DIR, "results", source + "_Vocab.txt")
+        vocab_outpath = os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_Vocab.txt")
         with open(vocab_outpath, mode="w", encoding="utf-8") as file:
             for word in vocabulary:
                 file.write(word + "\n")
@@ -123,15 +123,16 @@ class NTR:
 
     def save_novel_trans_reson(self, novelties, transiences, resonances, source):
 
-        outpath = os.path.join(ROOT_DIR, "results", source + "_NovelTransReson.txt")
+        outpath = os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_NovelTransReson.txt")
         np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
 
     def routine(self, date_start, date_end, kld_days_window, topicnum, vocabsize, num_iter):
 
         for i, source in enumerate(self.sources):
             data, source = self.data[i], self.sources[i]
-            print(f"-> Starting {source} topic modeling (LDA)...")
+            self.scale = kld_days_window
             scale = self.kld_window(data, date_start, date_end, kld_days_window)
+            print(f"-> Starting {source} topic modeling (LDA)...")
 
             doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
 
@@ -148,14 +149,14 @@ class NTR:
             ntr_data["Transience"] = transiences
             ntr_data["Resonance"] = resonances
             ntr_data["Topic"] = topics
-            ntr_data.to_csv(os.path.join(ROOT_DIR, "results", source + "_Results.csv"), index=False)
+            ntr_data.to_csv(os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_Results.csv"), index=False)
 
             # geting words of each topic
             words = []
             for i, topic_dist in enumerate(topic_word):
                 topic_words = np.array(vocabulary)[np.argsort(topic_dist)][:-16:-1]
                 words.append(f"Topic {i}: {' '.join(topic_words)}")
-            with open(os.path.join(ROOT_DIR, "results", source + "_TopicsWords.txt"), "w") as file:
+            with open(os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_TopicsWords.txt"), "w") as file:
                 file.write("\n".join(map(str, words)))
 
             print("")

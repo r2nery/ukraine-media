@@ -45,10 +45,8 @@ class Huffpost:
             last_urls = [i.strip() for i in self.old_data.iloc[0:20, 1]]
         else:
             last_urls = [
-                "https://www.huffpost.com/entry/fiona-hill-"
-                "impeachment-inquiry_n_5dd6b96fe4b0e29d72808ce5",
-                "https://www.huffpost.com/entry/joe-biden-"
-                "damn-liar-voter_n_5de97689e4b0d50f32b0d9d7",
+                "https://www.huffpost.com/entry/fiona-hill-" "impeachment-inquiry_n_5dd6b96fe4b0e29d72808ce5",
+                "https://www.huffpost.com/entry/joe-biden-" "damn-liar-voter_n_5de97689e4b0d50f32b0d9d7",
             ]
 
         with alive_bar(
@@ -68,7 +66,7 @@ class Huffpost:
                     section_tag = "zone zone--twilight js-cet-subunit"
                     card_tag = "card__text"
                     author_tag = "card__byline"
-                    title_tag = "card__headline card__headline--long"
+                    title_tag = ["card__headline card__headline--long","card__headline"]
                     inc_list = ["huffpost"]
                     exc_list = ["AP", "Video", "Associated Press"]
                     html_text = session.get(url).text

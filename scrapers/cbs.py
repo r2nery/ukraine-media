@@ -47,8 +47,7 @@ class CBS:
         else:
             print(f"-> {self.source}: No CSV file found. Creating...")
             last_urls = [
-                "https://www.cbsnews.com/news/this-week-on-face-the-nation-"
-                "october-13-2019-mark-esper-adam-schiff-adam-kinzinger-ted-cruz/",
+                "https://www.cbsnews.com/news/this-week-on-face-the-nation-" "october-13-2019-mark-esper-adam-schiff-adam-kinzinger-ted-cruz/",
             ]
 
         with alive_bar(
@@ -58,12 +57,8 @@ class CBS:
             force_tty=True,
         ) as bar:
             sources = [
-                "https://api.queryly.com/json.aspx?queryly_key="
-                "4690eece66c6499f&batchsize=100&query=ukraine&"
-                "showfaceted=true&facetedkey=pubDate&endindex=",
-                "https://api.queryly.com/json.aspx?queryly_key="
-                "4690eece66c6499f&batchsize=100&query=russia&"
-                "showfaceted=true&facetedkey=pubDate&endindex=",
+                "https://api.queryly.com/json.aspx?queryly_key=" "4690eece66c6499f&batchsize=100&query=ukraine&" "showfaceted=true&facetedkey=pubDate&endindex=",
+                "https://api.queryly.com/json.aspx?queryly_key=" "4690eece66c6499f&batchsize=100&query=russia&" "showfaceted=true&facetedkey=pubDate&endindex=",
             ]
             session = requests.Session()
             for source in sources:
@@ -130,6 +125,7 @@ class CBS:
                 except Exception as exc:
                     print(f"URL couldn't be scraped: {url} because {exc}")
         data = pd.DataFrame({"URL": urls, "Date": dates, "Title": titles, "Text": bodies})
+        data = data.dropna()
         self.new_data = data
 
     def scraper(self):

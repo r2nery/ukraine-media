@@ -17,26 +17,24 @@ from scrapers.dailymail import DailyMail
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
+
 if __name__ == "__main__":
 
     # Collect dates at url stage
     # add initial date to init of classes
+    # NYT().scraper()  # opinion on /opinion/'
     # CNN().scraper()
     # Guardian().scraper()  # opinion on /commentisfree/
     # Fox().scraper()  # opinion on /opinion/
     # Reuters().scraper()
-    # Huffpost().scraper()
+    # Huffpost().scraper()  # ISSUE
     # AP().scraper()
-    # # CBS().scraper() # Run from scratch to update
+    # CBS().scraper()  # Run from scratch to update
     # ABC().scraper()
-    # # NYT().scraper()  # opinion on /opinion/
-
     # Express().scraper()
     # Mirror().scraper()  # few articles
-    # DailyMail().scraper() # comments ok
+    # DailyMail().scraper()  # comments ok
 
     # utils.unite_sources()
-    NTR().routine(date_start="2022-03-01", date_end="2022-08-01",
-                  kld_days_window=30, topicnum=30, vocabsize=10000,
-                  num_iter=300)
-    
+    for scale in [30]:
+        NTR().routine(date_start="2022-04-01", date_end="2022-12-29", kld_days_window=scale, topicnum=30, vocabsize=10000, num_iter=700)
