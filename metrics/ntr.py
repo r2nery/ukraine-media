@@ -8,7 +8,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
-
 class NTR:
     def __init__(self) -> None:
         self.sources = [
@@ -121,11 +120,6 @@ class NTR:
 
         return novelties, transiences, resonances
 
-    def save_novel_trans_reson(self, novelties, transiences, resonances, source):
-
-        outpath = os.path.join(ROOT_DIR, f"results_{self.scale}", source + "_NovelTransReson.txt")
-        np.savetxt(outpath, np.vstack(zip(novelties, transiences, resonances)))
-
     def routine(self, date_start, date_end, kld_days_window, topicnum, vocabsize, num_iter):
 
         for i, source in enumerate(self.sources):
@@ -143,7 +137,6 @@ class NTR:
 
             self.save_topicmodel(doc_topic, topic_word, vocabulary, source)
             novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, scale)
-            self.save_novel_trans_reson(novelties, transiences, resonances, source)
             ntr_data = data
             ntr_data["Novelty"] = novelties
             ntr_data["Transience"] = transiences

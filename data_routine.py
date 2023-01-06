@@ -20,21 +20,18 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 if __name__ == "__main__":
 
-    # Collect dates at url stage
-    # add initial date to init of classes
     # NYT().scraper()  # opinion on /opinion/'
     # CNN().scraper()
     # Guardian().scraper()  # opinion on /commentisfree/
     # Fox().scraper()  # opinion on /opinion/
     # Reuters().scraper()
-    # Huffpost().scraper()  # ISSUE
     # AP().scraper()
-    # CBS().scraper()  # Run from scratch to update
+    # CBS().scraper() 
     # ABC().scraper()
     # Express().scraper()
     # Mirror().scraper()  # few articles
     # DailyMail().scraper()  # comments ok
 
     # utils.unite_sources()
-    for scale in [30]:
+    for scale in [1,3,5,7,10,15,20,25,30]:
         NTR().routine(date_start="2022-04-01", date_end="2022-12-29", kld_days_window=scale, topicnum=30, vocabsize=10000, num_iter=700)

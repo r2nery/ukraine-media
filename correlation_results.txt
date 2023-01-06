@@ -1,0 +1,237 @@
+-> Date range: 2022-03-01 to 2022-12-09
+
+======= SPEARMAN CORRELATION =======
+----------- Resample: D -----------
+-> KLD Window: 7
+CBS:     -0.1183 p-value: 0.0463
+Express: -0.1311 p-value: 0.0272
+All:     -0.1394 p-value: 0.0188
+-> KLD Window: 10
+CBS:     -0.1181 p-value: 0.0467
+Express: -0.1490 p-value: 0.0119
+All:     -0.1822 p-value: 0.0020
+-> KLD Window: 15
+CBS:     -0.1812 p-value: 0.0022
+Reuters: -0.1827 p-value: 0.0020
+Express: -0.1820 p-value: 0.0021
+DM:      -0.1734 p-value: 0.0034
+All:     -0.2657 p-value: 0.0000
+-> KLD Window: 20
+AP:      -0.1757 p-value: 0.0030
+CNN:     -0.1179 p-value: 0.0472
+CBS:     -0.1693 p-value: 0.0042
+Reuters: -0.1945 p-value: 0.0010
+Express: -0.1667 p-value: 0.0048
+All:     -0.2683 p-value: 0.0000
+-> KLD Window: 25
+AP:      -0.2328 p-value: 0.0001
+CBS:     -0.2304 p-value: 0.0001
+Reuters: -0.2906 p-value: 0.0000
+Express: -0.2409 p-value: 0.0000
+DM:      -0.2150 p-value: 0.0003
+All:     -0.3137 p-value: 0.0000
+-> KLD Window: 30
+AP:      -0.2250 p-value: 0.0001
+Fox:     -0.1728 p-value: 0.0035
+CNN:     -0.2068 p-value: 0.0005
+ABC:     -0.1717 p-value: 0.0038
+CBS:     -0.2196 p-value: 0.0002
+NYT:     -0.1726 p-value: 0.0035
+Reuters: -0.3325 p-value: 0.0000
+Express: -0.2706 p-value: 0.0000
+DM:      -0.1972 p-value: 0.0008
+All: -0.2928 p-value: 0.0000
+
+----------- Resample: W -----------
+-> KLD Window: 7
+Express: -0.3134 p-value: 0.0460
+-> KLD Window: 10
+-> KLD Window: 15
+Reuters: -0.3533 p-value: 0.0235
+All:     -0.3784 p-value: 0.0147
+-> KLD Window: 20
+CNN:     -0.3263 p-value: 0.0373
+Reuters: -0.3819 p-value: 0.0137
+All:     -0.3972 p-value: 0.0101
+-> KLD Window: 25
+CNN:     -0.3133 p-value: 0.0461
+Reuters: -0.5052 p-value: 0.0008
+Express: -0.4192 p-value: 0.0064
+DM:      -0.3887 p-value: 0.0120
+All:     -0.4857 p-value: 0.0013
+-> KLD Window: 30
+AP:      -0.3474 p-value: 0.0260
+CNN:     -0.4011 p-value: 0.0093
+Reuters: -0.5330 p-value: 0.0003
+Express: -0.4188 p-value: 0.0064
+DM:      -0.3488 p-value: 0.0254
+All:     -0.3955 p-value: 0.0105
+
+======= PEARSON CORRELATION =======
+----------- Resample: D -----------
+-> KLD Window: 7
+All:     -0.1258 p-value: 0.0341
+-> KLD Window: 10
+Express: -0.1443 p-value: 0.0149
+All:     -0.1305 p-value: 0.0279
+-> KLD Window: 15
+Reuters: -0.1555 p-value: 0.0086
+Express: -0.1542 p-value: 0.0093
+DM:      -0.1240 p-value: 0.0367
+All:     -0.1686 p-value: 0.0044
+-> KLD Window: 20
+AP:      -0.1793 p-value: 0.0024
+CNN:     -0.1530 p-value: 0.0098
+Reuters: -0.2116 p-value: 0.0003
+Express: -0.1548 p-value: 0.0090
+All:     -0.1694 p-value: 0.0042
+-> KLD Window: 25
+AP:      -0.2312 p-value: 0.0001
+CNN:     -0.1227 p-value: 0.0388
+CBS:     -0.1280 p-value: 0.0310
+Reuters: -0.2645 p-value: 0.0000
+Express: -0.2005 p-value: 0.0007
+DM:      -0.1685 p-value: 0.0044
+All:     -0.2498 p-value: 0.0000
+-> KLD Window: 30
+AP:      -0.2413 p-value: 0.0000
+CNN:     -0.2329 p-value: 0.0001
+CBS:     -0.1601 p-value: 0.0068
+NYT:     -0.1773 p-value: 0.0027
+Reuters: -0.3080 p-value: 0.0000
+Express: -0.2131 p-value: 0.0003
+DM:      -0.1603 p-value: 0.0068
+All:     -0.2440 p-value: 0.0000
+
+----------- Resample: W -----------
+-> KLD Window: 7
+Express: -0.3148 p-value: 0.0450
+-> KLD Window: 10
+-> KLD Window: 15
+Reuters: -0.3132 p-value: 0.0462
+Express: -0.3104 p-value: 0.0483
+All:     -0.3519 p-value: 0.0241
+-> KLD Window: 20
+CNN:     -0.3634 p-value: 0.0195
+Reuters: -0.3813 p-value: 0.0139
+Express: -0.3253 p-value: 0.0379
+All:     -0.3453 p-value: 0.0270
+-> KLD Window: 25
+AP:      -0.3492 p-value: 0.0252
+CBS:     -0.3454 p-value: 0.0270
+Reuters: -0.4921 p-value: 0.0011
+Express: -0.3951 p-value: 0.0106
+DM:      -0.3620 p-value: 0.0200
+All:     -0.4242 p-value: 0.0057
+-> KLD Window: 30
+AP:      -0.3323 p-value: 0.0338
+CNN:     -0.4194 p-value: 0.0063
+CBS:     -0.3687 p-value: 0.0177
+Reuters: -0.5606 p-value: 0.0001
+Express: -0.4129 p-value: 0.0073
+DM:      -0.3291 p-value: 0.0357
+All:     -0.4133 p-value: 0.0072
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Date range: 2022-04-01 to 2022-12-09
+
+======= SPEARMAN CORRELATION =======
+----------- Resample: D -----------
+-> KLD Window: 7
+All:     -0.1237 p-value: 0.0494
+-> KLD Window: 10
+Express: -0.1574 p-value: 0.0122
+All:     -0.1540 p-value: 0.0142
+-> KLD Window: 15
+CBS:     -0.1641 p-value: 0.0089
+Reuters: -0.1693 p-value: 0.0069
+All:     -0.2123 p-value: 0.0007
+-> KLD Window: 20
+AP:      -0.1242 p-value: 0.0485
+CBS:     -0.1792 p-value: 0.0042
+Reuters: -0.1952 p-value: 0.0018
+All:     -0.1896 p-value: 0.0025
+-> KLD Window: 25
+CBS:     -0.1885 p-value: 0.0026
+Reuters: -0.2849 p-value: 0.0000
+Express: -0.1841 p-value: 0.0033
+DM:      -0.1713 p-value: 0.0063
+All:     -0.2553 p-value: 0.0000
+-> KLD Window: 30
+AP:      -0.1328 p-value: 0.0348
+Fox:     -0.1494 p-value: 0.0174
+CNN:     -0.1887 p-value: 0.0026
+CBS:     -0.1714 p-value: 0.0063
+NYT:     -0.1247 p-value: 0.0475
+Reuters: -0.3161 p-value: 0.0000
+Express: -0.1517 p-value: 0.0158
+DM:      -0.1337 p-value: 0.0335
+All:     -0.1897 p-value: 0.0024
+----------- Resample: W -----------
+-> KLD Window: 7
+-> KLD Window: 10
+-> KLD Window: 15
+-> KLD Window: 20
+-> KLD Window: 25
+CNN:     -0.3778 p-value: 0.0211
+Reuters: -0.4025 p-value: 0.0135
+Express: -0.3450 p-value: 0.0365
+All:     -0.3778 p-value: 0.0211
+-> KLD Window: 30
+CNN:     -0.3621 p-value: 0.0276
+Reuters: -0.4008 p-value: 0.0140
+
+======= PEARSON CORRELATION =======
+----------- Resample: D -----------
+-> KLD Window: 7
+-> KLD Window: 10
+Express: -0.1342 p-value: 0.0329
+-> KLD Window: 15
+Reuters: -0.1392 p-value: 0.0269
+-> KLD Window: 20
+AP:      -0.1436 p-value: 0.0223
+CNN:     -0.1499 p-value: 0.0170
+CBS:     -0.1463 p-value: 0.0199
+Reuters: -0.2141 p-value: 0.0006
+-> KLD Window: 25
+AP:      -0.1493 p-value: 0.0175
+CNN:     -0.1463 p-value: 0.0199
+CBS:     -0.1711 p-value: 0.0064
+Reuters: -0.2644 p-value: 0.0000
+Express: -0.1864 p-value: 0.0029
+All:     -0.2175 p-value: 0.0005
+-> KLD Window: 30
+AP:      -0.1923 p-value: 0.0021
+CNN:     -0.2389 p-value: 0.0001
+CBS:     -0.1332 p-value: 0.0343
+NYT:     -0.1277 p-value: 0.0425
+Reuters: -0.3130 p-value: 0.0000
+All:     -0.1642 p-value: 0.0089
+
+----------- Resample: W -----------
+-> KLD Window: 7
+-> KLD Window: 10
+-> KLD Window: 15
+-> KLD Window: 20
+CNN:     -0.3292 p-value: 0.0466
+-> KLD Window: 25
+-> KLD Window: 30
+CNN:     -0.3918 p-value: 0.0165
+Reuters: -0.3764 p-value: 0.0217
