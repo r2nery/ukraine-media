@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
-from metrics import utils
-from metrics.ntr import NTR
+from metrics_utilities import utils
+from metrics_utilities.ntr import NTR
 from scrapers.ap import AP
 from scrapers.fox import Fox
 from scrapers.cnn import CNN
@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     # utils.unite_sources()
 
-    # NTR().lda_only(30, 10000, 700)
+    NTR().lda_only(15, 10000, 700)
 
-    for scale in [1,5,10,30]:#[1,5,10,30]:
-        NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=30, vocabsize=10000, num_iter=700)
+    # for scale in [5]:#[1,5,10,30]:
+    #     NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=30, vocabsize=10000, num_iter=700)

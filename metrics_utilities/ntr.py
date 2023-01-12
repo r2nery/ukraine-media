@@ -24,7 +24,7 @@ class NTR:
             "DailyMail",
             "All",
         ]
-        self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data_filtered", i + ".csv")) for i in self.sources]
+        self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data", i + ".csv")) for i in self.sources]
         self.scale = 0
 
     def kld_window(self, dataframe, date_start, date_end, kld_days_window):
