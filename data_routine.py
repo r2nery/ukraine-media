@@ -32,9 +32,16 @@ if __name__ == "__main__":
     # Mirror().scraper()
     # DailyMail().scraper()
 
-    # utils.unite_sources()
+    utils.unite_sources()
 
-    NTR().lda_only(15, 10000, 700)
+    # NTR().lda_only(100, 10000, 700)
 
-    # for scale in [5]:#[1,5,10,30]:
-    #     NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=30, vocabsize=10000, num_iter=700)
+    scales = [
+        # 1,
+        # 5, 
+        # 10,
+        # 30,
+    ]
+
+    # for scale in scales:
+    #     NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=100, vocabsize=10000, num_iter=700)

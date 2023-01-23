@@ -11,19 +11,20 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 class NTR:
     def __init__(self) -> None:
         self.sources = [
-            "AP",
-            "Fox",
-            "CNN",
-            "ABC",
-            "CBS",
-            "NYT",
-            "Mirror",
-            "Reuters",
-            "Express",
-            "Guardian",
-            "DailyMail",
-            "All",
+        "ABC",
+        "AP",
+        "CBS",
+        "CNN",
+        "DailyMail",
+        "Express",
+        "Fox",
+        "Guardian",
+        "Mirror",
+        "NYT",
+        "Reuters",
+        "All",
         ]
+
         self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data", i + ".csv")) for i in self.sources]
         self.scale = 0
 
@@ -141,6 +142,9 @@ class NTR:
             for i, topic_dist in enumerate(topic_word):
                 topic_words = np.array(vocabulary)[np.argsort(topic_dist)][:-21:-1]
                 words.append(f"Topic {i}: {' '.join(topic_words)}")
+
+            if not os.path.exists(os.path.join(ROOT_DIR, "results_0")):
+                os.makedirs(os.path.join(ROOT_DIR, "results_0"))
             with open(os.path.join(ROOT_DIR, "results_0", source + "_TopicsWords.txt"), "w") as file:
                 file.write("\n".join(map(str, words)))
 
@@ -182,7 +186,6 @@ class NTR:
                 topic_words = np.array(vocabulary)[np.argsort(topic_dist)][:-21:-1]
                 words.append(f"Topic {i}: {' '.join(topic_words)}")
             
-
             with open(os.path.join(path, source + "_TopicsWords.txt"), "w") as file:
                 file.write("\n".join(map(str, words)))
 
