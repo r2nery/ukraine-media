@@ -11,9 +11,9 @@ from scrapers.nyt import NYT
 from scrapers.mirror import Mirror
 from scrapers.reuters import Reuters
 from scrapers.express import Express
-from scrapers.huffpost import Huffpost
 from scrapers.guardian import Guardian
 from scrapers.dailymail import DailyMail
+import pandas as pd
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
@@ -32,16 +32,21 @@ if __name__ == "__main__":
     # Mirror().scraper()
     # DailyMail().scraper()
 
-    utils.unite_sources()
+    # utils.unite_sources()
 
     # NTR().lda_only(100, 10000, 700)
 
     scales = [
+        0.1,
         # 1,
         # 5, 
         # 10,
         # 30,
     ]
 
-    # for scale in scales:
-    #     NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=100, vocabsize=10000, num_iter=700)
+    for scale in scales:
+        NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=100, vocabsize=10000, num_iter=700)
+
+    # #def kld_window(self, dataframe, date_start, date_end, kld_days_window):
+    #     df = pd.read_csv(os.path.join(ROOT_DIR, "data", "All" + ".csv"))
+    #     NTR().kld_window(df, date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale)

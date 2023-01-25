@@ -35,8 +35,8 @@ class NTR:
         df_count = df_split.resample("D", on="Date").apply({"URL": "count"})
         daily_count = int(sum(df_count["URL"].tolist()) / len(df_count["URL"].tolist()))
         print(f"-> This dataset has an average of {daily_count} daily stories from {date_start} to {date_end}.")
-        print(f"-> KLD window will be of {kld_days_window}*{daily_count} = {kld_days_window*daily_count} articles.\n")
-        return kld_days_window * daily_count
+        print(f"-> KLD window will be of int({kld_days_window}*{daily_count}) = {int(kld_days_window*daily_count)} articles.\n")
+        return int(kld_days_window * daily_count)
 
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
         # Removes stopwords
