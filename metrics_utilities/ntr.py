@@ -11,17 +11,17 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 class NTR:
     def __init__(self) -> None:
         self.sources = [
-        "ABC",
-        "AP",
-        "CBS",
-        "CNN",
-        "DailyMail",
-        "Express",
-        "Fox",
-        "Guardian",
-        "Mirror",
-        "NYT",
-        "Reuters",
+        # "ABC",
+        # "AP",
+        # "CBS",
+        # "CNN",
+        # "DailyMail",
+        # "Express",
+        # "Fox",
+        # "Guardian",
+        # "Mirror",
+        # "NYT",
+        # "Reuters",
         "All",
         ]
 
@@ -156,7 +156,7 @@ class NTR:
 
         for i, source in enumerate(self.sources):
             data, source = self.data[i], self.sources[i]
-            self.scale = kld_days_window
+            self.scale = 110*kld_days_window
             scale = self.kld_window(data, date_start, date_end, kld_days_window)
             print(f"-> Starting {source} topic modeling (LDA)...")
 

@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # NTR().lda_only(100, 10000, 700)
 
     scales = [
-        0.1,
+        0.08,
         # 1,
         # 5, 
         # 10,
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     ]
 
     for scale in scales:
-        NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=100, vocabsize=10000, num_iter=700)
+        NTR().routine(date_start="2022-04-01", date_end="2022-12-31", kld_days_window=scale, topicnum=200, vocabsize=10000, num_iter=1500)
 
     # #def kld_window(self, dataframe, date_start, date_end, kld_days_window):
     #     df = pd.read_csv(os.path.join(ROOT_DIR, "data", "All" + ".csv"))
