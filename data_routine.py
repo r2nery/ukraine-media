@@ -63,4 +63,4 @@ if __name__ == "__main__":
     ]
 
     for scale in scales:
-        NTR().routine(kld_days_window=scale, topicnum=200, vocabsize=10000, num_iter=200)
+        NTR().routine(kld_days_window=scale, topicnum=200, vocabsize=10000, num_iter=300)
