@@ -28,16 +28,6 @@ class NTR:
         self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data", i + ".csv")) for i in self.sources]
         self.scale = 0
 
-    def kld_window(self, dataframe, date_start, date_end, kld_days_window):
-        data = dataframe
-        data["Date"] = pd.to_datetime(data["Date"])
-        df_split = data.loc[(data["Date"] >= date_start) & (data["Date"] < date_end)]
-        df_count = df_split.resample("D", on="Date").apply({"URL": "count"})
-        daily_count = int(sum(df_count["URL"].tolist()) / len(df_count["URL"].tolist()))
-        print(f"-> This dataset has an average of {daily_count} daily stories from {date_start} to {date_end}.")
-        print(f"-> KLD window will be of int({kld_days_window}*{daily_count}) = {int(kld_days_window*daily_count)} articles.\n")
-        return int(kld_days_window * daily_count)
-
     def learn_topics(self, dataframe, topicnum, vocabsize, num_iter):
         # Removes stopwords
         texts = dataframe["Text"].tolist()
@@ -152,12 +142,11 @@ class NTR:
 
         print("-> All LDA data saved.\n")
 
-    def routine(self, date_start, date_end, kld_days_window, topicnum, vocabsize, num_iter):
+    def routine(self, kld_days_window, topicnum, vocabsize, num_iter):
 
         for i, source in enumerate(self.sources):
             data, source = self.data[i], self.sources[i]
-            self.scale = 110*kld_days_window
-            scale = self.kld_window(data, date_start, date_end, kld_days_window)
+            self.scale = kld_days_window
             print(f"-> Starting {source} topic modeling (LDA)...")
 
             doc_topic, topic_word, vocabulary = self.learn_topics(data, topicnum, vocabsize, num_iter)
@@ -167,8 +156,8 @@ class NTR:
             for i in range(len(data)):
                 topics.append(doc_topic[i].argmax())
 
-            # self.save_topicmodel(doc_topic, topic_word, vocabulary, source)
-            novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, scale)
+            self.save_topicmodel(doc_topic, topic_word, vocabulary, source)
+            novelties, transiences, resonances = self.novelty_transience_resonance(doc_topic, self.scale)
             ntr_data = data
             ntr_data["Novelty"] = novelties
             ntr_data["Transience"] = transiences

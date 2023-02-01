@@ -19,7 +19,6 @@ ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
 
 def unite_sources():
-
     total = 0
     data = [pd.read_csv(i) for i in globals().values() if str(i).endswith(".csv")]
     sources = [str(re.sub(r"^(.*data)(\W+)", "", i[:-4])) for i in globals().values() if str(i).endswith(".csv")]
