@@ -8,3 +8,6 @@ __pycache__/
 All_Results.csv
 data/All.csv
 data_filtered/All.csv
+multiscale_results_full/
+multiscale_results/
+results_10

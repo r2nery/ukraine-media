@@ -8,21 +8,22 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 
+
 class NTR:
     def __init__(self) -> None:
         self.sources = [
-        # "ABC",
-        # "AP",
-        # "CBS",
-        # "CNN",
-        # "DailyMail",
-        # "Express",
-        # "Fox",
-        # "Guardian",
-        # "Mirror",
-        # "NYT",
-        # "Reuters",
-        "All",
+            # "ABC",
+            # "AP",
+            # "CBS",
+            # "CNN",
+            # "DailyMail",
+            # "Express",
+            # "Fox",
+            # "Guardian",
+            # "Mirror",
+            # "NYT",
+            # "Reuters",
+            "All",
         ]
 
         self.data = [pd.read_csv(os.path.join(ROOT_DIR, "data", i + ".csv")) for i in self.sources]
@@ -111,7 +112,7 @@ class NTR:
 
         return novelties, transiences, resonances
 
-    def lda_only(self,topicnum, vocabsize, num_iter):
+    def lda_only(self, topicnum, vocabsize, num_iter):
         for i, source in enumerate(self.sources):
             data, source = self.data[i], self.sources[i]
             print(f"-> Starting {source} topic modeling (LDA)...")
@@ -174,9 +175,9 @@ class NTR:
             for i, topic_dist in enumerate(topic_word):
                 topic_words = np.array(vocabulary)[np.argsort(topic_dist)][:-21:-1]
                 words.append(f"Topic {i}: {' '.join(topic_words)}")
-            
-            with open(os.path.join(path, source + "_TopicsWords.txt"), "w") as file:
-                file.write("\n".join(map(str, words)))
+
+            # with open(os.path.join(path, source + "_TopicsWords.txt"), "w") as file:
+            #    file.write("\n".join(map(str, words)))
 
             print("")
 

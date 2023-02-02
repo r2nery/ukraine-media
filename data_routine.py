@@ -36,31 +36,8 @@ if __name__ == "__main__":
 
     # NTR().lda_only(100, 10000, 700)
 
-    scales = [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        13,
-        19,
-        26,
-        37,
-        51,
-        71,
-        100,
-        138,
-        193,
-        268,
-        372,
-        517,
-        719,
-        1000,
-    ]
+    scales = [10]
 
     for scale in scales:
+        print(f"Scale = {scale}")
         NTR().routine(kld_days_window=scale, topicnum=200, vocabsize=10000, num_iter=300)
