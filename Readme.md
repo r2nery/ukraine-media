@@ -9,8 +9,7 @@ This study sheds light on the potential of unstructured data for the detection o
 ![](reports/figures/2dhist/All_RvN_10.svg)
 ![](reports/figures/2dhist/All_RvN_100.svg)
 ![](reports/figures/2dhist/All_RvN_1000.svg)
-
-![](reports/figures/2dhist/All_TvN_10.svg)
+![](reports/figures/peak_detection/peak_detection_topic_9.svg)
 
 ### Working scrapers for 11 news outlets:
 - ABC, AP, CBS, CNN, DailyMail, Express, Fox, Guardian, Mirror, NY Times, Reuters
