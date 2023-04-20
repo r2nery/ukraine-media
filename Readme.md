@@ -7,7 +7,7 @@ This study sheds light on the potential of unstructured data for the detection o
 
 ![](reports/figures/topic_series/Filtered_topic_count.svg)
 <img src="https://raw.githubusercontent.com/r2nery/ukraine-media/cef53797ec7967098dcda44fbf3b12874f380a20/reports/figures/2dhist/All_RvN_10.svg" width="500">
-<img src="https://raw.githubusercontent.com/r2nery/ukraine-media/fee444fe9170f36ada065303ae17c3b5ae9650e4/reports/figures/2dhist/All_TvN_10.svg" width="300">
+<img src="https://raw.githubusercontent.com/r2nery/ukraine-media/fee444fe9170f36ada065303ae17c3b5ae9650e4/reports/figures/2dhist/All_TvN_10.svg" width="400">
 ### Working scrapers for 11 news outlets:
 - ABC, AP, CBS, CNN, DailyMail, Express, Fox, Guardian, Mirror, NY Times, Reuters
 
