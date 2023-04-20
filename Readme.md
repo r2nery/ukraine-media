@@ -6,7 +6,7 @@ This repository is a reproduction package for Resonant Journalism in the Russo-U
 This study sheds light on the potential of unstructured data for the detection of major happenings in global events. We detect key points of the Russo-Ukrainian War using topic modeling on a newly curated, large-scale dataset of news stories and investigate whether the differences in topic distributions can highlight unique trendsetting potentials in reporting across major news outlets.
 
 ![](reports/figures/topic_series/Filtered_topic_count.svg)
-![](reports/figures/2dhist/All_RvN_10.svg
+![](reports/figures/2dhist/All_RvN_10.svg)
 ![](reports/figures/2dhist/All_TvN_10.svg)
 
 ### Working scrapers for 11 news outlets:
