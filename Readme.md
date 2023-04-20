@@ -5,9 +5,8 @@ This repository is a reproduction package for Resonant Journalism in the Russo-U
 
 This study sheds light on the potential of unstructured data for the detection of major happenings in global events. We detect key points of the Russo-Ukrainian War using topic modeling on a newly curated, large-scale dataset of news stories and investigate whether the differences in topic distributions can highlight unique trendsetting potentials in reporting across major news outlets.
 
-![](reports/figures/topic_series/Filtered_topic_count.svg )
-![](reports/figures/2dhist/All_RvN_10.svg | width=300)
-<img src="https://raw.githubusercontent.com/r2nery/ukraine-media/cef53797ec7967098dcda44fbf3b12874f380a20/reports/figures/2dhist/All_RvN_10.svg" width="48">
+![](reports/figures/topic_series/Filtered_topic_count.svg)
+<img src="https://raw.githubusercontent.com/r2nery/ukraine-media/cef53797ec7967098dcda44fbf3b12874f380a20/reports/figures/2dhist/All_RvN_10.svg" width="1000">
 
 ### Working scrapers for 11 news outlets:
 - ABC, AP, CBS, CNN, DailyMail, Express, Fox, Guardian, Mirror, NY Times, Reuters
