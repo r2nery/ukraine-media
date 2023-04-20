@@ -11,3 +11,4 @@ data_filtered/All.csv
 multiscale_results_full/
 multiscale_results/
 results_10
+nyt.py
