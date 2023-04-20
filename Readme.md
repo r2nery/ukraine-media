@@ -15,7 +15,6 @@ This study sheds light on the potential of unstructured data for the detection o
 
 #### Kullback-Leibler Divergence allows us to probe for a bias towards innovation in reporting:
 ![](reports/figures/2dhist/All_RvN_10.svg)
-![](reports/figures/2dhist/All_RvN_100.svg)
 ![](reports/figures/2dhist/All_RvN_1000.svg)
 ![](reports/figures/source_compass/Source_compass.svg)
 
