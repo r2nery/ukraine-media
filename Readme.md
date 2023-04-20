@@ -1,4 +1,4 @@
-# Monitoring the Russo-Ukranian War Through Media
+# Monitoring the Russo-Ukrainian War Through Media
 
 ## Reference
 This repository is a reproduction package for Resonant Journalism in the Russo-Ukrainian War: A Topic Modeling Approach to Key-Point Detection, the thesis for my BSc in Economics (Universidade de Brasília - Brazil)
