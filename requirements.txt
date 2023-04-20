@@ -17,3 +17,4 @@ ipykernel
 statsmodels
 numba==0.55.2 
 librosa
+pyarrow
