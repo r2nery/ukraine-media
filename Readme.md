@@ -5,6 +5,9 @@ This repository is a reproduction package for Resonant Journalism in the Russo-U
 
 This study sheds light on the potential of unstructured data for the detection of major happenings in global events. We detect key points of the Russo-Ukrainian War using topic modeling on a newly curated, large-scale dataset of news stories and investigate whether the differences in topic distributions can highlight unique trendsetting potentials in reporting across major news outlets.
 
+#### Data
+[All.parquet](data/raw/All.parquet) is a dataframe featuring 61.615 news stories from 11 different international news sources regarding Russia and Ukraine, from july 2021 to december 2022. The columns included are: Date, URL, Title, Text. The same dataset can be found in the processed data directory [All.parquet](data/processed/All.parquet), but with the measures of Novelty, Resonance and Transience added (time scale = 10), as well as the Topic detected using LDA. 
+
 #### LDA sheds light on major events throughout the corpus:
 ![](reports/figures/topic_series/Full_topic_count.svg)
 
